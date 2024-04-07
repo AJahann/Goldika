@@ -1,0 +1,147 @@
+.tradingBox {
+  display: flex;
+  padding: 0 12px;
+  margin-top: 58px;
+  gap: 6.875rem;
+}
+.tradingBox-right {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.tradingBox-txt {
+  display: flex;
+  padding-top: 44px;
+  align-items: center;
+  gap: 18px;
+  color: var(--white);
+}
+.tradingBox-txt .title {
+  font-size: 48px;
+  font-weight: 500;
+  line-height: 48px;
+  color: var(--primary-color);
+}
+.tradingBox-txt .verticalBar {
+  font-size: 36px;
+}
+.tradingBox-txt .text {
+  font-size: 36px;
+}
+.row-badges {
+  display: flex;
+  margin-top: 20px;
+  gap: 12px;
+}
+.tradingBox-title {
+  margin-top: 26px;
+  font-size: 28px;
+  line-height: 48px;
+  font-weight: 200;
+  color: var(--white);
+}
+.trandingBox-subTitle {
+  font-size: 16px;
+  margin-top: 14px;
+  color: #bcbdc2;
+}
+.numberInput > div {
+  margin-top: 32px;
+  width: 100%;
+}
+.input-number-txt {
+  font-size: 14px;
+  margin-top: 12px;
+  color: #bcbdc2;
+}
+.numberInput {
+  position: relative;
+}
+.numberInput
+  .MuiOutlinedInput-root:hover:not(.Mui-focused)
+  .MuiOutlinedInput-notchedOutline {
+  border-color: #ffffff90;
+}
+#inputNumber-btn {
+  position: absolute;
+  width: 74px;
+  height: 38px;
+  padding: 7px 13px;
+  font-size: 14px;
+  border-radius: 8px;
+  gap: 10px;
+  top: 42px;
+  left: 12px;
+}
+
+.tradingBox-left {
+  padding: 0 12px;
+}
+.tradingBox-left-wrapper {
+  max-width: 28rem;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 16px;
+  background-color: #373943;
+  padding: 18px;
+}
+.tradingBox-left-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+}
+.item {
+  color: #fff;
+  width: 11rem;
+  align-items: center;
+  display: flex;
+  font-size: 16px;
+  line-height: 24px;
+  flex-direction: column;
+}
+.item-price {
+  display: flex;
+  gap: 4px;
+  font-weight: bold;
+}
+.item-price-buy {
+  color: #2ed64a;
+}
+.item-price-sell {
+  color: #da2b2b;
+}
+.item-center {
+  width: 40px;
+  height: 40px;
+  font-size: 13px;
+  color: var(--primary-color);
+}
+.tradingBox-left-main {
+  background-color: #494c5a;
+  margin-top: 12px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+.tradingBox-left_inputs {
+  padding: 8px;
+  padding-bottom: 20px;
+}
+.tradingBox-left_input {
+  margin-top: 12px;
+  width: 100%;
+}
+.mui-rtl-putrnr input {
+  direction: ltr;
+}
+.tradingBox-left
+  .MuiOutlinedInput-root:hover:not(.Mui-focused)
+  .MuiOutlinedInput-notchedOutline {
+  border-color: #ffffff90;
+}
+.tradingBox-left-btn {
+  margin-top: 17px;
+  width: 88%;
+}
