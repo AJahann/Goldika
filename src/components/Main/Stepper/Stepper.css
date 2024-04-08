@@ -1,0 +1,64 @@
+.stepper {
+  padding: 0 18px;
+}
+.stepper h2 {
+  font-size: 1.5rem;
+  line-height: 24px;
+  font-weight: bold;
+  color: var(--white);
+}
+.stepper-wrap {
+  display: flex;
+}
+.stepper-wrap > div {
+  flex: 1;
+}
+.stepper-labels {
+  margin-top: 27px;
+}
+#my-stepper {
+  align-items: flex-start;
+}
+#my-stepper > .MuiStepConnector-root {
+  margin-right: 19px;
+}
+#my-stepper .MuiStepLabel-label {
+  margin-right: 8px;
+  color: #ffffffb6;
+  font-size: 14px;
+}
+#my-stepper .stepperBtn {
+  background-color: transparent;
+}
+#my-stepper .MuiSvgIcon-root {
+  font-size: 24px;
+  color: #ffffff80;
+}
+#my-stepper .MuiSvgIcon-root.Mui-active {
+  font-size: 24px;
+  color: var(--primary-color);
+}
+#my-stepper .MuiStepLabel-label.Mui-active {
+  font-size: 20px;
+  color: var(--primary-color);
+}
+.stepper-description {
+  margin-top: 27px;
+}
+.stepper-desc-box {
+  display: flex;
+  border-radius: 16px;
+  padding: 16px;
+  min-height: 230px;
+  box-shadow: rgb(255, 215, 0) 0px 0px 32px 1px;
+}
+.stepper-desc-box p {
+  flex: 4;
+  font-size: 16px;
+  line-height: 32px;
+  color: var(--white);
+}
+.stepper-desc-box-icon {
+  flex: 1;
+  padding: 8px;
+}
