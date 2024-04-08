@@ -1,0 +1,55 @@
+.sec-info {
+  display: flex;
+  gap: 24px;
+  margin: 64px 18px;
+  padding: 0 8px;
+}
+.info-right {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.info_txt h1 {
+  font-size: 30px;
+  line-height: 36px;
+  font-weight: bold;
+  color: var(--white);
+  margin: 8px 0;
+}
+.info_txt p {
+  font-size: 16px;
+  line-height: 24px;
+  color: #bfbcb6;
+  margin-top: 8px;
+  padding-left: 12px;
+  text-align: justify;
+}
+/* .info-wrap {
+} */
+.info-left {
+  flex: 1;
+}
+
+/* mui card styles */
+#info-card-btn:hover {
+  text-decoration: underline;
+  background-color: transparent;
+}
+#mui-typography-div p {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 12px;
+}
+.info-card-btn button {
+  margin-top: 27px;
+  width: 100%;
+  justify-content: left;
+  color: var(--primary-color);
+  font-size: 16px;
+  gap: 12px;
+}
+.info-card-btn button:hover {
+  text-decoration: underline;
+  background-color: transparent;
+}
