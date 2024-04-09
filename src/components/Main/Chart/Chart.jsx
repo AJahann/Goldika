@@ -38,7 +38,6 @@ export default function Chart() {
             </defs>
             <XAxis dataKey='ماه' />
             <YAxis domain={[3, 4]} />
-            <Tooltip />
             <Area
               type='linear'
               dataKey='میانگین'
