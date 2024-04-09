@@ -6,6 +6,7 @@ import Stepper from '../../components/Main/Stepper/Stepper';
 
 import './Home.css';
 import Chart from '../../components/Main/Chart/Chart';
+import ArticleNews from '../../components/Main/ArticleNews/ArticleNews';
 
 export default function Home() {
   return (
@@ -15,6 +16,7 @@ export default function Home() {
       <Info />
       <Stepper />
       <Chart />
+      <ArticleNews />
     </div>
   );
 }
