@@ -1,11 +1,4 @@
-import {
-  AreaChart,
-  Area,
-  XAxis,
-  YAxis,
-  Tooltip,
-  ResponsiveContainer,
-} from 'recharts';
+import { AreaChart, Area, XAxis, YAxis, ResponsiveContainer } from 'recharts';
 import dataGold from './../../../data/data';
 
 import './Chart.css';
