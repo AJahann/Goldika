@@ -5,6 +5,7 @@ import Info from '../../components/Main/Info/Info';
 import Stepper from '../../components/Main/Stepper/Stepper';
 
 import './Home.css';
+import Chart from '../../components/Main/Chart/Chart';
 
 export default function Home() {
   return (
@@ -13,6 +14,7 @@ export default function Home() {
       <TradingBox />
       <Info />
       <Stepper />
+      <Chart />
     </div>
   );
 }
