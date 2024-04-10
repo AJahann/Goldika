@@ -38,42 +38,44 @@ export default function VerticalLinearStepper() {
   };
 
   return (
-    <div className='stepper'>
-      <h2>مراحل خرید و فروش طلای آب شده</h2>
-      <div className='stepper-wrap'>
-        <div className='stepper-labels'>
-          <Box>
-            <Stepper
-              id='my-stepper'
-              nonLinear
-              activeStep={activeStep}
-              orientation='vertical'
-            >
-              {steps.map((step, index) => (
-                <Step key={step.label}>
-                  <StepButton
-                    className='stepperBtn'
-                    onClick={handleStep(index)}
-                  >
-                    {step.label}
-                  </StepButton>
-                </Step>
-              ))}
-            </Stepper>
-          </Box>
-        </div>
-        <div className='stepper-description'>
-          <div className='stepper-desc-box'>
-            <p>{steps[activeStep].description}</p>
-            <div className='stepper-desc-box-icon'>
-              {
+    <div className='stepper container'>
+      <div className='stepper-parent'>
+        <h2>مراحل خرید و فروش طلای آب شده</h2>
+        <div className='stepper-wrap'>
+          <div className='stepper-labels'>
+            <Box>
+              <Stepper
+                id='my-stepper'
+                nonLinear
+                activeStep={activeStep}
+                orientation='vertical'
+              >
+                {steps.map((step, index) => (
+                  <Step key={step.label}>
+                    <StepButton
+                      className='stepperBtn'
+                      onClick={handleStep(index)}
+                    >
+                      {step.label}
+                    </StepButton>
+                  </Step>
+                ))}
+              </Stepper>
+            </Box>
+          </div>
+          <div className='stepper-description'>
+            <div className='stepper-desc-box'>
+              <p>{steps[activeStep].description}</p>
+              <div className='stepper-desc-box-icon'>
                 {
-                  0: <Icon1 />,
-                  1: <Icon2 />,
-                  2: <Icon3 />,
-                  3: <Icon4 />,
-                }[activeStep]
-              }
+                  {
+                    0: <Icon1 />,
+                    1: <Icon2 />,
+                    2: <Icon3 />,
+                    3: <Icon4 />,
+                  }[activeStep]
+                }
+              </div>
             </div>
           </div>
         </div>
