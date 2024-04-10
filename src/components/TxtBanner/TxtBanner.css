@@ -1,0 +1,18 @@
+.txtBanner {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 32px;
+  margin-bottom: 24px;
+}
+.txtBanner-wrap {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+.txtBanner-wrap h1 {
+  font-size: 20px;
+  color: var(--white);
+}

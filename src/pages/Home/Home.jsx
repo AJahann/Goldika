@@ -8,6 +8,7 @@ import './Home.css';
 import Chart from '../../components/Main/Chart/Chart';
 import ArticleNews from '../../components/Main/ArticleNews/ArticleNews';
 import About from '../../components/Main/About/About';
+import TxtBanner from '../../components/TxtBanner/TxtBanner';
 
 export default function Home() {
   return (
@@ -19,6 +20,7 @@ export default function Home() {
       <Chart />
       <ArticleNews />
       <About />
+      <TxtBanner />
     </div>
   );
 }
