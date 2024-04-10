@@ -1,10 +1,11 @@
 import React from 'react';
-import { Button, createMuiTheme } from '@mui/material';
+import { Button } from '@mui/material';
+import { createTheme } from '@mui/material/styles';
 
 import './TxtBanner.css';
 import { ThemeProvider } from '@emotion/react';
 
-const theme = createMuiTheme({
+const theme = createTheme({
   palette: {
     primary: {
       main: '#f1ab1f',
