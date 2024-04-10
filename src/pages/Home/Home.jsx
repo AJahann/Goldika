@@ -7,16 +7,18 @@ import Stepper from '../../components/Main/Stepper/Stepper';
 import './Home.css';
 import Chart from '../../components/Main/Chart/Chart';
 import ArticleNews from '../../components/Main/ArticleNews/ArticleNews';
+import About from '../../components/Main/About/About';
 
 export default function Home() {
   return (
-    <div className='container'>
+    <div className='home container'>
       <NavBar />
       <TradingBox />
       <Info />
       <Stepper />
       <Chart />
       <ArticleNews />
+      <About />
     </div>
   );
 }
