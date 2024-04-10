@@ -7,6 +7,7 @@ import Chart from '../../components/Main/Chart/Chart';
 import ArticleNews from '../../components/Main/ArticleNews/ArticleNews';
 import About from '../../components/Main/About/About';
 import TxtBanner from '../../components/TxtBanner/TxtBanner';
+import Footer from '../../components/Footer/Footer';
 
 import './Home.css';
 
@@ -21,6 +22,7 @@ export default function Home() {
       <ArticleNews />
       <About />
       <TxtBanner />
+      <Footer />
     </div>
   );
 }

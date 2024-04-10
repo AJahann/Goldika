@@ -16,7 +16,6 @@ body {
   font-family: 'vazir';
   background-color: var(--black);
   direction: rtl;
-  padding-bottom: 50rem;
 }
 
 * {

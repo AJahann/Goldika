@@ -1,0 +1,101 @@
+.footer {
+  width: 100%;
+  height: auto;
+  background-color: var(--secondary-color);
+}
+.footer-wrap {
+  max-width: 66rem;
+  margin: 0 auto;
+  padding: 0 0.5rem;
+}
+.footer .row {
+  display: flex;
+  padding-top: 38px;
+}
+.footer-links {
+  display: flex;
+  flex: 10;
+  justify-content: space-between;
+}
+.footer-links-right,
+.footer-links-left {
+  display: flex;
+  flex-direction: column;
+}
+.footer-links-right a,
+.footer-links-left a {
+  margin-top: 16px;
+  font-size: 16px;
+  color: var(--white);
+  text-decoration: none;
+}
+.footer .grow {
+  flex: 1;
+  min-width: 100px;
+}
+.footer-nemads {
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
+  gap: 6px;
+}
+.footer-nemad {
+  background-color: #dddddd;
+  border-radius: 1.2rem;
+  width: 10rem;
+  height: 9rem;
+  padding: 9px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.footer-nemad div {
+  width: 5rem;
+  margin-top: 12px;
+  height: 5rem;
+}
+.footer-nemad div img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.footer-nemad p {
+  font-size: 0.75rem;
+  color: #000000;
+  margin-top: 6px;
+  text-align: center;
+  font-weight: bold;
+}
+.footer-info {
+  display: flex;
+  margin-top: 48px;
+}
+.footer-addr {
+  flex: 1.5;
+}
+.footer-addr p {
+  font-size: 16px;
+  margin-top: 8px;
+  color: var(--white);
+}
+.footer-connect {
+  flex: 0.8;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.footer-connect .footer-phone {
+  font-size: 16px;
+  color: var(--white);
+}
+.footer-connect .footer-phone span {
+  color: gray;
+}
+.footer-socials {
+  margin-top: 8px;
+}
+.footer-socials-icon {
+  display: flex;
+  gap: 6px;
+  color: var(--white);
+}
