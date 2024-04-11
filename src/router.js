@@ -1,10 +1,15 @@
 import React from 'react';
 import Home from './pages/Home/Home';
+import Auth from './pages/Auth/Auth';
 
 let routes = [
   {
     path: '/',
     element: <Home />,
+  },
+  {
+    path: '/auth',
+    element: <Auth />,
   },
   {
     path: '/*',
