@@ -19,6 +19,9 @@
   border: 2px solid #fff;
   padding: 29px;
 }
+.auth-box .MuiInputBase-input {
+  direction: ltr;
+}
 .auth-box h1 {
   font-size: 1.75rem;
   line-height: 32px;
@@ -38,7 +41,7 @@
   font-size: 13px;
   margin: 14px 9px 21px 9px;
 }
-.auth-box > p > span {
+.auth-box > p > button {
   color: var(--primary-color);
 }
 
@@ -85,4 +88,13 @@
   align-items: center;
   gap: 12px;
   flex-direction: column;
+}
+.MuiDialogContent-root > .MuiTypography-root {
+  font-size: 16px;
+  line-height: 32px;
+  text-align: justify;
+  color: #fff;
+}
+.MuiPaper-root {
+  background-color: #373943 !important;
 }
