@@ -97,4 +97,5 @@
 }
 .MuiPaper-root {
   background-color: #373943 !important;
+  border-radius: 8px !important;
 }

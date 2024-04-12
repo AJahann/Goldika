@@ -20,7 +20,7 @@
   align-items: flex-start;
 }
 #my-stepper > .MuiStepConnector-root {
-  margin-right: 19px;
+  margin-right: 12px;
 }
 #my-stepper .MuiStepLabel-label {
   margin-right: 8px;
