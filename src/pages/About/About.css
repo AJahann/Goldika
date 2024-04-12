@@ -1,0 +1,28 @@
+.about-page-title {
+  font-size: 24px;
+  color: var(--white);
+}
+.about-page-content {
+  margin-top: 18px;
+  font-size: 16px;
+  text-align: justify;
+  line-height: 32px;
+  color: #fff;
+  border-radius: 16px;
+  background-color: #373943;
+}
+.about-page-content > p {
+  padding: 16px 27px;
+}
+.about-page-content-bottom {
+  display: flex;
+  align-items: center;
+}
+.about-page-content-bottom > p {
+  padding: 27px;
+}
+.about-page-content-svg {
+  width: 16rem;
+  height: 16rem;
+  padding: 0 25px;
+}
