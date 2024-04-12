@@ -1,20 +1,22 @@
 import React from 'react';
 import { Button } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 import './NavBar.css';
-import { Link } from 'react-router-dom';
 
 export default function NavBar() {
   return (
     <nav className='nav container'>
       <div className='nav-wrap'>
         <div className='logo'>
-          <img src='./logo.png' alt='Goldika' />
+          <Link to={'/'}>
+            <img src='./logo.png' alt='Goldika' />
+          </Link>
         </div>
 
         <div className='links'>
           <a href='/'>وبلاگ</a>
-          <a href='/'>درباره ما</a>
+          <Link to={'/about'}>درباره ما</Link>
           <a href='/'>ساعات کاری</a>
           <a href='/'>ارتباط با ما</a>
         </div>
