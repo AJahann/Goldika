@@ -1,7 +1,7 @@
 .footer {
   width: 100%;
   height: auto;
-  background-color: var(--secondary-color);
+  background-color: #373943;
 }
 .footer-wrap {
   max-width: 66rem;
@@ -42,7 +42,7 @@
 .footer-nemad {
   background-color: #dddddd;
   border-radius: 1.2rem;
-  width: 10rem;
+  width: 9rem;
   height: 9rem;
   padding: 9px;
   display: flex;

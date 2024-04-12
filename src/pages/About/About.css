@@ -1,3 +1,6 @@
+.about-page-main-wrap {
+  padding: 0 18px;
+}
 .about-page-title {
   font-size: 24px;
   color: var(--white);
