@@ -3,6 +3,7 @@ import Home from './pages/Home/Home';
 import Auth from './pages/Auth/Auth';
 import About from './pages/About/About';
 import Faq from './pages/Questions/Faq';
+import Contact from './pages/Contact/Contact';
 
 let routes = [
   {
@@ -20,6 +21,10 @@ let routes = [
   {
     path: '/faq',
     element: <Faq />,
+  },
+  {
+    path: '/contact',
+    element: <Contact />,
   },
   {
     path: '/*',
