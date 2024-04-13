@@ -17,8 +17,8 @@ export default function NavBar() {
         <div className='links'>
           <a href='/'>وبلاگ</a>
           <Link to={'/about'}>درباره ما</Link>
-          <a href='/'>سوالات متداول</a>
-          <a href='/'>ارتباط با ما</a>
+          <Link to={'/faq'}>سوالات متداول</Link>
+          <Link to={'/contact'}>ارتباط با ما</Link>
         </div>
 
         <div className='signUp'>
