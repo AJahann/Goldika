@@ -57,11 +57,7 @@
 .numberInput {
   position: relative;
 }
-.numberInput
-  .MuiOutlinedInput-root:hover:not(.Mui-focused)
-  .MuiOutlinedInput-notchedOutline {
-  border-color: #ffffff90;
-}
+
 #inputNumber-btn {
   position: absolute;
   width: 74px;

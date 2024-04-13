@@ -1,11 +1,10 @@
 import React from 'react';
-import { Button, TextField } from '@mui/material';
-import { createTheme } from '@mui/material/styles';
-import { ThemeProvider } from '@emotion/react';
+import { Button } from '@mui/material';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import TradingTrans from './TradingTrans';
+import Input from '../Input/Input';
 
 import './TradingBox.css';
-import TradingTrans from './TradingTrans';
 
 const buttonStyle = {
   color: 'var(--primary-color-badge)',
@@ -15,30 +14,6 @@ const buttonStyle = {
   backgroundColor: 'var(--primary-color-badge-bg)',
   fontSize: '0.7rem',
 };
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: '#f1ab1f',
-    },
-  },
-  components: {
-    MuiOutlinedInput: {
-      styleOverrides: {
-        notchedOutline: {
-          borderColor: '#f2f2f360',
-          borderRadius: 16,
-        },
-      },
-    },
-    MuiInputLabel: {
-      styleOverrides: {
-        root: {
-          color: '#ffffffb0',
-        },
-      },
-    },
-  },
-});
 
 export default function TradingBox() {
   return (
@@ -71,30 +46,20 @@ export default function TradingBox() {
           </h2>
 
           <div>
-            <ThemeProvider theme={theme}>
-              <div className='numberInput'>
-                <TextField
-                  label='شماره تلفن همراه خود را وارد کنید'
-                  color='primary'
-                  variant='outlined'
-                  inputProps={{
-                    style: {
-                      fontSize: 18,
-                      color: '#fff',
-                      paddingRight: 22,
-                    },
-                  }}
-                />
-                <Button
-                  id='inputNumber-btn'
-                  color='primary'
-                  variant='contained'
-                >
-                  شروع
-                  <ArrowBackIosNewIcon sx={{ fontSize: 13 }} />
-                </Button>
-              </div>
-            </ThemeProvider>
+            <div className='numberInput'>
+              <Input label='شماره تلفن همراه خود را وارد کنید' />
+              <Button
+                id='inputNumber-btn'
+                style={{
+                  backgroundColor: 'var(--primary-color)',
+                  color: '#000',
+                }}
+                variant='contained'
+              >
+                شروع
+                <ArrowBackIosNewIcon sx={{ fontSize: 13 }} />
+              </Button>
+            </div>
           </div>
           <span className='input-number-txt'>
             در کمتر از دو دقیقه ثبت‌نام و شروع به معامله کنید.
@@ -103,7 +68,7 @@ export default function TradingBox() {
 
         <div className='tradingBox-left'>
           <div className='tradingBox-left-wrapper'>
-            <TradingTrans theme={theme} />
+            <TradingTrans theme={''} />
           </div>
         </div>
       </div>
