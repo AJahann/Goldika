@@ -1,0 +1,49 @@
+.contact-wrap {
+  padding: 0 18px;
+}
+.contact-page-title {
+  font-size: 24px;
+  color: var(--white);
+  margin-top: 12px;
+}
+.contact-page-content {
+  margin: 18px 0px 41px 0px;
+  padding: 12px;
+  display: flex;
+  background-color: #373943;
+  border-radius: 16px;
+  align-items: center;
+}
+.contact-page-content > div {
+  flex: 1;
+}
+.contact_content-txt {
+  flex: 1.5 !important;
+  color: var(--white);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  line-height: 24px;
+  text-align: justify;
+  padding: 24px 12px;
+}
+.contact-map {
+  padding: 0 12px;
+}
+.contact .icon svg {
+  margin-left: 5px;
+  font-size: 24px;
+  color: var(--primary-color);
+  display: flex;
+  justify-content: flex-start;
+}
+.contact-socials > span {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  width: 100%;
+  color: var(--primary-color);
+}
+.contact-socials svg {
+  fill: var(--primary-color) !important;
+}
