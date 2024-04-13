@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import './ArticleNews.css';
 
 export default function ArticleNews() {
@@ -7,7 +8,7 @@ export default function ArticleNews() {
         <h2>اخبار و مقالات</h2>
         <div className='articleNews-wrap'>
           <div className='articleNews-card'>
-            <a href='/'>
+            <Link to={'/how-to-use'}>
               <div>
                 <img
                   src='./images/articleNews/baner1.webp'
@@ -15,10 +16,10 @@ export default function ArticleNews() {
                 />
               </div>
               <h3>آموزش قدم به قدم سامانه گلدیکا</h3>
-            </a>
+            </Link>
           </div>
           <div className='articleNews-card'>
-            <a href='/'>
+            <Link to={'/buy-gold'}>
               <div>
                 <img
                   src='./images/articleNews/baner2.webp'
@@ -26,10 +27,10 @@ export default function ArticleNews() {
                 />
               </div>
               <h3>خرید طلای آبشده یا دست‌ دوم؟</h3>
-            </a>
+            </Link>
           </div>
           <div className='articleNews-card'>
-            <a href='/'>
+            <Link to={'/gold-price'}>
               <div>
                 <img
                   src='./images/articleNews/baner3.webp'
@@ -39,7 +40,7 @@ export default function ArticleNews() {
               <h3>
                 نحوه محاسبه قیمت طلا در زمان خرید – سال 1402 (به همراه یک مثال)
               </h3>
-            </a>
+            </Link>
           </div>
         </div>
       </div>

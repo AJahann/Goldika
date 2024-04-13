@@ -3,6 +3,7 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 
 import './About.css';
+import { Link } from 'react-router-dom';
 
 export default function About() {
   const [isShow, setIsShow] = useState(false);
@@ -37,7 +38,7 @@ export default function About() {
           <p className='about-p-link'>
             علاوه بر این، گلدیکا{' '}
             <span>
-              <a href='/'>توسط پارک علم و فناوری دانشگاه صنعتی شریف</a>
+              <Link to={'/'}>توسط پارک علم و فناوری دانشگاه صنعتی شریف</Link>
             </span>{' '}
             به عنوان یک واحد فناور مورد پذیرش قرار گرفته است.
           </p>

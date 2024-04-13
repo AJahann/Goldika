@@ -1,6 +1,7 @@
 import React from 'react';
 import Socials from './Socials';
 import './Footer.css';
+import { Link } from 'react-router-dom';
 
 export default function Footer() {
   return (
@@ -9,15 +10,15 @@ export default function Footer() {
         <div className='row'>
           <div className='footer-links'>
             <div className='footer-links-right'>
-              <a href='/'>صفحه‌ی اصلی</a>
-              <a href='/'>درباره ما</a>
-              <a href='/'>شرایط و قوانین</a>
-              <a href='/'>وبلاگ</a>
+              <Link to={'/'}>صفحه‌ی اصلی</Link>
+              <Link to={'/about'}>درباره ما</Link>
+              <Link to={'/rules'}>شرایط و قوانین</Link>
+              <Link to={'/blog'}>وبلاگ</Link>
             </div>
             <div className='footer-links-left'>
-              <a href='/'>سؤالات متداول</a>
-              <a href='/'>چطور به گلدیکا اعتماد کنیم؟</a>
-              <a href='/'>ارتباط با ما</a>
+              <Link to={'/faq'}>سؤالات متداول</Link>
+              <Link to={'/trust'}>چطور به گلدیکا اعتماد کنیم؟</Link>
+              <Link to={'/contact'}>ارتباط با ما</Link>
             </div>
           </div>
           <div className='grow'></div>
