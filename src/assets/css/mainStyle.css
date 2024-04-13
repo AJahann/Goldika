@@ -32,3 +32,6 @@ body {
 .ltr {
   direction: ltr;
 }
+b {
+  font-weight: bold;
+}
