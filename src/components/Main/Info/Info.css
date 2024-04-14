@@ -31,6 +31,11 @@
 }
 
 /* mui card styles */
+.info-left .MuiCardMedia-root {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 #info-card-btn:hover {
   text-decoration: underline;
   background-color: transparent;
@@ -39,7 +44,11 @@
   display: flex;
   align-items: center;
   gap: 12px;
+  line-height: 22px;
   margin-top: 12px;
+}
+.sec-info-wrap .MuiTypography-root {
+  line-height: 26px;
 }
 .info-card-btn button {
   margin-top: 27px;
@@ -52,4 +61,31 @@
 .info-card-btn button:hover {
   text-decoration: underline;
   background-color: transparent;
+}
+
+@media screen and (max-width: 871px) {
+  .sec-info-wrap {
+    margin: 2rem 0 0 0;
+    padding: 0;
+    gap: 0;
+    flex-direction: column;
+  }
+  .info-right {
+    align-items: center;
+    /* width: 100%; */
+  }
+  .info-right > div {
+    max-width: 480px;
+  }
+  .info_txt h1 {
+    font-size: 22px;
+  }
+  .info-card-btn button {
+    font-size: 12px;
+  }
+}
+@media screen and (max-width: 480px) {
+  .info-wrap {
+    width: 100%;
+  }
 }
