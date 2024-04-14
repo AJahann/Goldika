@@ -2,7 +2,7 @@
   display: flex;
   padding: 0 12px;
   margin-top: 58px;
-  gap: 6.875rem;
+  /* gap: 6.875rem; */
 }
 .tradingBox-right {
   display: flex;
@@ -43,6 +43,7 @@
 .trandingBox-subTitle {
   font-size: 16px;
   margin-top: 14px;
+  line-height: 24px;
   color: #bcbdc2;
 }
 .numberInput > div {
@@ -55,6 +56,7 @@
   color: #bcbdc2;
 }
 .numberInput {
+  max-width: 32rem;
   position: relative;
 }
 
@@ -72,6 +74,9 @@
 
 .tradingBox-left {
   padding: 0 12px;
+  flex: 1;
+  display: flex;
+  justify-content: left;
 }
 .tradingBox-left-wrapper {
   max-width: 28rem;
@@ -87,29 +92,34 @@
   display: flex;
   align-items: center;
   gap: 12px;
+  width: 100%;
+  justify-content: space-evenly;
   padding: 8px 0;
 }
-.item {
+.tradingBox-left-header .MuiTabs-flexContainer {
+  width: 50%;
+}
+.tradingBox-left-header .item {
   color: #fff;
-  width: 11rem;
+  max-width: 11rem;
   align-items: center;
   display: flex;
   font-size: 16px;
   line-height: 24px;
   flex-direction: column;
 }
-.item-price {
+.tradingBox-left-header .item-price {
   display: flex;
   gap: 4px;
   font-weight: bold;
 }
-.item-price-buy {
+.tradingBox-left-header .item-price-buy {
   color: #2ed64a;
 }
-.item-price-sell {
+.tradingBox-left-header .item-price-sell {
   color: #da2b2b;
 }
-.item-center {
+.tradingBox-left-header .item-center {
   width: 40px;
   height: 40px;
   font-size: 13px;
@@ -120,6 +130,7 @@
   margin-top: 12px;
   border-radius: 12px;
   overflow: hidden;
+  width: 100%;
 }
 .tradingBox-left_inputs {
   padding: 8px;
@@ -128,4 +139,32 @@
 .tradingBox-left-btn {
   margin-top: 17px;
   width: 88%;
+}
+
+@media screen and (max-width: 900px) {
+  .tradingBox-wrap {
+    flex-direction: column;
+    align-items: center;
+    margin-top: 0;
+  }
+  .tradingBox-left {
+    width: 100%;
+    justify-content: center;
+    margin-top: 3rem;
+  }
+  .tradingBox-txt .text,
+  .tradingBox-txt .verticalBar {
+    font-size: 20px;
+  }
+  .tradingBox-title,
+  .row-badges {
+    display: none;
+  }
+  .numberInput {
+    max-width: 23rem;
+    margin: 0 auto;
+  }
+  .input-number-txt {
+    text-align: center;
+  }
 }

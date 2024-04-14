@@ -68,7 +68,7 @@ export default function TradingBox() {
 
         <div className='tradingBox-left'>
           <div className='tradingBox-left-wrapper'>
-            <TradingTrans theme={''} />
+            <TradingTrans />
           </div>
         </div>
       </div>

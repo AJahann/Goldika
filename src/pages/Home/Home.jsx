@@ -16,13 +16,13 @@ export default function Home() {
     <div className='home'>
       <NavBar />
       <TradingBox />
-      <Info />
+      {/* <Info />
       <Stepper />
       <Chart />
       <ArticleNews />
       <About />
       <TxtBanner />
-      <Footer />
+      <Footer /> */}
     </div>
   );
 }

@@ -27,7 +27,8 @@ const StyledTab = styled((props) => <Tab disableRipple {...props} />)(
     fontSize: theme.typography.pxToRem(15),
     marginRight: theme.spacing(1),
     color: '#fff',
-    width: 207,
+    // maxWidth: 207,
+    width: '50%',
     padding: '12px 16px',
     '&.Mui-selected': {
       color: '#f1ab1f',
@@ -38,7 +39,7 @@ const StyledTab = styled((props) => <Tab disableRipple {...props} />)(
   }),
 );
 
-export default function TradingTrans({ theme }) {
+export default function TradingTrans() {
   const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
@@ -76,7 +77,7 @@ export default function TradingTrans({ theme }) {
       </span>
 
       <div className='tradingBox-left-main'>
-        <Box sx={{ width: '100%' }}>
+        <Box fullWidth>
           <StyledTabs value={value} onChange={handleChange}>
             <StyledTab label='خرید' />
             <StyledTab label='فروش' />
