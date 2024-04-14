@@ -1,0 +1,11 @@
+.input2 {
+  margin-top: 12px;
+  width: 100%;
+}
+.MuiOutlinedInput-root:hover:not(.Mui-focused)
+  .MuiOutlinedInput-notchedOutline {
+  border-color: #ffffff90;
+}
+.mui-rtl-putrnr input {
+  direction: ltr;
+}

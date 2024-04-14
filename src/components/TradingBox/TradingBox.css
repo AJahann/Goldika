@@ -125,18 +125,6 @@
   padding: 8px;
   padding-bottom: 20px;
 }
-.tradingBox-left_input {
-  margin-top: 12px;
-  width: 100%;
-}
-.mui-rtl-putrnr input {
-  direction: ltr;
-}
-.tradingBox-left
-  .MuiOutlinedInput-root:hover:not(.Mui-focused)
-  .MuiOutlinedInput-notchedOutline {
-  border-color: #ffffff90;
-}
 .tradingBox-left-btn {
   margin-top: 17px;
   width: 88%;
