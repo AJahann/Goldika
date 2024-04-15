@@ -33,8 +33,9 @@ const steps = [
 export default function VerticalLinearStepper() {
   const [activeStep, setActiveStep] = useState(0);
 
-  const handleStep = (step) => () => {
+  const handleStep = (step) => (e) => {
     setActiveStep(step);
+    console.log(step);
   };
 
   return (
@@ -58,12 +59,35 @@ export default function VerticalLinearStepper() {
                     >
                       {step.label}
                     </StepButton>
+                    {activeStep === index && (
+                      <div
+                        style={{
+                          marginTop: -44,
+                          marginRight: -11,
+                          paddingTop: 44,
+                          display: 'none',
+                        }}
+                        className='stepper-desc-box sm'
+                      >
+                        <p>{steps[activeStep].description}</p>
+                        <div className='stepper-desc-box-icon'>
+                          {
+                            {
+                              0: <Icon1 />,
+                              1: <Icon2 />,
+                              2: <Icon3 />,
+                              3: <Icon4 />,
+                            }[activeStep]
+                          }
+                        </div>
+                      </div>
+                    )}
                   </Step>
                 ))}
               </Stepper>
             </Box>
           </div>
-          <div className='stepper-description'>
+          <div className='stepper-description sd'>
             <div className='stepper-desc-box'>
               <p>{steps[activeStep].description}</p>
               <div className='stepper-desc-box-icon'>

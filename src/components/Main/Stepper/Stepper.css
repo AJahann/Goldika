@@ -54,11 +54,27 @@
 }
 .stepper-desc-box p {
   flex: 4;
+  text-align: justify;
   font-size: 16px;
+  padding-left: 6px;
   line-height: 32px;
   color: var(--white);
 }
 .stepper-desc-box-icon {
-  flex: 1;
+  width: 104px;
+  /* height: 100px; */
   padding: 8px;
+}
+
+@media screen and (max-width: 870px) {
+  .stepper-parent h2 {
+    font-size: 1.25rem;
+    margin-top: 2rem;
+  }
+  .stepper-parent .stepper-description.sd {
+    display: none;
+  }
+  .stepper-parent .stepper-desc-box.sm {
+    display: flex !important;
+  }
 }

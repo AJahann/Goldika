@@ -77,7 +77,7 @@ export default function TradingTrans() {
       </span>
 
       <div className='tradingBox-left-main'>
-        <Box fullWidth>
+        <Box>
           <StyledTabs value={value} onChange={handleChange}>
             <StyledTab label='خرید' />
             <StyledTab label='فروش' />
