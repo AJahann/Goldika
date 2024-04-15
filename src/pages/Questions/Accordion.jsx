@@ -6,7 +6,14 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 export default function AccordionFaq({ title, children }) {
   return (
     <div>
-      <Accordion style={{ color: '#fff', margin: '6px 0', fontWeight: '500' }}>
+      <Accordion
+        style={{
+          lineHeight: '26px',
+          color: '#fff',
+          margin: '6px 0',
+          fontWeight: '500',
+        }}
+      >
         <AccordionSummary
           expandIcon={<ExpandMoreIcon style={{ color: '#fff' }} />}
           aria-controls='panel1-content'

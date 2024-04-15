@@ -12,3 +12,13 @@
   font-weight: bold;
   padding: 24px 0 16px 0;
 }
+
+@media screen and (max-width: 540px) {
+  .faq-title {
+    text-align: center;
+  }
+  .faq-wrap {
+    padding-right: 0;
+    padding-left: 0;
+  }
+}
