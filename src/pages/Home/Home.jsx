@@ -20,9 +20,9 @@ export default function Home() {
       <Stepper />
       <Chart />
       <ArticleNews />
-      <About />
+      {/* <About />
       <TxtBanner />
-      <Footer />
+      <Footer /> */}
     </div>
   );
 }
