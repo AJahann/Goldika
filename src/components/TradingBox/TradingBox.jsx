@@ -52,6 +52,7 @@ export default function TradingBox() {
                 id='inputNumber-btn'
                 style={{
                   backgroundColor: 'var(--primary-color)',
+                  zIndex: 10,
                   color: '#000',
                 }}
                 variant='contained'
