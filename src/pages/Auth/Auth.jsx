@@ -66,9 +66,9 @@ export default function Auth() {
                   <span style={{ direction: 'ltr' }}>۰۲۱-۹۱۰ ۹۶ ۱۹۵</span>
                 </span>
                 <span>رایانامه: support@goldika.ir</span>
+                <Svg />
               </div>
             </div>
-            <Svg />
           </div>
         </div>
         <div className='auth-container'>

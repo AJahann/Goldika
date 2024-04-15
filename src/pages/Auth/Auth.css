@@ -56,6 +56,7 @@
   position: relative;
 }
 .auth-content-wrap {
+  padding: 14px;
   max-width: 521px;
   display: flex;
   flex-direction: column;
@@ -98,4 +99,36 @@
 .MuiPaper-root {
   background-color: #373943 !important;
   border-radius: 8px !important;
+}
+
+@media screen and (max-width: 860px) {
+  .auth {
+    flex-direction: column;
+    height: auto;
+  }
+  .auth-content-txt {
+    display: none;
+  }
+  .auth-content {
+    flex: 0;
+  }
+  .auth-content-wrap {
+    min-height: auto;
+    height: auto;
+  }
+  .auth-content a {
+    width: 223px;
+    height: 81px;
+  }
+}
+@media screen and (max-width: 480px) {
+  .auth-container {
+    width: 100%;
+    padding: 12px;
+    box-sizing: border-box !important;
+  }
+  .auth-box {
+    width: 100%;
+    min-width: auto;
+  }
 }
