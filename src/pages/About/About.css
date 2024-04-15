@@ -29,3 +29,15 @@
   height: 16rem;
   padding: 0 25px;
 }
+
+@media screen and (max-width: 720px) {
+  .about-page-title {
+    text-align: center;
+  }
+  .about-page-content-bottom {
+    flex-direction: column-reverse;
+  }
+  .about-page-main-wrap p {
+    padding: 16px;
+  }
+}
