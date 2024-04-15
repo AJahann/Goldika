@@ -47,3 +47,23 @@
 .contact-socials svg {
   fill: var(--primary-color) !important;
 }
+.contact-map iframe {
+  background-color: #fff;
+}
+
+@media screen and (max-width: 980px) {
+  .contact-wrap {
+    padding: 0;
+  }
+  .contact-page-content {
+    flex-direction: column;
+  }
+}
+@media screen and (max-width: 480px) {
+  .contact-map {
+    width: 100%;
+  }
+  .contact-map iframe {
+    width: 100%;
+  }
+}
