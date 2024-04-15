@@ -24,3 +24,19 @@
 #my-chart .recharts-tooltip-wrapper {
   display: none;
 }
+
+@media screen and (max-width: 870px) {
+  .sec-chart-wrap {
+    margin-top: 3rem;
+    padding: 0;
+  }
+  .chart-wrap {
+    padding: 18px 0;
+  }
+  .chart-wrap h2 {
+    font-size: 16px;
+  }
+  .recharts-responsive-container {
+    margin-left: -23px;
+  }
+}
