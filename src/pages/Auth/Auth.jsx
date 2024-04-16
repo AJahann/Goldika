@@ -11,6 +11,7 @@ import DialogActions from '@mui/material/DialogActions';
 import Typography from '@mui/material/Typography';
 
 import './Auth.css';
+import AuthBox from './AuthBox';
 
 const theme = createTheme({
   palette: {
@@ -39,12 +40,17 @@ const theme = createTheme({
 
 export default function Auth() {
   const [open, setOpen] = useState(false);
+  const [number, setNumber] = useState('');
 
   const handleClickOpen = () => {
     setOpen(true);
   };
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const submitHandler = () => {
+    console.log(number);
   };
 
   return (
@@ -71,13 +77,17 @@ export default function Auth() {
             </div>
           </div>
         </div>
+
         <div className='auth-container'>
-          <div className='auth-box'>
+          <AuthBox onSubmit={submitHandler}>
             <h1>ورود | ثبت نام</h1>
+            {/* <h1>ورود</h1> */}
             <div className='auth-box-input-wrap'>
               <TextField
                 label='شماره تلفن همراه'
                 color='primary'
+                value={number}
+                onChange={(e) => setNumber(e.target.value)}
                 variant='outlined'
                 inputProps={{
                   style: {
@@ -103,10 +113,7 @@ export default function Auth() {
               </button>{' '}
               را می‌پذیرم.
             </p>
-            <Button style={{ borderRadius: 8 }} fullWidth variant='contained'>
-              ادامه
-            </Button>
-          </div>
+          </AuthBox>
         </div>
         <Modal open={open}>
           <DialogTitle
