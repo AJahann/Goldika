@@ -1,39 +1,10 @@
-import { Button, TextField, Typography } from '@mui/material';
+import { Button, TextField } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useEffect, useRef } from 'react';
 import { toast } from 'react-toastify';
 
-export default function AuthCode({
-  number,
-  setNumberValid,
-  notify,
-  code,
-  setCodeValid,
-}) {
-  const inputCode = useRef();
-
-  useEffect(() => {
-    notify(`کد شما : ${code}`);
-  }, [notify, code]);
-
-  const submitHandler = () => {
-    if (Number(inputCode.current.value) === code) {
-      setCodeValid(true);
-
-      toast.success('لطفا فرم را تکمیل کنید.', {
-        position: 'bottom-left',
-        autoClose: 3000,
-        hideProgressBar: true,
-      });
-    } else {
-      toast.error('کد وارد شده اشتباه است.', {
-        position: 'bottom-left',
-        autoClose: 3000,
-        hideProgressBar: true,
-      });
-    }
-  };
-
+export default function AuthForm({ number, setNumberValid, setCodeValid }) {
+  const submitHandler = () => {};
   return (
     <div className='auth-box'>
       <h1>ثبت‌ نام</h1>
@@ -49,6 +20,7 @@ export default function AuthCode({
         <Button
           onClick={() => {
             setNumberValid(false);
+            setCodeValid(false);
           }}
           style={{
             color: 'white',
@@ -63,11 +35,37 @@ export default function AuthCode({
       </div>
       <hr style={{ opacity: '.5' }} />
       <div style={{ marginTop: 27 }} className='auth-box-input-wrap'>
-        <p className='auth-code-title'>
-          کد یک‌بار مصرف ارسال شده به تلفن همراهتان را وارد کنید:
-        </p>
         <TextField
-          inputRef={inputCode}
+          style={{ marginBottom: 14 }}
+          label={'نام'}
+          autoFocus
+          onInput={(e) => {
+            e.target.value = e.target.value.replace(/[0-9]/g, '');
+          }}
+          inputProps={{
+            style: {
+              fontSize: 18,
+              color: '#fff',
+            },
+          }}
+        />
+        <TextField
+          style={{ marginBottom: 14 }}
+          label={'نام خانوداگی'}
+          autoFocus
+          onInput={(e) => {
+            e.target.value = e.target.value.replace(/[0-9]/g, '');
+          }}
+          inputProps={{
+            style: {
+              fontSize: 18,
+              color: '#fff',
+            },
+          }}
+        />
+        <TextField
+          style={{ marginBottom: 14 }}
+          label={'پسورد'}
           autoFocus
           onInput={(e) => {
             e.target.value = e.target.value.replace(/[^\d]/g, '');
@@ -76,20 +74,23 @@ export default function AuthCode({
             style: {
               fontSize: 18,
               color: '#fff',
-              textAlign: 'center',
+            },
+          }}
+        />
+        <TextField
+          label={'تکرار پسورد'}
+          autoFocus
+          onInput={(e) => {
+            e.target.value = e.target.value.replace(/[^\d]/g, '');
+          }}
+          inputProps={{
+            style: {
+              fontSize: 18,
+              color: '#fff',
             },
           }}
         />
       </div>
-      <Typography
-        onClick={() => {
-          setNumberValid(false);
-        }}
-        style={{ margin: 0, marginTop: 18, cursor: 'pointer' }}
-        color={'primary'}
-      >
-        شماره تلفن اشتباه است؟
-      </Typography>
       <Button
         onClick={() => {
           submitHandler();

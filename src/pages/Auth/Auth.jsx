@@ -12,8 +12,9 @@ import Typography from '@mui/material/Typography';
 import { ToastContainer, toast } from 'react-toastify';
 
 import './Auth.css';
-import AuthNumber from './AuthNuber';
+import AuthNumber from './AuthNumber';
 import AuthCode from './AuthCode';
+import AuthForm from './AuthForm';
 
 const theme = createTheme({
   palette: {
@@ -44,6 +45,7 @@ export default function Auth() {
   const [number, setNumber] = useState('');
   const [numberValid, setNumberValid] = useState(false);
   const [code, setCode] = useState('');
+  const [codeValid, setCodeValid] = useState(false);
   const [open, setOpen] = useState(false);
   const notify = (mass) =>
     toast.success(mass, {
@@ -91,8 +93,15 @@ export default function Auth() {
           </div>
         </div>
         <div className='auth-container'>
-          {numberValid ? (
+          {codeValid ? (
+            <AuthForm
+              number={number}
+              setCodeValid={setCodeValid}
+              setNumberValid={setNumberValid}
+            />
+          ) : numberValid ? (
             <AuthCode
+              setCodeValid={setCodeValid}
               notify={notify}
               code={code}
               setNumberValid={setNumberValid}
