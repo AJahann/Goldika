@@ -8,6 +8,7 @@ import createCache from '@emotion/cache';
 
 import './assets/css/reset.css';
 import './assets/css/mainStyle.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 const cacheRtl = createCache({
   key: 'muirtl',

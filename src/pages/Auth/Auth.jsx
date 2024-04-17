@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, TextField } from '@mui/material';
+import { Button } from '@mui/material';
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@emotion/react';
 import Typo from './Typo';
@@ -9,9 +9,11 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import Typography from '@mui/material/Typography';
+import { ToastContainer, toast } from 'react-toastify';
 
 import './Auth.css';
-import AuthBox from './AuthBox';
+import AuthNumber from './AuthNuber';
+import AuthCode from './AuthCode';
 
 const theme = createTheme({
   palette: {
@@ -39,8 +41,16 @@ const theme = createTheme({
 });
 
 export default function Auth() {
-  const [open, setOpen] = useState(false);
   const [number, setNumber] = useState('');
+  const [numberValid, setNumberValid] = useState(false);
+  const [code, setCode] = useState('');
+  const [open, setOpen] = useState(false);
+  const notify = (mass) =>
+    toast.success(mass, {
+      position: 'bottom-left',
+      autoClose: 3000,
+      hideProgressBar: true,
+    });
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -50,9 +60,12 @@ export default function Auth() {
   };
 
   const submitHandler = () => {
-    console.log(number);
+    if (number.length === 11) {
+      setNumberValid(true);
+      notify('کد به شماره تلفن همراه ارسال شد.');
+      setCode(Math.floor(1000 + Math.random() * 90000));
+    }
   };
-
   return (
     <div className='auth'>
       <ThemeProvider theme={theme}>
@@ -77,44 +90,35 @@ export default function Auth() {
             </div>
           </div>
         </div>
-
         <div className='auth-container'>
-          <AuthBox onSubmit={submitHandler}>
-            <h1>ورود | ثبت نام</h1>
-            {/* <h1>ورود</h1> */}
-            <div className='auth-box-input-wrap'>
-              <TextField
-                label='شماره تلفن همراه'
-                color='primary'
-                value={number}
-                onChange={(e) => setNumber(e.target.value)}
-                variant='outlined'
-                inputProps={{
-                  style: {
-                    fontSize: 18,
-                    color: '#fff',
-                    paddingRight: 22,
-                  },
-                }}
-              />
-              <span>مالکیت شماره باید به نام خودتان باشد</span>
-            </div>
-            <p>
-              با ورود یا ثبت نام،{' '}
-              <button
-                style={{
-                  cursor: 'pointer',
-                  background: 'none',
-                  border: 'none',
-                }}
-                onClick={handleClickOpen}
-              >
-                شرایط و قوانین
-              </button>{' '}
-              را می‌پذیرم.
-            </p>
-          </AuthBox>
+          {numberValid ? (
+            <AuthCode
+              notify={notify}
+              code={code}
+              setNumberValid={setNumberValid}
+              number={number}
+            />
+          ) : (
+            <AuthNumber
+              number={number}
+              setNumber={setNumber}
+              handleClickOpen={handleClickOpen}
+              onSubmit={submitHandler}
+            />
+          )}
         </div>
+        <ToastContainer
+          position='bottom-left'
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme='colored'
+        />
         <Modal open={open}>
           <DialogTitle
             style={{ color: '#fff' }}

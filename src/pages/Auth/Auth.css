@@ -12,6 +12,7 @@
 }
 .auth-box {
   box-sizing: border-box !important;
+  max-width: 400px;
   min-width: 400px;
   background-color: var(--black);
   color: var(--white);
@@ -32,7 +33,7 @@
   display: flex;
   flex-direction: column;
 }
-.auth-box-input-wrap span {
+.auth-box-input-wrap > span {
   font-size: 12px;
   padding: 6px 14px;
   color: #ffffff8c;
@@ -99,6 +100,11 @@
 .MuiPaper-root {
   background-color: #373943 !important;
   border-radius: 8px !important;
+}
+.auth-code-title {
+  font-size: 16px !important;
+  margin: 1rem 0 0.75rem 0 !important;
+  line-height: 22px;
 }
 
 @media screen and (max-width: 860px) {
