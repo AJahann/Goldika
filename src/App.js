@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useRoutes } from 'react-router-dom';
 import { routes } from './router';
 import rtlPlugin from 'stylis-plugin-rtl';
@@ -17,6 +17,10 @@ const cacheRtl = createCache({
 
 export default function App() {
   const router = useRoutes(routes);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [router]);
   return (
     <>
       <CacheProvider value={cacheRtl}>{router}</CacheProvider>

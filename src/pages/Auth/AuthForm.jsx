@@ -2,30 +2,40 @@ import { Button, TextField } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
+import { Navigate } from 'react-router-dom';
 
 export default function AuthForm({ number, setNumberValid, setCodeValid }) {
   const [name, setName] = useState('');
   const [family, setFamily] = useState('');
   const [pass, setPass] = useState('');
   const [rePass, setRePass] = useState('');
+  const [register, setRegister] = useState(false);
 
   useEffect(() => {});
 
   const submitHandler = () => {
-    let userInfo = {
-      name,
-      family,
-      pass,
-    };
-    toast.success('done!', {
-      position: 'bottom-left',
-      autoClose: 3000,
-      hideProgressBar: true,
-    });
-    console.log(userInfo);
+    if (name && family && pass && rePass) {
+      if (pass === rePass) {
+        let userInfo = {
+          name,
+          family,
+          pass,
+        };
+        toast.success('ثبت نام با موفقیت انجام شد.', {
+          position: 'bottom-left',
+          autoClose: 3000,
+          hideProgressBar: true,
+        });
+        console.log(userInfo);
+        setTimeout(() => {
+          setRegister(true);
+        }, 3000);
+      }
+    }
   };
   return (
     <div className='auth-box'>
+      {register && <Navigate to='/' />}
       <h1>ثبت‌ نام</h1>
       <div
         style={{
