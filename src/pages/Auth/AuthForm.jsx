@@ -1,10 +1,29 @@
 import { Button, TextField } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { useEffect, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
 export default function AuthForm({ number, setNumberValid, setCodeValid }) {
-  const submitHandler = () => {};
+  const [name, setName] = useState('');
+  const [family, setFamily] = useState('');
+  const [pass, setPass] = useState('');
+  const [rePass, setRePass] = useState('');
+
+  useEffect(() => {});
+
+  const submitHandler = () => {
+    let userInfo = {
+      name,
+      family,
+      pass,
+    };
+    toast.success('done!', {
+      position: 'bottom-left',
+      autoClose: 3000,
+      hideProgressBar: true,
+    });
+    console.log(userInfo);
+  };
   return (
     <div className='auth-box'>
       <h1>ثبت‌ نام</h1>
@@ -36,9 +55,11 @@ export default function AuthForm({ number, setNumberValid, setCodeValid }) {
       <hr style={{ opacity: '.5' }} />
       <div style={{ marginTop: 27 }} className='auth-box-input-wrap'>
         <TextField
+          autoFocus
           style={{ marginBottom: 14 }}
           label={'نام'}
-          autoFocus
+          value={name}
+          onChange={(e) => setName(e.target.value)}
           onInput={(e) => {
             e.target.value = e.target.value.replace(/[0-9]/g, '');
           }}
@@ -46,13 +67,15 @@ export default function AuthForm({ number, setNumberValid, setCodeValid }) {
             style: {
               fontSize: 18,
               color: '#fff',
+              textAlign: 'right',
             },
           }}
         />
         <TextField
           style={{ marginBottom: 14 }}
           label={'نام خانوداگی'}
-          autoFocus
+          value={family}
+          onChange={(e) => setFamily(e.target.value)}
           onInput={(e) => {
             e.target.value = e.target.value.replace(/[0-9]/g, '');
           }}
@@ -60,16 +83,15 @@ export default function AuthForm({ number, setNumberValid, setCodeValid }) {
             style: {
               fontSize: 18,
               color: '#fff',
+              textAlign: 'right',
             },
           }}
         />
         <TextField
           style={{ marginBottom: 14 }}
           label={'پسورد'}
-          autoFocus
-          onInput={(e) => {
-            e.target.value = e.target.value.replace(/[^\d]/g, '');
-          }}
+          value={pass}
+          onChange={(e) => setPass(e.target.value)}
           inputProps={{
             style: {
               fontSize: 18,
@@ -78,11 +100,9 @@ export default function AuthForm({ number, setNumberValid, setCodeValid }) {
           }}
         />
         <TextField
+          value={rePass}
+          onChange={(e) => setRePass(e.target.value)}
           label={'تکرار پسورد'}
-          autoFocus
-          onInput={(e) => {
-            e.target.value = e.target.value.replace(/[^\d]/g, '');
-          }}
           inputProps={{
             style: {
               fontSize: 18,

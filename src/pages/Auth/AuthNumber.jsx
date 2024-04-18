@@ -23,6 +23,7 @@ export default function AuthNumber({
           }
           label='شماره تلفن همراه'
           color='primary'
+          autoFocus
           value={number}
           onChange={handleChange}
           variant='outlined'
