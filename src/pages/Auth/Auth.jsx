@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
-import { Button } from '@mui/material';
+import {
+  Button,
+  ThemeProvider,
+  Typography,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+} from '@mui/material';
 import { createTheme } from '@mui/material/styles';
-import { ThemeProvider } from '@emotion/react';
+import Modal from './../../components/Modal/Modal';
+import { ToastContainer, toast } from 'react-toastify';
 import Typo from './Typo';
 import Svg from './Svg';
-import Modal from './../../components/Modal/Modal';
-import DialogTitle from '@mui/material/DialogTitle';
-import DialogContent from '@mui/material/DialogContent';
-import DialogActions from '@mui/material/DialogActions';
-import Typography from '@mui/material/Typography';
-import { ToastContainer, toast } from 'react-toastify';
 
 import './Auth.css';
 import AuthNumber from './AuthNumber';
@@ -47,7 +49,7 @@ export default function Auth() {
   const [code, setCode] = useState('');
   const [codeValid, setCodeValid] = useState(false);
   const [open, setOpen] = useState(false);
-  const notify = (mass) =>
+  const notifySuccess = (mass) =>
     toast.success(mass, {
       position: 'bottom-left',
       autoClose: 3000,
@@ -64,7 +66,7 @@ export default function Auth() {
   const submitHandler = () => {
     if (number.length === 11) {
       setNumberValid(true);
-      notify('کد به شماره تلفن همراه ارسال شد.');
+      notifySuccess('کد به شماره تلفن همراه ارسال شد.');
       setCode(Math.floor(1000 + Math.random() * 90000));
     }
   };
@@ -102,7 +104,7 @@ export default function Auth() {
           ) : numberValid ? (
             <AuthCode
               setCodeValid={setCodeValid}
-              notify={notify}
+              notify={notifySuccess}
               code={code}
               setNumberValid={setNumberValid}
               number={number}
