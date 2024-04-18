@@ -1,11 +1,13 @@
 import React from 'react';
+import { Navigate } from 'react-router-dom';
 import Home from './pages/Home/Home';
 import Auth from './pages/Auth/Auth';
 import About from './pages/About/About';
 import Faq from './pages/Questions/Faq';
 import Contact from './pages/Contact/Contact';
+import Panel from './pages/Panel/Panel';
 
-let routes = [
+const routes = [
   {
     path: '/',
     element: <Home />,
@@ -25,6 +27,19 @@ let routes = [
   {
     path: '/contact',
     element: <Contact />,
+  },
+  {
+    path: '/panel',
+    children: [
+      {
+        path: '',
+        element: <Navigate to={'dashboard'} />,
+      },
+      {
+        path: 'dashboard',
+        element: <Panel />,
+      },
+    ],
   },
   {
     path: '/*',
