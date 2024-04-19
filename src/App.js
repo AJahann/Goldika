@@ -2,9 +2,9 @@ import React, { useEffect } from 'react';
 import { useRoutes } from 'react-router-dom';
 import { routes } from './router';
 import rtlPlugin from 'stylis-plugin-rtl';
-import { prefixer } from 'stylis';
 import { CacheProvider } from '@emotion/react';
 import createCache from '@emotion/cache';
+import { prefixer } from 'stylis';
 
 import './assets/css/reset.css';
 import './assets/css/mainStyle.css';
@@ -21,6 +21,7 @@ export default function App() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [router]);
+
   return (
     <>
       <CacheProvider value={cacheRtl}>{router}</CacheProvider>
