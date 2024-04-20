@@ -10,7 +10,7 @@ import {
 import { createTheme } from '@mui/material/styles';
 import Modal from './../../components/Modal/Modal';
 import { ToastContainer, toast } from 'react-toastify';
-import Typo from './Typo';
+import GoldikaTypo from './GoldikaTypo';
 import Svg from './Svg';
 
 import './Auth.css';
@@ -75,7 +75,7 @@ export default function Auth() {
       <ThemeProvider theme={theme}>
         <div className='auth-content'>
           <div className='auth-content-wrap'>
-            <Typo />
+            <GoldikaTypo />
             <div className='auth-content-txt'>
               <h3>
                 با هر مبلغی بدون پرداخت اجرت و مالیات، طلا بخرید و بفروشید و در
