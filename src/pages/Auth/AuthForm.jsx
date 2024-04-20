@@ -1,41 +1,31 @@
 import { Button, TextField } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { Navigate } from 'react-router-dom';
 
 export default function AuthForm({ number, setNumberValid, setCodeValid }) {
-  const [name, setName] = useState('');
-  const [family, setFamily] = useState('');
-  const [pass, setPass] = useState('');
-  const [rePass, setRePass] = useState('');
-  const [register, setRegister] = useState(false);
+  const { register, handleSubmit } = useForm();
+  const navigate = useNavigate();
 
-  useEffect(() => {});
-
-  const submitHandler = () => {
-    if (name && family && pass && rePass) {
-      if (pass === rePass) {
-        let userInfo = {
-          name,
-          family,
-          pass,
-        };
-        toast.success('ثبت نام با موفقیت انجام شد.', {
-          position: 'bottom-left',
-          autoClose: 3000,
-          hideProgressBar: true,
-        });
-        console.log(userInfo);
-        setTimeout(() => {
-          setRegister(true);
-        }, 3000);
-      }
+  const submitHandler = ({ name, family, pass, rePass }) => {
+    if (pass === rePass) {
+      let userInfo = {
+        name,
+        family,
+        pass,
+      };
+      toast.success('ثبت نام با موفقیت انجام شد.', {
+        position: 'bottom-left',
+        autoClose: 3000,
+        hideProgressBar: true,
+      });
+      navigate('/panel');
     }
   };
+
   return (
     <div className='auth-box'>
-      {register && <Navigate to='/' />}
       <h1>ثبت‌ نام</h1>
       <div
         style={{
@@ -63,15 +53,21 @@ export default function AuthForm({ number, setNumberValid, setCodeValid }) {
         <span>{number}</span>
       </div>
       <hr style={{ opacity: '.5' }} />
-      <div style={{ marginTop: 27 }} className='auth-box-input-wrap'>
+      <form
+        onSubmit={handleSubmit(submitHandler)}
+        style={{ marginTop: 27 }}
+        className='auth-box-input-wrap'
+      >
         <TextField
           autoFocus
           style={{ marginBottom: 14 }}
           label={'نام'}
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          onInput={(e) => {
-            e.target.value = e.target.value.replace(/[0-9]/g, '');
+          InputProps={{
+            ...register('name', {
+              required: true,
+              minLength: 2,
+              maxLength: 15,
+            }),
           }}
           inputProps={{
             style: {
@@ -83,11 +79,13 @@ export default function AuthForm({ number, setNumberValid, setCodeValid }) {
         />
         <TextField
           style={{ marginBottom: 14 }}
-          label={'نام خانوداگی'}
-          value={family}
-          onChange={(e) => setFamily(e.target.value)}
-          onInput={(e) => {
-            e.target.value = e.target.value.replace(/[0-9]/g, '');
+          label={'نام خانوادگی'}
+          InputProps={{
+            ...register('family', {
+              required: true,
+              minLength: 2,
+              maxLength: 15,
+            }),
           }}
           inputProps={{
             style: {
@@ -100,8 +98,14 @@ export default function AuthForm({ number, setNumberValid, setCodeValid }) {
         <TextField
           style={{ marginBottom: 14 }}
           label={'پسورد'}
-          value={pass}
-          onChange={(e) => setPass(e.target.value)}
+          InputProps={{
+            type: 'password',
+            ...register('pass', {
+              required: true,
+              minLength: 5,
+              maxLength: 25,
+            }),
+          }}
           inputProps={{
             style: {
               fontSize: 18,
@@ -110,9 +114,15 @@ export default function AuthForm({ number, setNumberValid, setCodeValid }) {
           }}
         />
         <TextField
-          value={rePass}
-          onChange={(e) => setRePass(e.target.value)}
           label={'تکرار پسورد'}
+          InputProps={{
+            type: 'password',
+            ...register('rePass', {
+              required: true,
+              minLength: 5,
+              maxLength: 25,
+            }),
+          }}
           inputProps={{
             style: {
               fontSize: 18,
@@ -120,17 +130,15 @@ export default function AuthForm({ number, setNumberValid, setCodeValid }) {
             },
           }}
         />
-      </div>
-      <Button
-        onClick={() => {
-          submitHandler();
-        }}
-        style={{ borderRadius: 8, marginTop: 24 }}
-        fullWidth
-        variant='contained'
-      >
-        ادامه
-      </Button>
+        <Button
+          type='submit'
+          style={{ borderRadius: 8, marginTop: 24 }}
+          fullWidth
+          variant='contained'
+        >
+          ادامه
+        </Button>
+      </form>
     </div>
   );
 }
