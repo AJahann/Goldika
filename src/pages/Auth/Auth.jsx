@@ -10,7 +10,7 @@ import {
 import { createTheme } from '@mui/material/styles';
 import Modal from './../../components/Modal/Modal';
 import { ToastContainer, toast } from 'react-toastify';
-import GoldikaTypo from './GoldikaTypo';
+import GoldikaTypo from './../../components/LogoTypo/GoldikaTypo';
 import Svg from './Svg';
 
 import './Auth.css';

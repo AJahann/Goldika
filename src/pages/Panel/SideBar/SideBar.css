@@ -1,0 +1,63 @@
+.panel-sideBar {
+  width: 17rem;
+  background-color: #373943;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.panel-sideBar-logo {
+  margin: 41px 0 27px 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  color: #ffffff;
+  /* height: 40px; */
+}
+.panel-sideBar-logo > div {
+  width: 120px;
+}
+.panel-sideBar-logo > p {
+  font-size: small;
+  margin-left: -43px;
+}
+.panel-sideBar-menu {
+  height: 100%;
+  padding: 8px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.panel-sideBar-menu-wrap {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.panel-sideBar_item {
+}
+.panel-sideBar_item > a {
+  padding: 12px 16px;
+  color: #ffffff;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+.panel-sideBar_item > a.active {
+  background-color: #f1ab1f36;
+}
+.panel-sideBar_item > a:hover {
+  background-color: #ffffff36;
+}
+.sideBar-item-icon {
+  width: 26px;
+  height: 26px;
+  color: #ffffff;
+}
+.sideBar-item-name {
+  font-weight: bold;
+  font-size: 16px;
+  margin-right: 32px;
+}
+.panel-sideBar-leaveBtn {
+  margin: 1rem 0;
+}
