@@ -66,4 +66,20 @@ const dataGold = [
   },
 ];
 
+const panelChartData = [
+  {
+    میانگین: '1',
+    ماه: '۱۴۰۲',
+  },
+  {
+    میانگین: '1',
+    ماه: 'فروردین',
+  },
+  {
+    میانگین: '1',
+    ماه: '۱۴۰۳',
+  },
+];
+
+export { panelChartData };
 export default dataGold;
