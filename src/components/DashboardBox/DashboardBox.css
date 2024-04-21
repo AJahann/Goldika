@@ -1,0 +1,28 @@
+.dashboard-direction-box {
+  box-sizing: border-box;
+  background-color: #373943;
+  width: 13.65rem;
+  padding: 18px;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.dashboard_box-title {
+  font-size: 16px;
+  text-align: right;
+  color: #fff;
+  margin-bottom: 9px;
+}
+.dashboard_box-span {
+  font-size: 14.4px;
+  color: #808080;
+}
+.dashboard_box-price {
+  height: 100%;
+  margin-top: 20px;
+  color: #fff;
+  font-size: 20px;
+  text-align: left;
+  margin-bottom: 10px;
+}

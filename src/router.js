@@ -6,6 +6,13 @@ import About from './pages/About/About';
 import Faq from './pages/Questions/Faq';
 import Contact from './pages/Contact/Contact';
 import Panel from './pages/Panel/Panel';
+import Dashboard from './pages/Panel/Dashboard/Dashboard';
+import Wallet from './pages/Panel/Wallet/Wallet';
+import Deposit from './pages/Panel/Deposit/Deposit';
+import WithDraw from './pages/Panel/WithDraw/WithDraw';
+import Trade from './pages/Panel/Trade/Trade';
+import Report from './pages/Panel/Report/Report';
+import OrderPikup from './pages/Panel/OrderPikup/OrderPikup';
 
 const routes = [
   {
@@ -32,37 +39,37 @@ const routes = [
     path: '/panel',
     element: <Panel />,
     children: [
-      // {
-      //   path: '',
-      //   element: <Navigate to={'dashboard'} />,
-      // },
+      {
+        path: '',
+        element: <Navigate to={'dashboard'} />,
+      },
       {
         path: 'dashboard',
-        element: <Panel />,
+        element: <Dashboard />,
       },
       {
         path: 'wallet',
-        element: <Panel />,
+        element: <Wallet />,
       },
       {
         path: 'deposit',
-        element: <Panel />,
+        element: <Deposit />,
       },
       {
         path: 'withdraw',
-        element: <Panel />,
+        element: <WithDraw />,
       },
       {
         path: 'trade',
-        element: <Panel />,
+        element: <Trade />,
       },
       {
         path: 'report',
-        element: <Panel />,
+        element: <Report />,
       },
       {
         path: 'order-pikup',
-        element: <Panel />,
+        element: <OrderPikup />,
       },
     ],
   },

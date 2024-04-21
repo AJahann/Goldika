@@ -5,11 +5,12 @@ import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
 
 import './TopBar.css';
 
-export default function TopBar() {
+export default function TopBar({ sideBarHandler }) {
   return (
     <div className='panel-topBar'>
       <div className='panel-topBar-wrap'>
         <Button
+          onClick={sideBarHandler}
           style={{
             width: 40,
             height: 40,

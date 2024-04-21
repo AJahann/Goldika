@@ -1,0 +1,20 @@
+.panel-dashboard {
+}
+.panel-wrap {
+  padding: 28px 0;
+  margin: 0 auto;
+  width: 60rem;
+}
+.panel-title {
+  margin: 12px 0;
+  font-size: 2.5rem;
+  color: var(--white);
+}
+.dashboard-directions {
+  display: flex;
+  padding: 12px;
+  gap: 24px;
+}
+.panel-dashboard .sec-chart-wrap {
+  padding: 0 !important;
+}
