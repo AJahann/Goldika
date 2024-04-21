@@ -30,13 +30,38 @@ const routes = [
   },
   {
     path: '/panel',
+    element: <Panel />,
     children: [
-      {
-        path: '',
-        element: <Navigate to={'dashboard'} />,
-      },
+      // {
+      //   path: '',
+      //   element: <Navigate to={'dashboard'} />,
+      // },
       {
         path: 'dashboard',
+        element: <Panel />,
+      },
+      {
+        path: 'wallet',
+        element: <Panel />,
+      },
+      {
+        path: 'deposit',
+        element: <Panel />,
+      },
+      {
+        path: 'withdraw',
+        element: <Panel />,
+      },
+      {
+        path: 'trade',
+        element: <Panel />,
+      },
+      {
+        path: 'report',
+        element: <Panel />,
+      },
+      {
+        path: 'order-pikup',
         element: <Panel />,
       },
     ],
