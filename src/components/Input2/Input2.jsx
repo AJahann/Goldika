@@ -29,7 +29,7 @@ const theme = createTheme({
   },
 });
 
-function Input2({ label, type }) {
+function Input2({ label, type, bgBlack }) {
   return (
     <div className='input2'>
       <ThemeProvider theme={theme}>
@@ -38,7 +38,7 @@ function Input2({ label, type }) {
           color='primary'
           variant='outlined'
           style={{
-            backgroundColor: '#373943',
+            backgroundColor: `${bgBlack ? '#2a2c34' : '#373943'}`,
             borderRadius: 16,
           }}
           inputProps={{

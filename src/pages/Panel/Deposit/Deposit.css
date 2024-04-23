@@ -1,0 +1,84 @@
+.panel-deposit .panel-wrap {
+  max-width: 640px;
+}
+.panel-deposit-container {
+  margin-top: 20px;
+  padding: 12px;
+  background-color: #373943;
+  border-radius: 16px;
+}
+.panel-deposit-container > .input2 {
+  margin-top: 12px;
+}
+.panel-deposit-stock button {
+  background-color: #2a2c34;
+}
+.panel-deposit-stock {
+  display: flex;
+  flex-direction: column;
+  padding: 7px;
+  margin-top: 40px;
+}
+.panel-deposit-stock-top,
+.panel-deposit-stock-bottom {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+.panel-deposit-stock-bottom {
+  margin-top: 14px;
+}
+
+.panel-deposit-myCards {
+  margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+}
+.panel-deposit-myCards .MuiAlert-message {
+  width: 100%;
+  text-align: center;
+}
+.panel-deposit-myCards > .MuiPaper-root {
+  background-color: #191207 !important;
+  border-radius: 16px !important;
+}
+.panel_myCards-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 16px;
+  color: #fff;
+}
+.panel_myCards-card {
+  width: 100%;
+  display: flex;
+  padding: 12px;
+  margin-top: 16px;
+  box-sizing: border-box;
+  border: 2px solid var(--primary-color);
+  border-radius: 16px;
+}
+.panel_mayCards-card-txt {
+  width: 100%;
+  color: #fff;
+  box-sizing: border-box;
+  padding: 8px 12px;
+}
+.panel_mayCards-card-name {
+  text-align: right;
+}
+.panel_mayCards-card-number {
+  text-align: left;
+  margin-top: 8px;
+}
+.panel-deposit-pay-btn {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.panel-deposit-pay-btn > .Mui-disabled {
+  color: rgb(255 255 255 / 26%) !important;
+  box-shadow: none;
+  background-color: rgb(189 184 184 / 12%) !important;
+}
