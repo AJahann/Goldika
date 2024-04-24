@@ -1,0 +1,20 @@
+.panel-report .panel-wrap {
+  max-width: 30rem;
+}
+.panel-report-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.panel-report-top button {
+  height: fit-content;
+  font-weight: bold;
+}
+.panel-report-container {
+  margin-top: 24px;
+}
+.panel-report-container p {
+  font-size: 24px;
+  color: rgb(84, 84, 84);
+  text-align: center;
+}
