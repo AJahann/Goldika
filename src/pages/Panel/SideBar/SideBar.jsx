@@ -11,14 +11,17 @@ import AddShoppingCartOutlinedIcon from '@mui/icons-material/AddShoppingCartOutl
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 
 import './SideBar.css';
+import { Link } from 'react-router-dom';
 
 export default function SideBar() {
   return (
     <div className='panel-sideBar'>
-      <div className='panel-sideBar-logo'>
-        <LogoSvg />
-        <p>خرید امن طلا</p>
-      </div>
+      <Link to={'/'}>
+        <div className='panel-sideBar-logo'>
+          <LogoSvg />
+          <p>خرید امن طلا</p>
+        </div>
+      </Link>
       <div className='panel-sideBar-menu'>
         <div className='panel-sideBar-menu-wrap'>
           <SideBarItem
