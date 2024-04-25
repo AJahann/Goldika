@@ -22,7 +22,6 @@ export default function SideBar() {
       <div className='panel-sideBar-menu'>
         <div className='panel-sideBar-menu-wrap'>
           <SideBarItem
-            active
             to={'dashboard'}
             name={'خانه'}
             icon={<HomeOutlinedIcon />}
