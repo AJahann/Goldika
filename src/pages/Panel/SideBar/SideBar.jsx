@@ -2,6 +2,14 @@ import React from 'react';
 import LogoSvg from './LogoSvg';
 import SideBarItem from './SideBarItem';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
+import PriceChangeOutlinedIcon from '@mui/icons-material/PriceChangeOutlined';
+import AttachMoneyOutlinedIcon from '@mui/icons-material/AttachMoneyOutlined';
+import MoneyOffCsredOutlinedIcon from '@mui/icons-material/MoneyOffCsredOutlined';
+import StoreOutlinedIcon from '@mui/icons-material/StoreOutlined';
+import SummarizeOutlinedIcon from '@mui/icons-material/SummarizeOutlined';
+import AddShoppingCartOutlinedIcon from '@mui/icons-material/AddShoppingCartOutlined';
+import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
+
 import './SideBar.css';
 
 export default function SideBar() {
@@ -22,37 +30,37 @@ export default function SideBar() {
           <SideBarItem
             to={'wallet'}
             name={'کیف و دارایی'}
-            icon={<HomeOutlinedIcon />}
+            icon={<PriceChangeOutlinedIcon />}
           />
           <SideBarItem
             to={'deposit'}
             name={'واریز پول'}
-            icon={<HomeOutlinedIcon />}
+            icon={<AttachMoneyOutlinedIcon />}
           />
           <SideBarItem
             to={'withdraw'}
             name={'برداشت پول'}
-            icon={<HomeOutlinedIcon />}
+            icon={<MoneyOffCsredOutlinedIcon />}
           />
           <SideBarItem
             to={'trade'}
             name={'معامله طلا'}
-            icon={<HomeOutlinedIcon />}
+            icon={<StoreOutlinedIcon />}
           />
           <SideBarItem
             to={'report'}
             name={'گزارش'}
-            icon={<HomeOutlinedIcon />}
+            icon={<SummarizeOutlinedIcon />}
           />
           <SideBarItem
             to={'order-pikup'}
             name={'دریافت طلا'}
-            icon={<HomeOutlinedIcon />}
+            icon={<AddShoppingCartOutlinedIcon />}
           />
         </div>
       </div>
       <div className='panel-sideBar-leaveBtn'>
-        <SideBarItem to={'/'} name={'خروج'} icon={<HomeOutlinedIcon />} />
+        <SideBarItem to={'/'} name={'خروج'} icon={<LogoutOutlinedIcon />} />
       </div>
     </div>
   );
