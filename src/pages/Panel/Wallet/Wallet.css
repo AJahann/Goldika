@@ -1,7 +1,9 @@
 .panel-wallet .panel-wrap {
-  width: 480px;
+  max-width: 480px;
+  width: 100%;
 }
 .panel-wallet-container {
+  box-sizing: border-box;
   background-color: #373943;
   border-radius: 1rem;
   margin: 28px 0;
@@ -61,6 +63,4 @@
   margin-top: 8px;
   display: block;
   color: #9fa0a8;
-}
-.logo {
 }

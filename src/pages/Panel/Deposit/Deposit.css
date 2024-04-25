@@ -76,9 +76,19 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  box-sizing: border-box;
 }
 .panel-deposit-pay-btn > .Mui-disabled {
   color: rgb(255 255 255 / 26%) !important;
   box-shadow: none;
   background-color: rgb(189 184 184 / 12%) !important;
+}
+
+@media screen and (max-width: 480px) {
+  .panel-deposit-stock button {
+    height: min-content !important;
+  }
+  .panel-deposit-pay-btn button {
+    width: 100% !important;
+  }
 }

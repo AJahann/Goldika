@@ -1,7 +1,8 @@
 .dashboard-direction-box {
   box-sizing: border-box;
   background-color: #373943;
-  width: 13.65rem;
+  max-width: 13.65rem;
+  width: 100%;
   padding: 18px;
   border-radius: 16px;
   display: flex;
@@ -12,6 +13,7 @@
   font-size: 16px;
   text-align: right;
   color: #fff;
+  line-height: 24px;
   margin-bottom: 9px;
 }
 .dashboard_box-span {
@@ -25,4 +27,10 @@
   font-size: 20px;
   text-align: left;
   margin-bottom: 10px;
+}
+
+@media screen and (max-width: 840px) {
+  .dashboard-direction-box {
+    max-width: 100%;
+  }
 }

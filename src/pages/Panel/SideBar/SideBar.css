@@ -66,3 +66,13 @@
 .panel-sideBar-leaveBtn {
   margin: 1rem 0;
 }
+
+@media screen and (max-width: 836px) {
+  .sideBar {
+    position: absolute;
+    z-index: 9999;
+  }
+  .panel-sideBar {
+    padding-top: 48px;
+  }
+}

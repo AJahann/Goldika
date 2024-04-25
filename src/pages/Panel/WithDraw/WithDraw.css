@@ -76,3 +76,9 @@
   background-color: #160b0b !important;
   color: #f4c7c7 !important;
 }
+
+@media screen and (max-width: 480px) {
+  .panel-pay-btn button {
+    width: 100% !important;
+  }
+}

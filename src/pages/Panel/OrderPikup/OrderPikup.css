@@ -29,6 +29,7 @@
 }
 .panel-orderPikup-alert .MuiPaper-root {
   background-color: #071318 !important;
+  text-align: justify;
 }
 
 /* Box */
@@ -39,7 +40,8 @@
 }
 .panel-orderPikup-item {
   box-sizing: border-box;
-  width: 23.8rem;
+  max-width: 23.8rem;
+  width: 100%;
   padding: 16px;
   display: flex;
   flex-direction: column;
@@ -65,4 +67,29 @@
   color: var(--white);
   font-size: 20px;
   line-height: 24px;
+}
+
+@media screen and (max-width: 1168px) {
+  .panel-orderPikup-items {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
+  }
+}
+@media screen and (max-width: 680px) {
+  .panel-orderPikup-items {
+    grid-template-columns: 1fr;
+  }
+}
+@media screen and (max-width: 480px) {
+  .panel-orderPikup-item button {
+    height: min-content !important;
+  }
+  .panel-orderPikup-topbar {
+    flex-direction: column;
+    gap: 12px;
+  }
+  .panel-orderPikup-topbar > div:first-child {
+    flex-direction: column;
+  }
 }
