@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { Button } from '@mui/material';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import TradingTrans from './TradingTrans';
 import Input from '../Input/Input';
 
 import './TradingBox.css';
+import { AuthContext } from '../../Context/AuthContext';
+import { Link } from 'react-router-dom';
 
 const buttonStyle = {
   color: 'var(--primary-color-badge)',
@@ -16,6 +18,9 @@ const buttonStyle = {
 };
 
 export default function TradingBox() {
+  const authContext = useContext(AuthContext);
+  const [numberInput, setNumberInput] = useState('');
+
   return (
     <section className='tradingBox container'>
       <div className='tradingBox-wrap'>
@@ -44,27 +49,59 @@ export default function TradingBox() {
           <h2 className='trandingBox-subTitle'>
             خرید طلای آبشده به صورت رسمی و تضمین‌شده و با هر میزان سرمایه
           </h2>
-
-          <div>
-            <div className='numberInput'>
-              <Input label='شماره تلفن همراه خود را وارد کنید' />
-              <Button
-                id='inputNumber-btn'
-                style={{
-                  backgroundColor: 'var(--primary-color)',
-                  zIndex: 10,
-                  color: '#000',
-                }}
-                variant='contained'
-              >
-                شروع
-                <ArrowBackIosNewIcon sx={{ fontSize: 13 }} />
-              </Button>
+          {authContext.isLogin ? (
+            <div>
+              <div style={{ position: 'relative' }} className='numberInput'>
+                <Link to={'/panel'}>
+                  <Button
+                    id='inputNumber-btn'
+                    style={{
+                      backgroundColor: 'var(--primary-color)',
+                      zIndex: 10,
+                      color: '#000',
+                      borderRadius: 14,
+                      width: 'auto',
+                      left: 'auto',
+                      right: 0,
+                      boxShadow: 'none',
+                    }}
+                    variant='contained'
+                  >
+                    شروع معامله
+                    <ArrowBackIosNewIcon sx={{ fontSize: 13 }} />
+                  </Button>
+                </Link>
+              </div>
             </div>
-          </div>
-          <span className='input-number-txt'>
-            در کمتر از دو دقیقه ثبت‌نام و شروع به معامله کنید.
-          </span>
+          ) : (
+            <>
+              <div>
+                <div className='numberInput'>
+                  <Input
+                    setNumberInput={setNumberInput}
+                    label='شماره تلفن همراه خود را وارد کنید'
+                  />
+                  <Link to={`/auth?_phone=${numberInput}`}>
+                    <Button
+                      id='inputNumber-btn'
+                      style={{
+                        backgroundColor: 'var(--primary-color)',
+                        zIndex: 10,
+                        color: '#000',
+                      }}
+                      variant='contained'
+                    >
+                      شروع
+                      <ArrowBackIosNewIcon sx={{ fontSize: 13 }} />
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+              <span className='input-number-txt'>
+                در کمتر از دو دقیقه ثبت‌نام و شروع به معامله کنید.
+              </span>
+            </>
+          )}
         </div>
 
         <div className='tradingBox-left'>

@@ -27,10 +27,14 @@ const theme = createTheme({
     },
   },
 });
-export default function Input({ label }) {
+export default function Input({ label, setNumberInput }) {
   return (
     <ThemeProvider theme={theme}>
       <TextField
+        onInput={(e) => {
+          e.target.value = e.target.value.replace(/[^0-9]/g, '');
+          setNumberInput(e.target.value);
+        }}
         label={label}
         color='primary'
         variant='outlined'

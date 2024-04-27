@@ -49,12 +49,6 @@ export default function Auth() {
   const [code, setCode] = useState('');
   const [codeValid, setCodeValid] = useState(false);
   const [open, setOpen] = useState(false);
-  const notifySuccess = (mass) =>
-    toast.success(mass, {
-      position: 'bottom-left',
-      autoClose: 3000,
-      hideProgressBar: true,
-    });
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -64,10 +58,13 @@ export default function Auth() {
   };
 
   const submitHandler = () => {
-    if (number.length === 11) {
+    const numberRegex = /^09\d{9}$/g;
+    if (numberRegex.test(number)) {
       setNumberValid(true);
-      notifySuccess('کد به شماره تلفن همراه ارسال شد.');
+      toast.success('کد به شماره تلفن همراه ارسال شد.');
       setCode(Math.floor(1000 + Math.random() * 90000));
+    } else {
+      toast.error('مطمئنی این شمارتون هست؟');
     }
   };
   return (
@@ -104,7 +101,6 @@ export default function Auth() {
           ) : numberValid ? (
             <AuthCode
               setCodeValid={setCodeValid}
-              notify={notifySuccess}
               code={code}
               setNumberValid={setNumberValid}
               number={number}
@@ -119,7 +115,7 @@ export default function Auth() {
           )}
         </div>
         <ToastContainer
-          position='bottom-left'
+          position='top-right'
           autoClose={3000}
           hideProgressBar={false}
           newestOnTop={false}

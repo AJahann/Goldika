@@ -20,6 +20,7 @@
     "recharts": "^2.12.4",
     "stylis": "^4.3.1",
     "stylis-plugin-rtl": "^2.1.1",
+    "uuid": "^9.0.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

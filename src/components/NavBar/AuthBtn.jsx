@@ -1,23 +1,41 @@
 import { Button } from '@mui/material';
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../Context/AuthContext';
 
 export default function AuthBtn() {
+  const authContext = useContext(AuthContext);
   return (
     <>
-      <Link to={'/auth'}>
-        <Button
-          style={{
-            color: 'var(--primary-color)',
-            borderColor: 'var(--primary-color)',
-            borderRadius: '10px',
-            height: '27px',
-          }}
-          variant='outlined'
-        >
-          ورود | ثبت نام
-        </Button>
-      </Link>
+      {authContext.isLogin ? (
+        <Link to={'/panel'}>
+          <Button
+            style={{
+              color: 'var(--primary-color)',
+              borderColor: 'var(--primary-color)',
+              borderRadius: '10px',
+              height: '27px',
+            }}
+            variant='outlined'
+          >
+            {authContext.userInfo.number} | ناحیه کاربری
+          </Button>
+        </Link>
+      ) : (
+        <Link to={'/auth'}>
+          <Button
+            style={{
+              color: 'var(--primary-color)',
+              borderColor: 'var(--primary-color)',
+              borderRadius: '10px',
+              height: '27px',
+            }}
+            variant='outlined'
+          >
+            ورود | ثبت نام
+          </Button>
+        </Link>
+      )}
     </>
   );
 }

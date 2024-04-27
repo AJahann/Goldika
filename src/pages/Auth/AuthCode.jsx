@@ -1,42 +1,36 @@
 import { Button, TextField, Typography } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { useEffect, useRef } from 'react';
+import { useContext, useEffect, useRef } from 'react';
 import { toast } from 'react-toastify';
+import { AuthContext } from '../../Context/AuthContext';
 
 export default function AuthCode({
   number,
   setNumberValid,
-  notify,
   code,
   setCodeValid,
 }) {
+  const authContext = useContext(AuthContext);
   const inputCode = useRef();
 
   useEffect(() => {
-    notify(`کد شما : ${code}`);
-  }, [notify, code]);
+    toast.success(`کد شما : ${code}`, { position: 'top-right' });
+  }, [code]);
+  useEffect(() => {
+    console.log(authContext);
+  }, []);
 
   const submitHandler = () => {
     if (Number(inputCode.current.value) === code) {
       setCodeValid(true);
-
-      toast.success('لطفا فرم را تکمیل کنید.', {
-        position: 'bottom-left',
-        autoClose: 3000,
-        hideProgressBar: true,
-      });
     } else {
-      toast.error('کد وارد شده اشتباه است.', {
-        position: 'bottom-left',
-        autoClose: 3000,
-        hideProgressBar: true,
-      });
+      toast.error('کد وارد شده اشتباه است.');
     }
   };
 
   return (
     <div className='auth-box'>
-      <h1>ثبت‌ نام</h1>
+      <h1>{authContext.isLogin ? 'ورود' : 'ثبت‌ نام'}</h1>
       <div
         style={{
           paddingLeft: 10,

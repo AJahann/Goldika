@@ -13,7 +13,7 @@ import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import './SideBar.css';
 import { Link } from 'react-router-dom';
 
-export default function SideBar() {
+export default function SideBar({ logout }) {
   return (
     <div className='panel-sideBar'>
       <Link to={'/'}>
@@ -61,7 +61,7 @@ export default function SideBar() {
           />
         </div>
       </div>
-      <div className='panel-sideBar-leaveBtn'>
+      <div onClick={logout} className='panel-sideBar-leaveBtn'>
         <SideBarItem to={'/'} name={'خروج'} icon={<LogoutOutlinedIcon />} />
       </div>
     </div>

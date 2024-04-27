@@ -3,26 +3,50 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { useContext, useEffect } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+import { AuthContext } from '../../Context/AuthContext';
 
 export default function AuthForm({ number, setNumberValid, setCodeValid }) {
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const navigate = useNavigate();
+  const authContext = useContext(AuthContext);
 
   const submitHandler = ({ name, family, pass, rePass }) => {
     if (pass === rePass) {
       let userInfo = {
+        id: uuidv4(),
         name,
         family,
+        number,
         pass,
       };
-      toast.success('ثبت نام با موفقیت انجام شد.', {
-        position: 'bottom-left',
-        autoClose: 3000,
-        hideProgressBar: true,
-      });
-      navigate('/panel');
+      fetch(`http://localhost:4000/users`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userInfo),
+      })
+        .then((res) => res.json())
+        .then((result) => {
+          authContext.login(userInfo, userInfo.id);
+          navigate('/panel');
+        })
+        .catch((err) => console.log(err));
     }
   };
+
+  useEffect(() => {
+    toast.success('لطفا فرم را به دقت پر کنید.');
+  }, []);
+  useEffect(() => {
+    errors.pass && toast.error('دوست عزیز پسورد شما دارای شرایط حدقلی نیست.');
+  }, [errors]);
 
   return (
     <div className='auth-box'>

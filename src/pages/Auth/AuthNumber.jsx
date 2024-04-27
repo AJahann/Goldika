@@ -1,4 +1,6 @@
 import { Button, TextField } from '@mui/material';
+import { useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 export default function AuthNumber({
   handleClickOpen,
@@ -6,6 +8,9 @@ export default function AuthNumber({
   setNumber,
   onSubmit,
 }) {
+  const [queryParameters] = useSearchParams();
+  const urlNumber = queryParameters.get('_phone');
+
   const handleChange = (e) => {
     const inputNumber = e.target.value;
     if (inputNumber.length <= 11) {
@@ -13,14 +18,18 @@ export default function AuthNumber({
     }
   };
 
+  useEffect(() => {
+    urlNumber && setNumber(urlNumber);
+  }, [urlNumber, setNumber]);
+
   return (
     <div className='auth-box'>
       <h1>ورود | ثبت نام</h1>
       <div className='auth-box-input-wrap'>
         <TextField
-          onInput={(e) =>
-            (e.target.value = e.target.value.replace(/[^\d]/g, ''))
-          }
+          onInput={(e) => {
+            e.target.value = e.target.value.replace(/[^0-9]/g, '');
+          }}
           label='شماره تلفن همراه'
           color='primary'
           autoFocus

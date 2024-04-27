@@ -5,7 +5,7 @@ import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
 
 import './TopBar.css';
 
-export default function TopBar({ sideBarHandler }) {
+export default function TopBar({ sideBarHandler, number }) {
   return (
     <div className='panel-topBar'>
       <div className='panel-topBar-wrap'>
@@ -31,7 +31,7 @@ export default function TopBar({ sideBarHandler }) {
           }}
           className='topBar-user-info'
         >
-          <span>۰۹۰۳۰۹۴۱۲۶۶</span>
+          <span>{number}</span>
           <span>
             <PersonRoundedIcon style={{ marginBottom: '-5px' }} />
           </span>
