@@ -44,6 +44,7 @@ const theme = createTheme({
 });
 
 export default function Auth() {
+  const [isUser, setIsUser] = useState(false);
   const [number, setNumber] = useState('');
   const [numberValid, setNumberValid] = useState(false);
   const [code, setCode] = useState('');
@@ -56,13 +57,31 @@ export default function Auth() {
   const handleClose = () => {
     setOpen(false);
   };
+  const codeGenerator = () => {
+    setCode(Math.floor(1000 + Math.random() * 90000));
+  };
+  const getIsUser = (number) => {
+    fetch(`http://localhost:4000/users?number=${number}`)
+      .then((res) => res.json())
+      .then((res) => {
+        if (res.length) {
+          console.log(res);
+          setIsUser(true);
+        } else {
+          setIsUser(false);
+        }
+      })
+      .catch((err) => console.log(err));
+  };
 
   const submitHandler = () => {
     const numberRegex = /^09\d{9}$/g;
     if (numberRegex.test(number)) {
       setNumberValid(true);
+      codeGenerator();
+      getIsUser(number);
+
       toast.success('کد به شماره تلفن همراه ارسال شد.');
-      setCode(Math.floor(1000 + Math.random() * 90000));
     } else {
       toast.error('مطمئنی این شمارتون هست؟');
     }
@@ -104,6 +123,7 @@ export default function Auth() {
               code={code}
               setNumberValid={setNumberValid}
               number={number}
+              isUser={isUser}
             />
           ) : (
             <AuthNumber

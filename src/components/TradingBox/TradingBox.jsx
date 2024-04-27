@@ -51,7 +51,7 @@ export default function TradingBox() {
           </h2>
           {authContext.isLogin ? (
             <div>
-              <div style={{ position: 'relative' }} className='numberInput'>
+              <div style={{ height: 62 }} className='numberInput'>
                 <Link to={'/panel'}>
                   <Button
                     id='inputNumber-btn'

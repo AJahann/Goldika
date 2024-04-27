@@ -14,7 +14,7 @@ export default function AuthBtn() {
               color: 'var(--primary-color)',
               borderColor: 'var(--primary-color)',
               borderRadius: '10px',
-              height: '27px',
+              height: 'auto',
             }}
             variant='outlined'
           >

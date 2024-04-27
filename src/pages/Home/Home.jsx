@@ -15,10 +15,6 @@ import { AuthContext } from '../../Context/AuthContext';
 export default function Home() {
   const authContext = useContext(AuthContext);
 
-  useEffect(() => {
-    console.log(authContext);
-  }, [authContext]);
-
   return (
     <div className='home'>
       <NavBar />

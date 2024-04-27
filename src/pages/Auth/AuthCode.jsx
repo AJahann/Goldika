@@ -3,34 +3,53 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useContext, useEffect, useRef } from 'react';
 import { toast } from 'react-toastify';
 import { AuthContext } from '../../Context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 export default function AuthCode({
   number,
   setNumberValid,
   code,
   setCodeValid,
+  isUser,
 }) {
   const authContext = useContext(AuthContext);
+  const navigate = useNavigate();
   const inputCode = useRef();
 
-  useEffect(() => {
-    toast.success(`کد شما : ${code}`, { position: 'top-right' });
-  }, [code]);
-  useEffect(() => {
-    console.log(authContext);
-  }, []);
-
-  const submitHandler = () => {
+  const onClickSignUp = () => {
     if (Number(inputCode.current.value) === code) {
       setCodeValid(true);
     } else {
       toast.error('کد وارد شده اشتباه است.');
     }
   };
+  const onClickLogin = () => {
+    if (Number(inputCode.current.value) === code) {
+      getUser(number);
+    } else {
+      toast.error('کد وارد شده اشتباه است.');
+    }
+  };
+
+  const getUser = (number) => {
+    fetch(`http://localhost:4000/users?number=${number}`)
+      .then((res) => res.json())
+      .then((res) => {
+        if (res.length) {
+          authContext.login(res[0], res[0].id);
+          navigate('/');
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    toast.success(`کد شما : ${code}`, { position: 'top-right' });
+  }, [code]);
 
   return (
     <div className='auth-box'>
-      <h1>{authContext.isLogin ? 'ورود' : 'ثبت‌ نام'}</h1>
+      <h1>{isUser ? 'ورود' : 'ثبت‌ نام'}</h1>
       <div
         style={{
           paddingLeft: 10,
@@ -84,16 +103,29 @@ export default function AuthCode({
       >
         شماره تلفن اشتباه است؟
       </Typography>
-      <Button
-        onClick={() => {
-          submitHandler();
-        }}
-        style={{ borderRadius: 8, marginTop: 24 }}
-        fullWidth
-        variant='contained'
-      >
-        ادامه
-      </Button>
+      {isUser ? (
+        <Button
+          onClick={() => {
+            onClickLogin();
+          }}
+          style={{ borderRadius: 8, marginTop: 24 }}
+          fullWidth
+          variant='contained'
+        >
+          ورود
+        </Button>
+      ) : (
+        <Button
+          onClick={() => {
+            onClickSignUp();
+          }}
+          style={{ borderRadius: 8, marginTop: 24 }}
+          fullWidth
+          variant='contained'
+        >
+          ادامه
+        </Button>
+      )}
     </div>
   );
 }
