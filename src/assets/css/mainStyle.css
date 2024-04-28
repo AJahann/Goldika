@@ -21,6 +21,33 @@ body {
   direction: rtl;
 }
 
+/* scroll bar */
+body {
+  --sb-track-color: #424242;
+  --sb-thumb-color: #686868;
+  --sb-size: 14px;
+}
+
+body::-webkit-scrollbar {
+  width: var(--sb-size);
+}
+
+body::-webkit-scrollbar-track {
+  background: var(--sb-track-color);
+  border-radius: 3px;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: var(--sb-thumb-color);
+  border-radius: 3px;
+}
+
+@supports not selector(::-webkit-scrollbar) {
+  body {
+    scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+  }
+}
+
 .container {
   max-width: 70rem;
   padding: 0 18px;
