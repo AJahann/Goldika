@@ -4,6 +4,7 @@ import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
 
 import './TopBar.css';
+import { EntoFa, separateNumbers } from '../../../Utils/Utils';
 
 export default function TopBar({ sideBarHandler, number }) {
   return (
@@ -31,7 +32,9 @@ export default function TopBar({ sideBarHandler, number }) {
           }}
           className='topBar-user-info'
         >
-          <span>{number}</span>
+          <span style={{ direction: 'ltr' }}>
+            {EntoFa(separateNumbers(number))}
+          </span>
           <span>
             <PersonRoundedIcon style={{ marginBottom: '-5px' }} />
           </span>

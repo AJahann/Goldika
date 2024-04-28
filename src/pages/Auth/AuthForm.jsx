@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import { useContext, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { AuthContext } from '../../Context/AuthContext';
+import { EntoFa } from '../../Utils/Utils';
 
 export default function AuthForm({ number, setNumberValid, setCodeValid }) {
   const {
@@ -74,7 +75,7 @@ export default function AuthForm({ number, setNumberValid, setCodeValid }) {
         >
           <ArrowBackIcon fontSize='small' />
         </Button>
-        <span>{number}</span>
+        <span>{EntoFa(number)}</span>
       </div>
       <hr style={{ opacity: '.5' }} />
       <form

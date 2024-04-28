@@ -5,6 +5,7 @@ import SellIcon from '@mui/icons-material/Sell';
 import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalanceWalletOutlined';
 import DashboardBox from '../../../components/DashboardBox/DashboardBox';
 import Chart from './../../../components/Main/Chart/Chart';
+import { formatNumberToPersian } from '../../../Utils/Utils';
 
 export default function Dashboard() {
   return (
@@ -16,7 +17,7 @@ export default function Dashboard() {
             link={'/panel/trade?trade_action=buy'}
             title={'خرید از گلدیکا:'}
             txt={'(هرگرم طلای ۱۸ عیار)'}
-            price={'۳,۷۱۴,۵۷۴'}
+            price={formatNumberToPersian('3714086')}
             btnName={'خرید'}
             icon={<CurrencyExchangeIcon fontSize='20px' />}
             bgColor={'#24b73d'}
@@ -26,7 +27,7 @@ export default function Dashboard() {
             title={'فروش به گلدیکا:'}
             txt={'(هرگرم طلای ۱۸ عیار)'}
             btnName={'فروش'}
-            price={'۳,۶۰۴,۵۷۴'}
+            price={formatNumberToPersian('3402485')}
             icon={<SellIcon fontSize='20px' />}
             bgColor={'#da2b2b'}
           />
@@ -34,7 +35,7 @@ export default function Dashboard() {
             link={'/panel/deposit'}
             title={'موجودی کیف پول:'}
             btnName={'افزایش موجودی'}
-            price={'۰'}
+            price={formatNumberToPersian('0')}
             icon={<AccountBalanceWalletOutlinedIcon fontSize='20px' />}
             bgColor={'#f1ab1f'}
           />

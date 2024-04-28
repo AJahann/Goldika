@@ -26,12 +26,12 @@ export default function Contact() {
             <div className='contact_content-txt'>
               <Txt icon={<LocalPhoneOutlinedIcon />}>
                 <p style={{ display: 'flex', alignItems: 'center' }}>
-                  021-11111111
+                  ۰۲۱-۱۱۱۱۱۱۱
                 </p>
               </Txt>
               <Txt icon={<LocalPhoneOutlinedIcon />}>
                 <p style={{ display: 'flex', alignItems: 'center' }}>
-                  021-99999999
+                  ۰۲۲-۲۲۲۲۲۲۲
                 </p>
               </Txt>
               <Txt icon={<EmailOutlinedIcon />}>

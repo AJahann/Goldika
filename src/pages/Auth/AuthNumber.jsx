@@ -1,6 +1,7 @@
 import { Button, TextField } from '@mui/material';
 import { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { EntoFa, PetoEn } from '../../Utils/Utils';
 
 export default function AuthNumber({
   handleClickOpen,
@@ -14,7 +15,7 @@ export default function AuthNumber({
   const handleChange = (e) => {
     const inputNumber = e.target.value;
     if (inputNumber.length <= 11) {
-      setNumber(inputNumber);
+      setNumber(PetoEn(inputNumber));
     }
   };
 
@@ -27,13 +28,10 @@ export default function AuthNumber({
       <h1>ورود | ثبت نام</h1>
       <div className='auth-box-input-wrap'>
         <TextField
-          onInput={(e) => {
-            e.target.value = e.target.value.replace(/[^0-9]/g, '');
-          }}
           label='شماره تلفن همراه'
           color='primary'
           autoFocus
-          value={number}
+          value={EntoFa(number)}
           onChange={handleChange}
           variant='outlined'
           inputProps={{

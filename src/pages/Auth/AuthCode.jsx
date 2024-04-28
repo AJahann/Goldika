@@ -1,9 +1,10 @@
 import { Button, TextField, Typography } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { useContext, useEffect, useRef } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { AuthContext } from '../../Context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { EntoFa, PetoEn } from '../../Utils/Utils';
 
 export default function AuthCode({
   number,
@@ -14,17 +15,17 @@ export default function AuthCode({
 }) {
   const authContext = useContext(AuthContext);
   const navigate = useNavigate();
-  const inputCode = useRef();
+  const [inputCode, setInputCode] = useState('');
 
   const onClickSignUp = () => {
-    if (Number(inputCode.current.value) === code) {
+    if (Number(inputCode) === code) {
       setCodeValid(true);
     } else {
       toast.error('کد وارد شده اشتباه است.');
     }
   };
   const onClickLogin = () => {
-    if (Number(inputCode.current.value) === code) {
+    if (Number(inputCode) === code) {
       getUser(number);
     } else {
       toast.error('کد وارد شده اشتباه است.');
@@ -44,7 +45,9 @@ export default function AuthCode({
   };
 
   useEffect(() => {
-    toast.success(`کد شما : ${code}`, { position: 'top-right' });
+    toast.success(`کد شما : ${EntoFa(String(code))}`, {
+      position: 'top-right',
+    });
   }, [code]);
 
   return (
@@ -72,7 +75,7 @@ export default function AuthCode({
         >
           <ArrowBackIcon fontSize='small' />
         </Button>
-        <span>{number}</span>
+        <span>{EntoFa(number)}</span>
       </div>
       <hr style={{ opacity: '.5' }} />
       <div style={{ marginTop: 27 }} className='auth-box-input-wrap'>
@@ -80,10 +83,11 @@ export default function AuthCode({
           کد یک‌بار مصرف ارسال شده به تلفن همراهتان را وارد کنید:
         </p>
         <TextField
-          inputRef={inputCode}
           autoFocus
+          value={EntoFa(inputCode)}
+          onChange={(e) => setInputCode(PetoEn(e.target.value))}
           onInput={(e) => {
-            e.target.value = e.target.value.replace(/[^\d]/g, '');
+            // e.target.value = e.target.value.replace(/[^\d]/g, '');
           }}
           inputProps={{
             style: {
