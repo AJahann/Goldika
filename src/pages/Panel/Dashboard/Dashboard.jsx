@@ -13,6 +13,7 @@ export default function Dashboard() {
         <h2 className='panel-title'>خانه</h2>
         <div className='dashboard-directions'>
           <DashboardBox
+            link={'/panel/trade?trade_action=buy'}
             title={'خرید از گلدیکا:'}
             txt={'(هرگرم طلای ۱۸ عیار)'}
             price={'۳,۷۱۴,۵۷۴'}
@@ -21,6 +22,7 @@ export default function Dashboard() {
             bgColor={'#24b73d'}
           />
           <DashboardBox
+            link={'/panel/trade?trade_action=sell'}
             title={'فروش به گلدیکا:'}
             txt={'(هرگرم طلای ۱۸ عیار)'}
             btnName={'فروش'}
@@ -29,6 +31,7 @@ export default function Dashboard() {
             bgColor={'#da2b2b'}
           />
           <DashboardBox
+            link={'/panel/deposit'}
             title={'موجودی کیف پول:'}
             btnName={'افزایش موجودی'}
             price={'۰'}

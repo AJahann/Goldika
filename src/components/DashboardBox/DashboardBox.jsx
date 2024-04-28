@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button } from '@mui/material';
 import './DashboardBox.css';
+import { Link } from 'react-router-dom';
 
 export default function DashboardBox({
   title,
@@ -10,6 +11,7 @@ export default function DashboardBox({
   bgColor,
   btnName,
   geram,
+  link,
 }) {
   return (
     <div className='dashboard-direction-box'>
@@ -19,19 +21,21 @@ export default function DashboardBox({
         {price} {geram ? 'گرم' : 'تومان'}
       </p>
       {bgColor && (
-        <Button
-          fullWidth
-          style={{
-            backgroundColor: `${bgColor}`,
-            color: 'black',
-            fontSize: 18,
-            borderRadius: 8,
-            gap: 10,
-          }}
-        >
-          {icon}
-          {btnName}
-        </Button>
+        <Link to={link}>
+          <Button
+            fullWidth
+            style={{
+              backgroundColor: `${bgColor}`,
+              color: 'black',
+              fontSize: 18,
+              borderRadius: 8,
+              gap: 10,
+            }}
+          >
+            {icon}
+            {btnName}
+          </Button>
+        </Link>
       )}
     </div>
   );
