@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Input2 from './../../../components/Input2/Input2';
-import { Alert, Button, createTheme } from '@mui/material';
+import { Alert, Box, Button, Typography, createTheme } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import { ThemeProvider } from '@emotion/react';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
+import Modal from './../../../components/Modal/Modal';
 
 import './Deposit.css';
 
@@ -16,13 +17,21 @@ const theme = createTheme({
 });
 
 export default function Deposit() {
+  const [deposit, setDeposit] = useState('');
+
   return (
     <div className='panel-deposit'>
       <ThemeProvider theme={theme}>
         <div className='panel-wrap'>
           <div className='panel-title'>واریز</div>
           <div className='panel-deposit-container'>
-            <Input2 label={'مبلغ واریز'} type={'تومان'} bgBlack />
+            <Input2
+              value={deposit}
+              setValue={setDeposit}
+              label={'مبلغ واریز'}
+              type={'تومان'}
+              bgBlack
+            />
             <span></span>
             <div className='panel-deposit-stock'>
               <div className='panel-deposit-stock-top'>
@@ -31,6 +40,7 @@ export default function Deposit() {
                   style={{ height: 31, borderRadius: 8 }}
                   color='primary'
                   variant='outlined'
+                  onClick={() => setDeposit('500000')}
                 >
                   <AddIcon style={{ fontSize: 20, marginLeft: 8 }} />
                   ۵۰۰,۰۰۰ تومان
@@ -40,6 +50,7 @@ export default function Deposit() {
                   style={{ height: 31, borderRadius: 8 }}
                   color='primary'
                   variant='outlined'
+                  onClick={() => setDeposit('1000000')}
                 >
                   <AddIcon style={{ fontSize: 20, marginLeft: 8 }} />
                   ۱,۰۰۰,۰۰۰ تومان
@@ -51,18 +62,20 @@ export default function Deposit() {
                   style={{ height: 31, borderRadius: 8 }}
                   color='primary'
                   variant='outlined'
+                  onClick={() => setDeposit('5000000')}
                 >
                   <AddIcon style={{ fontSize: 20, marginLeft: 8 }} />
-                  ۵۰۰,۰۰۰ تومان
+                  ۵,۰۰۰,۰۰۰ تومان
                 </Button>
                 <Button
                   fullWidth
                   style={{ height: 31, borderRadius: 8 }}
                   color='primary'
                   variant='outlined'
+                  onClick={() => setDeposit('10000000')}
                 >
                   <AddIcon style={{ fontSize: 20, marginLeft: 8 }} />
-                  ۱,۰۰۰,۰۰۰ تومان
+                  ۱۰,۰۰۰,۰۰۰ تومان
                 </Button>
               </div>
             </div>
@@ -129,6 +142,33 @@ export default function Deposit() {
               پرداخت
             </Button>
           </div>
+          {/* <Modal open={true}>
+            <Typography
+              style={{
+                fontSize: 20,
+                marginBottom: 16,
+                color: '#fff',
+                fontWeight: 'bold',
+              }}
+            >
+              افزودن کارت بانکی
+            </Typography>
+            <Box>
+              <Alert
+                severity='warning'
+                style={{ backgroundColor: 'rgb(25, 18, 7) !important' }}
+              >
+                مالکیت کارت باید به نام خودتان باشد.
+              </Alert>
+            </Box>
+            <Button
+              // onClick={handleClose}
+              style={{ borderRadius: 8 }}
+              variant='contained'
+            >
+              بستن
+            </Button>
+          </Modal> */}
         </div>
       </ThemeProvider>
     </div>

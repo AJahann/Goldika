@@ -3,6 +3,12 @@ import { TextField, InputAdornment, createTheme } from '@mui/material';
 import { ThemeProvider } from '@emotion/react';
 
 import './Input2.css';
+import {
+  EntoFa,
+  PetoEn,
+  formatNumberToPersian,
+  removeNonNumericCharacters,
+} from '../../Utils/Utils';
 
 const theme = createTheme({
   palette: {
@@ -29,7 +35,7 @@ const theme = createTheme({
   },
 });
 
-function Input2({ label, type, bgBlack }) {
+function Input2({ value = '', setValue, label, type, bgBlack }) {
   return (
     <div className='input2'>
       <ThemeProvider theme={theme}>
@@ -37,6 +43,10 @@ function Input2({ label, type, bgBlack }) {
           fullWidth
           color='primary'
           variant='outlined'
+          value={formatNumberToPersian(value)}
+          onChange={(e) => {
+            setValue(removeNonNumericCharacters(PetoEn(e.target.value)));
+          }}
           style={{
             backgroundColor: `${bgBlack ? '#2a2c34' : '#373943'}`,
             borderRadius: 16,

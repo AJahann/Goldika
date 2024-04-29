@@ -38,7 +38,8 @@
   width: 100%;
   text-align: center;
 }
-.panel-deposit-myCards > .MuiPaper-root {
+.panel-deposit-myCards > .MuiPaper-root,
+.MuiBox-root .MuiPaper-root {
   background-color: #191207 !important;
   border-radius: 16px !important;
 }

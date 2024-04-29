@@ -30,5 +30,12 @@ export const separateNumbers = function (string) {
 };
 
 export const formatNumberToPersian = (number) => {
+  if (number === '') {
+    return '';
+  }
   return EntoFa(Number(number).toLocaleString('fa'));
+};
+
+export const removeNonNumericCharacters = (str) => {
+  return str.replace(/[^\d]/g, '');
 };
