@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import Input2 from './../../../components/Input2/Input2';
 import { Alert, Box, Button, Typography, createTheme } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import { ThemeProvider } from '@emotion/react';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import Modal from './../../../components/Modal/Modal';
+import { UserPocketContext } from './../../../Context/UserPocketContext';
 
 import './Deposit.css';
+import { useNavigate } from 'react-router-dom';
 
 const theme = createTheme({
   palette: {
@@ -17,7 +19,19 @@ const theme = createTheme({
 });
 
 export default function Deposit() {
+  const userPocketContext = useContext(UserPocketContext);
   const [deposit, setDeposit] = useState('');
+  const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const creditHandler = () => {
+    if (deposit.length) {
+      userPocketContext.walletBalance =
+        Number(userPocketContext.walletBalance) + Number(deposit);
+      setDeposit('');
+      navigate('/panel/dashboard');
+    }
+  };
 
   return (
     <div className='panel-deposit'>
@@ -84,22 +98,22 @@ export default function Deposit() {
               {/* <div className='panel_myCards-top'>
                 <div className='panel_myCards-title'>کارت های من:</div>
                 <Button variant='text' className='panel_myCards-add-btn'>
-                  افزودن کارت
+                افزودن کارت
                 </Button>
-              </div>
-              <div className='panel_myCards-bottom'>
+                </div>
+                <div className='panel_myCards-bottom'>
                 <div className='panel_myCards-card'>
-                  <div>
-                    <AccountBalanceIcon
-                      style={{ fontSize: 56, color: '#84879a' }}
-                    />
-                  </div>
-                  <div className='panel_mayCards-card-txt'>
+                <div>
+                <AccountBalanceIcon
+                style={{ fontSize: 56, color: '#84879a' }}
+                />
+                </div>
+                <div className='panel_mayCards-card-txt'>
                     <p className='panel_mayCards-card-name'>بانک صادرات</p>
                     <p className='panel_mayCards-card-number'>
-                      6037-0000-0000-9521
+                    6037-0000-0000-9521
                     </p>
-                  </div>
+                    </div>
                 </div>
               </div> */}
               <Alert
@@ -136,39 +150,40 @@ export default function Deposit() {
                 fontWeight: 'bold',
                 boxShadow: 'none',
               }}
+              onClick={creditHandler}
               variant='contained'
-              disabled
+              disabled={!deposit.length}
             >
               پرداخت
             </Button>
           </div>
           {/* <Modal open={true}>
             <Typography
-              style={{
+            style={{
                 fontSize: 20,
                 marginBottom: 16,
                 color: '#fff',
                 fontWeight: 'bold',
               }}
-            >
+              >
               افزودن کارت بانکی
-            </Typography>
-            <Box>
+              </Typography>
+              <Box>
               <Alert
                 severity='warning'
                 style={{ backgroundColor: 'rgb(25, 18, 7) !important' }}
-              >
+                >
                 مالکیت کارت باید به نام خودتان باشد.
-              </Alert>
-            </Box>
-            <Button
-              // onClick={handleClose}
-              style={{ borderRadius: 8 }}
-              variant='contained'
-            >
-              بستن
-            </Button>
-          </Modal> */}
+                </Alert>
+                </Box>
+                <Button
+                // onClick={handleClose}
+                style={{ borderRadius: 8 }}
+                variant='contained'
+                >
+                بستن
+                </Button>
+              </Modal> */}
         </div>
       </ThemeProvider>
     </div>
