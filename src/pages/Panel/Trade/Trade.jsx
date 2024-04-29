@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Input2 from './../../../components/Input2/Input2';
 import {
   Alert,
@@ -14,6 +14,9 @@ import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import CreditCardOutlinedIcon from '@mui/icons-material/CreditCardOutlined';
 
 import './Trade.css';
+import { UserPocketContext } from '../../../Context/UserPocketContext';
+import { formatNumberToPersian } from '../../../Utils/Utils';
+import { useParams, useSearchParams } from 'react-router-dom';
 
 const theme = createTheme({
   palette: {
@@ -24,6 +27,18 @@ const theme = createTheme({
 });
 
 export default function Trade() {
+  const userPocketContext = useContext(UserPocketContext);
+  const [tradeAction, setTradeAction] = useState('buy');
+
+  const [queryParams] = useSearchParams();
+  const urlParam = queryParams.get('trade_action');
+
+  useEffect(() => {
+    if (urlParam) {
+      setTradeAction(urlParam);
+    }
+  }, [urlParam]);
+
   return (
     <div className='panel-trade'>
       <ThemeProvider theme={theme}>
@@ -33,12 +48,19 @@ export default function Trade() {
             <div className='panel-trade-top'>
               <ButtonGroup className='panel-trade-top-btns' variant='contained'>
                 <Button
-                  className='selected'
+                  onClick={() => setTradeAction('buy')}
+                  className={tradeAction === 'buy' ? 'selected' : ''}
                   style={{ borderRadius: '0 8px 8px 0' }}
                 >
                   خرید
                 </Button>
-                <Button style={{ borderRadius: '8px 0 0 8px' }}>فروش</Button>
+                <Button
+                  onClick={() => setTradeAction('sell')}
+                  className={tradeAction === 'sell' ? 'selected' : ''}
+                  style={{ borderRadius: '8px 0 0 8px' }}
+                >
+                  فروش
+                </Button>
               </ButtonGroup>
 
               <div className='panel-trade-top-txt'>
@@ -80,7 +102,15 @@ export default function Trade() {
               }}
             >
               <CreditCardOutlinedIcon style={{ fontSize: 24, marginLeft: 8 }} />
-              موجودی کیف پول: ۰ تومان
+              {tradeAction === 'buy'
+                ? `
+                موجودی کیف پول:${' '}
+                ${formatNumberToPersian(userPocketContext.walletBalance)} تومان
+                `
+                : `
+              موجودی کیف طلا:${' '}
+              ${formatNumberToPersian(userPocketContext.goldWalletBalance)} گرم
+              `}
             </div>
             <div className='panel-pay-btn'>
               <Button
@@ -92,7 +122,7 @@ export default function Trade() {
                   borderRadius: 8,
                   fontWeight: 'bold',
                   boxShadow: 'none',
-                  backgroundColor: 'green',
+                  backgroundColor: `${tradeAction === 'buy' ? 'green' : 'red'}`,
                 }}
                 variant='contained'
               >

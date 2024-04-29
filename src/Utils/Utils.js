@@ -28,6 +28,7 @@ export const separateNumbers = function (string) {
 
   return separatedNumbers[0];
 };
+
 export const formatNumberToPersian = (number) => {
   return EntoFa(Number(number).toLocaleString('fa'));
 };

@@ -25,6 +25,11 @@ export default function AuthForm({ number, setNumberValid, setCodeValid }) {
         family,
         number,
         pass,
+        pocket: {
+          walletBalance: '0',
+          goldWalletBalance: '0.000',
+          cart: {},
+        },
       };
       fetch(`http://localhost:4000/users`, {
         method: 'POST',

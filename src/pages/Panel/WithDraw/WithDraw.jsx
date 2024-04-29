@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Input2 from './../../../components/Input2/Input2';
 import { Alert, Box, Button, Slider, createTheme } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
@@ -7,6 +7,8 @@ import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import CreditCardOutlinedIcon from '@mui/icons-material/CreditCardOutlined';
 
 import './WithDraw.css';
+import { UserPocketContext } from '../../../Context/UserPocketContext';
+import { formatNumberToPersian } from '../../../Utils/Utils';
 
 const theme = createTheme({
   palette: {
@@ -17,6 +19,7 @@ const theme = createTheme({
 });
 
 export default function WithDraw() {
+  const userPocketContext = useContext(UserPocketContext);
   return (
     <div className='panel-withdraw'>
       <ThemeProvider theme={theme}>
@@ -33,7 +36,10 @@ export default function WithDraw() {
               }}
             >
               <CreditCardOutlinedIcon style={{ fontSize: 24, marginLeft: 8 }} />
-              موجودی: ۰ تومان
+              موجودی: {formatNumberToPersian(
+                userPocketContext.walletBalance,
+              )}{' '}
+              تومان
             </div>
             <Input2 label={'مبلغ برداشت'} type={'تومان'} bgBlack />
             <span></span>

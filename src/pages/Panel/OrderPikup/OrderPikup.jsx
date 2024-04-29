@@ -1,9 +1,11 @@
 import { Alert, Button, ThemeProvider, createTheme } from '@mui/material';
 import LocalGroceryStoreOutlinedIcon from '@mui/icons-material/LocalGroceryStoreOutlined';
-import React from 'react';
+import React, { useContext } from 'react';
 
 import './OrderPikup.css';
 import OrderBox from './OrderBox';
+import { formatNumberToPersian } from '../../../Utils/Utils';
+import { UserPocketContext } from '../../../Context/UserPocketContext';
 
 const theme = createTheme({
   palette: {
@@ -87,6 +89,8 @@ const data = [
 ];
 
 export default function OrderPikup() {
+  const userPocketContext = useContext(UserPocketContext);
+
   return (
     <div className='panel-orderPikup'>
       <ThemeProvider theme={theme}>
@@ -95,7 +99,11 @@ export default function OrderPikup() {
             <div className='panel-orderPikup-topbar'>
               <div>
                 <h2 className='panel-title'>دریافت طلا</h2>
-                <p>موجودی طلا: ۰.۰۰۰ گرم</p>
+                <p>
+                  موجودی طلا:{' '}
+                  {formatNumberToPersian(userPocketContext.goldWalletBalance)}{' '}
+                  گرم
+                </p>
               </div>
               <div>
                 <Button
