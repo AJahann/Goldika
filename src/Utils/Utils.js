@@ -39,3 +39,27 @@ export const formatNumberToPersian = (number) => {
 export const removeNonNumericCharacters = (str) => {
   return str.replace(/[^\d]/g, '');
 };
+
+export const separateNumbersTo4Groups = (string) => {
+  string = String(string);
+  const numbers = string.match(/\d+/g);
+  if (!numbers) {
+    return '';
+  }
+
+  const combinedNumbers = numbers.join('');
+  const maxNumbers = Math.min(combinedNumbers.length, 16);
+  const formattedNumbers = combinedNumbers.substr(0, maxNumbers);
+
+  const separatedNumbers = [];
+  for (let i = 0; i < formattedNumbers.length; i += 4) {
+    separatedNumbers.push(formattedNumbers.substr(i, 4));
+  }
+
+  return EntoFa(separatedNumbers.join('-'));
+};
+
+export const combineNumbersFromGroups = (string) => {
+  const strippedString = string.replace(/-/g, '');
+  return strippedString || '';
+};

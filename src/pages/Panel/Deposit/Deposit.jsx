@@ -1,14 +1,15 @@
 import React, { useContext, useState } from 'react';
-import Input2 from './../../../components/Input2/Input2';
 import { Alert, Box, Button, Typography, createTheme } from '@mui/material';
+import Input2 from './../../../components/Input2/Input2';
+import Input from './../../../components/Input/Input';
 import AddIcon from '@mui/icons-material/Add';
 import { ThemeProvider } from '@emotion/react';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import Modal from './../../../components/Modal/Modal';
+import { useNavigate } from 'react-router-dom';
 import { UserPocketContext } from './../../../Context/UserPocketContext';
 
 import './Deposit.css';
-import { useNavigate } from 'react-router-dom';
 
 const theme = createTheme({
   palette: {
@@ -22,6 +23,8 @@ export default function Deposit() {
   const userPocketContext = useContext(UserPocketContext);
   const [deposit, setDeposit] = useState('');
   const [open, setOpen] = useState(false);
+  const [cardNumber, setCardNumber] = useState('');
+  const [cardName, setCardName] = useState('');
   const navigate = useNavigate();
 
   const creditHandler = () => {
@@ -31,6 +34,10 @@ export default function Deposit() {
       setDeposit('');
       navigate('/panel/dashboard');
     }
+  };
+  const addCreditCardHandler = () => {
+    console.log(cardNumber);
+    console.log(cardName);
   };
 
   return (
@@ -135,6 +142,9 @@ export default function Deposit() {
                   boxShadow: 'none',
                 }}
                 variant='contained'
+                onClick={() => {
+                  setOpen(true);
+                }}
               >
                 افزودن کارت
               </Button>
@@ -157,33 +167,63 @@ export default function Deposit() {
               پرداخت
             </Button>
           </div>
-          {/* <Modal open={true}>
+          <Modal open={open} className={'modal-panel'}>
             <Typography
-            style={{
+              style={{
                 fontSize: 20,
                 marginBottom: 16,
                 color: '#fff',
                 fontWeight: 'bold',
               }}
-              >
+            >
               افزودن کارت بانکی
-              </Typography>
-              <Box>
+            </Typography>
+            <Box width={'100%'}>
               <Alert
                 severity='warning'
                 style={{ backgroundColor: 'rgb(25, 18, 7) !important' }}
-                >
+              >
                 مالکیت کارت باید به نام خودتان باشد.
-                </Alert>
-                </Box>
-                <Button
-                // onClick={handleClose}
-                style={{ borderRadius: 8 }}
+              </Alert>
+              <Input2
+                label={'شماره کارت'}
+                type={null}
+                value={cardNumber}
+                setValue={setCardNumber}
+                card
+              />
+              <Input
+                style={{ width: '100%', marginTop: '14px' }}
+                label={'نام انتخابی'}
+                setNumberInput={setCardName}
+                card
+              />
+            </Box>
+            <Box textAlign={'right'} marginTop={2}>
+              <Button
+                onClick={() => {
+                  setOpen(false);
+                }}
+                style={{
+                  borderRadius: 8,
+                  backgroundColor: 'transparent',
+                  boxShadow: 'none',
+                  marginLeft: 8,
+                  color: '#fff',
+                }}
                 variant='contained'
-                >
-                بستن
-                </Button>
-              </Modal> */}
+              >
+                انصراف
+              </Button>
+              <Button
+                onClick={addCreditCardHandler}
+                style={{ borderRadius: 8, boxShadow: 'none' }}
+                variant='contained'
+              >
+                افزودن
+              </Button>
+            </Box>
+          </Modal>
         </div>
       </ThemeProvider>
     </div>

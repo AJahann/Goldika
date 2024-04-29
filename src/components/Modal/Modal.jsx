@@ -13,10 +13,15 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   },
 }));
 
-export default function CustomizedDialogs({ open, children }) {
+export default function CustomizedDialogs({ open, children, className = '' }) {
   return (
     <Fragment>
-      <BootstrapDialog aria-labelledby='customized-dialog-title' open={open}>
+      <BootstrapDialog
+        className={className}
+        style={{ zIndex: 99999 }}
+        aria-labelledby='customized-dialog-title'
+        open={open}
+      >
         {children}
       </BootstrapDialog>
     </Fragment>
