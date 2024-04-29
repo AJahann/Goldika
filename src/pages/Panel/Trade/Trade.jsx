@@ -1,22 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Input2 from './../../../components/Input2/Input2';
-import {
-  Alert,
-  Box,
-  Button,
-  ButtonGroup,
-  Slider,
-  createTheme,
-} from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
+import { Box, Button, ButtonGroup, Slider, createTheme } from '@mui/material';
 import { ThemeProvider } from '@emotion/react';
-import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import CreditCardOutlinedIcon from '@mui/icons-material/CreditCardOutlined';
 
 import './Trade.css';
 import { UserPocketContext } from '../../../Context/UserPocketContext';
 import { formatNumberToPersian } from '../../../Utils/Utils';
-import { useParams, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 
 const theme = createTheme({
   palette: {
@@ -126,7 +117,7 @@ export default function Trade() {
                 }}
                 variant='contained'
               >
-                ادامه
+                {tradeAction === 'buy' ? 'خرید' : 'فروش'}
               </Button>
             </div>
           </div>
