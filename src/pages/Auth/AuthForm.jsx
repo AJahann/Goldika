@@ -29,6 +29,7 @@ export default function AuthForm({ number, setNumberValid, setCodeValid }) {
           walletBalance: '0',
           goldWalletBalance: '0.000',
           cart: {},
+          cards: [],
         },
       };
       fetch(`http://localhost:4000/users`, {

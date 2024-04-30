@@ -28,6 +28,7 @@ export default function Panel() {
     userPocketContext.walletBalance = authContext.userInfo.pocket.walletBalance;
     userPocketContext.goldWalletBalance =
       authContext.userInfo.pocket.goldWalletBalance;
+    userPocketContext.cards = authContext.userInfo.cards;
   }, []);
 
   return (
