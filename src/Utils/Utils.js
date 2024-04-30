@@ -1,14 +1,14 @@
 // utils.js
 
-export const PetoEn = function (string) {
+export const PetoEn = function (string = '0') {
   return string.replace(/[\u06F0-\u06F9]/g, (d) => d.charCodeAt() - 1776);
 };
 
-export const EntoFa = function (string) {
+export const EntoFa = function (string = '0') {
   return string.replace(/\d/g, (d) => '۰۱۲۳۴۵۶۷۸۹'[d]);
 };
 
-export const separateNumbers = function (string) {
+export const separateNumbers = function (string = '0') {
   string = PetoEn(string);
   const numbers = string.match(/\d+/g);
   if (!numbers) return [];
@@ -29,7 +29,7 @@ export const separateNumbers = function (string) {
   return separatedNumbers[0];
 };
 
-export const formatNumberToPersian = (number) => {
+export const formatNumberToPersian = (number = '') => {
   if (number === '') {
     return '';
   }
@@ -59,7 +59,7 @@ export const separateNumbersTo4Groups = (string) => {
   return EntoFa(separatedNumbers.join('-'));
 };
 
-export const combineNumbersFromGroups = (string) => {
+export const combineNumbersFromGroups = (string = '') => {
   const strippedString = string.replace(/-/g, '');
   return strippedString || '';
 };

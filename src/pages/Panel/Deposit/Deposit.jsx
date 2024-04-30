@@ -1,10 +1,11 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Button, createTheme } from '@mui/material';
 import Input2 from './../../../components/Input2/Input2';
 import AddIcon from '@mui/icons-material/Add';
 import { ThemeProvider } from '@emotion/react';
 import { useNavigate } from 'react-router-dom';
 import { UserPocketContext } from './../../../Context/UserPocketContext';
+import { AuthContext } from './../../../Context/AuthContext';
 
 import './Deposit.css';
 import ModalAddCredit from '../../../components/Modal/ModalAddCredit';
@@ -20,22 +21,32 @@ const theme = createTheme({
 });
 
 export default function Deposit() {
-  const userPocketContext = useContext(UserPocketContext);
+  const { updateUserPocket, walletBalance, cards } =
+    useContext(UserPocketContext);
+  const { token } = useContext(AuthContext);
   const [deposit, setDeposit] = useState('');
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
 
   const creditHandler = () => {
     if (deposit.length) {
-      userPocketContext.walletBalance =
-        Number(userPocketContext.walletBalance) + Number(deposit);
+      updateUserPocket({
+        walletBalance: Number(walletBalance) + Number(deposit),
+      });
       setDeposit('');
       navigate('/panel/dashboard');
     }
   };
 
+  useEffect(() => {
+    fetch(`http://localhost:4000/users/${token}`)
+      .then((res) => res.json())
+      .then((user) => updateUserPocket({ cards: user.pocket.cards }));
+  }, [token]);
+
   return (
     <div className='panel-deposit'>
+      {console.log('deposit')}
       <ThemeProvider theme={theme}>
         <div className='panel-wrap'>
           <div className='panel-title'>واریز</div>
@@ -96,7 +107,7 @@ export default function Deposit() {
             </div>
 
             <div className='panel-deposit-myCards'>
-              {userPocketContext.cards.length ? (
+              {cards.length ? (
                 <MyCards setOpen={setOpen} />
               ) : (
                 <NoCards setOpen={setOpen} />

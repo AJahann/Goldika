@@ -3,17 +3,39 @@ import React, { useContext, useState } from 'react';
 import Input2 from '../Input2/Input2';
 import Input from '../Input/Input';
 import Modal from './../../components/Modal/Modal';
-import { UserPocketContext } from '../../Context/UserPocketContext';
+import { AuthContext } from '../../Context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 export default function ModalAddCredit({ open, setOpen }) {
-  const userPocketContext = useContext(UserPocketContext);
+  const { token, userInfo } = useContext(AuthContext);
   const [cardNumber, setCardNumber] = useState('');
   const [cardName, setCardName] = useState('');
+  const navigate = useNavigate();
 
   const addCreditCardHandler = () => {
     if (cardNumber.length && cardName.length) {
       let cardInfo = { cardNumber, cardName };
-      userPocketContext.cards.push(cardInfo);
+
+      let updatedUser = {
+        ...userInfo,
+        pocket: {
+          ...userInfo.pocket,
+          cards: [...userInfo.pocket.cards, cardInfo],
+        },
+      };
+
+      fetch(`http://localhost:4000/users/${token}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedUser), // ارسال اطلاعات به سرور
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          navigate('/panel/dashboard');
+        })
+        .catch((err) => console.log(err));
 
       setCardName('');
       setCardNumber('');

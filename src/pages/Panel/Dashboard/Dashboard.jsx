@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import './Dashboard.css';
 import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
 import SellIcon from '@mui/icons-material/Sell';
@@ -7,9 +7,23 @@ import DashboardBox from '../../../components/DashboardBox/DashboardBox';
 import Chart from './../../../components/Main/Chart/Chart';
 import { formatNumberToPersian } from '../../../Utils/Utils';
 import { UserPocketContext } from '../../../Context/UserPocketContext';
+import { AuthContext } from '../../../Context/AuthContext';
 
 export default function Dashboard() {
-  const userPocketContext = useContext(UserPocketContext);
+  const { updateUserPocket, walletBalance, goldWalletBalance } =
+    useContext(UserPocketContext);
+  const { userInfo } = useContext(AuthContext);
+
+  useEffect(() => {
+    fetch(`http://localhost:4000/users/${userInfo.id}`)
+      .then((res) => res.json())
+      .then((res) => {
+        updateUserPocket({
+          walletBalance: res.pocket.walletBalance,
+          goldWalletBalance: res.pocket.goldWalletBalance,
+        });
+      });
+  }, [updateUserPocket, userInfo]);
 
   return (
     <div className='panel-dashboard'>
@@ -38,13 +52,13 @@ export default function Dashboard() {
             link={'/panel/deposit'}
             title={'موجودی کیف پول:'}
             btnName={'افزایش موجودی'}
-            price={formatNumberToPersian(userPocketContext.walletBalance)}
+            price={formatNumberToPersian(walletBalance)}
             icon={<AccountBalanceWalletOutlinedIcon fontSize='20px' />}
             bgColor={'#f1ab1f'}
           />
           <DashboardBox
             title={'موجودی کیف طلا:'}
-            price={formatNumberToPersian(userPocketContext.goldWalletBalance)}
+            price={formatNumberToPersian(goldWalletBalance)}
             geram
           />
         </div>

@@ -6,7 +6,7 @@ import { UserPocketContext } from '../../../../Context/UserPocketContext';
 import { separateNumbersTo4Groups } from '../../../../Utils/Utils';
 
 export default function MyCards({ setOpen }) {
-  const userPocketContext = useContext(UserPocketContext);
+  const { cards } = useContext(UserPocketContext);
 
   return (
     <>
@@ -21,9 +21,9 @@ export default function MyCards({ setOpen }) {
         </Button>
       </div>
       <div className='panel_myCards-bottom'>
-        {userPocketContext.cards.map((card) => {
+        {cards.map((card, index) => {
           return (
-            <div className='panel_myCards-card'>
+            <div key={index} className='panel_myCards-card'>
               <div>
                 <AccountBalanceIcon
                   style={{ fontSize: 56, color: '#84879a' }}

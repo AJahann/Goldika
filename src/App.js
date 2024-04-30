@@ -51,9 +51,10 @@ export default function App() {
         })
         .catch((res) => {
           console.log(res);
+          logout();
         });
     }
-  }, [login]);
+  }, [login, logout]);
 
   return (
     <AuthContext.Provider value={{ login, logout, isLogin, token, userInfo }}>

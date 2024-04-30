@@ -4,7 +4,10 @@ import SideBar from './SideBar/SideBar';
 import TopBar from './TopBar/TopBar';
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthContext';
-import { UserPocketContext } from '../../Context/UserPocketContext';
+import {
+  UserPocketContext,
+  UserPocketProvider,
+} from '../../Context/UserPocketContext';
 
 export default function Panel() {
   const [isShowSideBar, setIsShowBar] = useState(true);
@@ -23,17 +26,9 @@ export default function Panel() {
     }
   }, [authContext.isLogin, navigate]);
 
-  useEffect(() => {
-    userPocketContext.cart = authContext.userInfo.pocket.cart;
-    userPocketContext.walletBalance = authContext.userInfo.pocket.walletBalance;
-    userPocketContext.goldWalletBalance =
-      authContext.userInfo.pocket.goldWalletBalance;
-    userPocketContext.cards = authContext.userInfo.pocket.cards;
-  }, []);
-
   return (
     <div className='panel'>
-      <UserPocketContext.Provider value={userPocketContext}>
+      <UserPocketProvider>
         <div className={isShowSideBar ? 'sideBar' : 'sideBar hide'}>
           <SideBar logout={authContext.logout} />
         </div>
@@ -44,7 +39,7 @@ export default function Panel() {
           />
           <Outlet />
         </div>
-      </UserPocketContext.Provider>
+      </UserPocketProvider>
     </div>
   );
 }

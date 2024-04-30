@@ -1,14 +1,16 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Input2 from './../../../components/Input2/Input2';
 import { Alert, Box, Button, Slider, createTheme } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
 import { ThemeProvider } from '@emotion/react';
-import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import CreditCardOutlinedIcon from '@mui/icons-material/CreditCardOutlined';
 
 import './WithDraw.css';
 import { UserPocketContext } from '../../../Context/UserPocketContext';
 import { formatNumberToPersian } from '../../../Utils/Utils';
+import MyCards from '../components/MyCards/MyCards';
+import NoCards from '../components/NoCards/NoCards';
+import ModalAddCredit from '../../../components/Modal/ModalAddCredit';
+import { AuthContext } from '../../../Context/AuthContext';
 
 const theme = createTheme({
   palette: {
@@ -19,7 +21,17 @@ const theme = createTheme({
 });
 
 export default function WithDraw() {
-  const userPocketContext = useContext(UserPocketContext);
+  const { walletBalance, cards, updateUserPocket } =
+    useContext(UserPocketContext);
+  const { token } = useContext(AuthContext);
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    fetch(`http://localhost:4000/users/${token}`)
+      .then((res) => res.json())
+      .then((user) => updateUserPocket({ cards: user.pocket.cards }));
+  }, [token]);
+
   return (
     <div className='panel-withdraw'>
       <ThemeProvider theme={theme}>
@@ -36,10 +48,7 @@ export default function WithDraw() {
               }}
             >
               <CreditCardOutlinedIcon style={{ fontSize: 24, marginLeft: 8 }} />
-              موجودی: {formatNumberToPersian(
-                userPocketContext.walletBalance,
-              )}{' '}
-              تومان
+              موجودی: {formatNumberToPersian(walletBalance)} تومان
             </div>
             <Input2 label={'مبلغ برداشت'} type={'تومان'} bgBlack />
             <span></span>
@@ -62,49 +71,11 @@ export default function WithDraw() {
               </Alert>
             </Box>
             <div className='panel-myCards'>
-              {/* <div className='panel_myCards-top'>
-                <div className='panel_myCards-title'>کارت های من:</div>
-                <Button variant='text' className='panel_myCards-add-btn'>
-                  افزودن کارت
-                </Button>
-              </div>
-              <div className='panel_myCards-bottom'>
-                <div className='panel_myCards-card'>
-                  <div>
-                    <AccountBalanceIcon
-                      style={{ fontSize: 56, color: '#84879a' }}
-                    />
-                  </div>
-                  <div className='panel_mayCards-card-txt'>
-                    <p className='panel_mayCards-card-name'>بانک صادرات</p>
-                    <p className='panel_mayCards-card-number'>
-                      6037-0000-0000-9521
-                    </p>
-                  </div>
-                </div>
-              </div> */}
-              <Alert
-                style={{
-                  color: '#ffe2b7',
-                  fontSize: 14,
-                }}
-                severity='warning'
-              >
-                کارتی در سامانه تعریف نشده است.
-              </Alert>
-              <Button
-                style={{
-                  borderRadius: 8,
-                  fontSize: 14,
-                  margin: '0 auto',
-                  marginTop: 12,
-                  fontWeight: 'bold',
-                  boxShadow: 'none',
-                }}
-                variant='contained'
-              >
-                افزودن کارت
-              </Button>
+              {cards.length ? (
+                <MyCards setOpen={setOpen} />
+              ) : (
+                <NoCards setOpen={setOpen} />
+              )}
             </div>
           </div>
           <div className='panel-pay-btn'>
@@ -120,10 +91,12 @@ export default function WithDraw() {
               variant='contained'
               disabled
             >
-              ادامه
+              برداشت
             </Button>
           </div>
         </div>
+        {/* modal */}
+        <ModalAddCredit open={open} setOpen={setOpen} />
       </ThemeProvider>
     </div>
   );

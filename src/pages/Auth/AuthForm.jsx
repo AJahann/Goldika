@@ -28,7 +28,7 @@ export default function AuthForm({ number, setNumberValid, setCodeValid }) {
         pocket: {
           walletBalance: '0',
           goldWalletBalance: '0.000',
-          cart: {},
+          cart: [],
           cards: [],
         },
       };
