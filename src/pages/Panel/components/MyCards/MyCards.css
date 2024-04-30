@@ -1,0 +1,29 @@
+.panel_myCards {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 16px;
+  color: #fff;
+}
+.panel_myCards-card {
+  width: 100%;
+  display: flex;
+  padding: 12px;
+  margin-top: 16px;
+  box-sizing: border-box;
+  border: 2px solid var(--primary-color);
+  border-radius: 16px;
+}
+.panel_mayCards-card-txt {
+  width: 100%;
+  color: #fff;
+  box-sizing: border-box;
+  padding: 8px 12px;
+}
+.panel_mayCards-card-name {
+  text-align: right;
+}
+.panel_mayCards-card-number {
+  text-align: left;
+  margin-top: 8px;
+}

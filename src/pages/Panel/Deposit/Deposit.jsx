@@ -1,15 +1,15 @@
 import React, { useContext, useState } from 'react';
-import { Alert, Box, Button, Typography, createTheme } from '@mui/material';
+import { Button, createTheme } from '@mui/material';
 import Input2 from './../../../components/Input2/Input2';
-import Input from './../../../components/Input/Input';
 import AddIcon from '@mui/icons-material/Add';
 import { ThemeProvider } from '@emotion/react';
-import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
-import Modal from './../../../components/Modal/Modal';
 import { useNavigate } from 'react-router-dom';
 import { UserPocketContext } from './../../../Context/UserPocketContext';
 
 import './Deposit.css';
+import ModalAddCredit from '../../../components/Modal/ModalAddCredit';
+import NoCards from '../components/NoCards/NoCards';
+import MyCards from '../components/MyCards/MyCards';
 
 const theme = createTheme({
   palette: {
@@ -23,8 +23,6 @@ export default function Deposit() {
   const userPocketContext = useContext(UserPocketContext);
   const [deposit, setDeposit] = useState('');
   const [open, setOpen] = useState(false);
-  const [cardNumber, setCardNumber] = useState('');
-  const [cardName, setCardName] = useState('');
   const navigate = useNavigate();
 
   const creditHandler = () => {
@@ -34,10 +32,6 @@ export default function Deposit() {
       setDeposit('');
       navigate('/panel/dashboard');
     }
-  };
-  const addCreditCardHandler = () => {
-    console.log(cardNumber);
-    console.log(cardName);
   };
 
   return (
@@ -102,52 +96,11 @@ export default function Deposit() {
             </div>
 
             <div className='panel-deposit-myCards'>
-              {/* <div className='panel_myCards-top'>
-                <div className='panel_myCards-title'>کارت های من:</div>
-                <Button variant='text' className='panel_myCards-add-btn'>
-                افزودن کارت
-                </Button>
-                </div>
-                <div className='panel_myCards-bottom'>
-                <div className='panel_myCards-card'>
-                <div>
-                <AccountBalanceIcon
-                style={{ fontSize: 56, color: '#84879a' }}
-                />
-                </div>
-                <div className='panel_mayCards-card-txt'>
-                    <p className='panel_mayCards-card-name'>بانک صادرات</p>
-                    <p className='panel_mayCards-card-number'>
-                    6037-0000-0000-9521
-                    </p>
-                    </div>
-                </div>
-              </div> */}
-              <Alert
-                style={{
-                  color: '#ffe2b7',
-                  fontSize: 14,
-                }}
-                severity='warning'
-              >
-                کارتی در سامانه تعریف نشده است.
-              </Alert>
-              <Button
-                style={{
-                  borderRadius: 8,
-                  fontSize: 14,
-                  margin: '0 auto',
-                  marginTop: 12,
-                  fontWeight: 'bold',
-                  boxShadow: 'none',
-                }}
-                variant='contained'
-                onClick={() => {
-                  setOpen(true);
-                }}
-              >
-                افزودن کارت
-              </Button>
+              {userPocketContext.cards.length ? (
+                <MyCards setOpen={setOpen} />
+              ) : (
+                <NoCards setOpen={setOpen} />
+              )}
             </div>
           </div>
           <div className='panel-deposit-pay-btn'>
@@ -167,64 +120,9 @@ export default function Deposit() {
               پرداخت
             </Button>
           </div>
-          <Modal open={open} className={'modal-panel'}>
-            <Typography
-              style={{
-                fontSize: 20,
-                marginBottom: 16,
-                color: '#fff',
-                fontWeight: 'bold',
-              }}
-            >
-              افزودن کارت بانکی
-            </Typography>
-            <Box width={'100%'}>
-              <Alert
-                severity='warning'
-                style={{ backgroundColor: 'rgb(25, 18, 7) !important' }}
-              >
-                مالکیت کارت باید به نام خودتان باشد.
-              </Alert>
-              <Input2
-                label={'شماره کارت'}
-                type={null}
-                value={cardNumber}
-                setValue={setCardNumber}
-                card
-              />
-              <Input
-                style={{ width: '100%', marginTop: '14px' }}
-                label={'نام انتخابی'}
-                setNumberInput={setCardName}
-                card
-              />
-            </Box>
-            <Box textAlign={'right'} marginTop={2}>
-              <Button
-                onClick={() => {
-                  setOpen(false);
-                }}
-                style={{
-                  borderRadius: 8,
-                  backgroundColor: 'transparent',
-                  boxShadow: 'none',
-                  marginLeft: 8,
-                  color: '#fff',
-                }}
-                variant='contained'
-              >
-                انصراف
-              </Button>
-              <Button
-                onClick={addCreditCardHandler}
-                style={{ borderRadius: 8, boxShadow: 'none' }}
-                variant='contained'
-              >
-                افزودن
-              </Button>
-            </Box>
-          </Modal>
         </div>
+        {/* modal */}
+        <ModalAddCredit open={open} setOpen={setOpen} />
       </ThemeProvider>
     </div>
   );

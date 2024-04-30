@@ -9,7 +9,8 @@
       "pocket": {
         "walletBalance": "6580000",
         "goldWalletBalance": "0.008",
-        "cart": {}
+        "cart": {},
+        "cards": []
       }
     }
   ]
