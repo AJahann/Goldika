@@ -23,18 +23,35 @@ const theme = createTheme({
 export default function Deposit() {
   const { updateUserPocket, walletBalance, cards } =
     useContext(UserPocketContext);
-  const { token } = useContext(AuthContext);
+  const { token, userInfo } = useContext(AuthContext);
   const [deposit, setDeposit] = useState('');
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
 
   const creditHandler = () => {
     if (deposit.length) {
-      updateUserPocket({
-        walletBalance: Number(walletBalance) + Number(deposit),
-      });
-      setDeposit('');
-      navigate('/panel/dashboard');
+      let newWalletBalance = Number(walletBalance) + Number(deposit);
+
+      let updatedUser = {
+        ...userInfo,
+        pocket: {
+          ...userInfo.pocket,
+          walletBalance: newWalletBalance,
+        },
+      };
+
+      fetch(`http://localhost:4000/users/${token}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedUser), // ارسال اطلاعات به سرور
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          navigate('/panel/dashboard');
+        })
+        .catch((err) => console.log(err));
     }
   };
 
