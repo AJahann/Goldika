@@ -3,11 +3,11 @@ import Input2 from './../../../components/Input2/Input2';
 import { Box, Button, ButtonGroup, Slider, createTheme } from '@mui/material';
 import { ThemeProvider } from '@emotion/react';
 import CreditCardOutlinedIcon from '@mui/icons-material/CreditCardOutlined';
-
-import './Trade.css';
 import { UserPocketContext } from '../../../Context/UserPocketContext';
+import { GoldPriceContext } from '../../../Context/GoldPriceContext';
 import { formatNumberToPersian } from '../../../Utils/Utils';
 import { useSearchParams } from 'react-router-dom';
+import './Trade.css';
 
 const theme = createTheme({
   palette: {
@@ -19,6 +19,7 @@ const theme = createTheme({
 
 export default function Trade() {
   const userPocketContext = useContext(UserPocketContext);
+  const { goldBuyBalance, goldSellBalance } = useContext(GoldPriceContext);
   const [tradeAction, setTradeAction] = useState('buy');
 
   const [queryParams] = useSearchParams();
@@ -56,11 +57,16 @@ export default function Trade() {
 
               <div className='panel-trade-top-txt'>
                 <p>
-                  قیمت خرید <br />
+                  قیمت {tradeAction === 'buy' ? 'خرید' : 'فروش'} <br />
                   <small>(هرگرم طلای ۱۸ عیار)</small>
                 </p>
                 <p>
-                  <b>۳‌,۶۰۲,۸۷۵ تومان</b>
+                  <b>
+                    {tradeAction === 'buy'
+                      ? formatNumberToPersian(goldBuyBalance)
+                      : formatNumberToPersian(goldSellBalance)}{' '}
+                    تومان
+                  </b>
                 </p>
               </div>
 

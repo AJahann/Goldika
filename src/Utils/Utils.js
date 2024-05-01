@@ -33,7 +33,7 @@ export const formatNumberToPersian = (number = '') => {
   if (number === '') {
     return '';
   }
-  return EntoFa(Number(number).toLocaleString('fa'));
+  return EntoFa(Number(number).toLocaleString('fa')); // ۳,۲۳۴
 };
 
 export const removeNonNumericCharacters = (str) => {

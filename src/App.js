@@ -10,6 +10,7 @@ import { AuthContext } from './Context/AuthContext';
 import './assets/css/reset.css';
 import './assets/css/mainStyle.css';
 import 'react-toastify/dist/ReactToastify.css';
+import { GoldPriceContextProvider } from './Context/GoldPriceContext';
 
 const cacheRtl = createCache({
   key: 'muirtl',
@@ -58,7 +59,9 @@ export default function App() {
 
   return (
     <AuthContext.Provider value={{ login, logout, isLogin, token, userInfo }}>
-      <CacheProvider value={cacheRtl}>{router}</CacheProvider>
+      <GoldPriceContextProvider>
+        <CacheProvider value={cacheRtl}>{router}</CacheProvider>
+      </GoldPriceContextProvider>
     </AuthContext.Provider>
   );
 }

@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { styled } from '@mui/material/styles';
 import { Tabs, Tab, Box, Button } from '@mui/material';
 import Input2 from './../Input2/Input2';
+import { GoldPriceContext } from '../../Context/GoldPriceContext';
+import { formatNumberToPersian } from '../../Utils/Utils';
 
 const StyledTabs = styled((props) => (
   <Tabs
@@ -40,6 +42,7 @@ const StyledTab = styled((props) => <Tab disableRipple {...props} />)(
 );
 
 export default function TradingTrans() {
+  const { goldBuyBalance, goldSellBalance } = useContext(GoldPriceContext);
   const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
@@ -52,7 +55,8 @@ export default function TradingTrans() {
         <div className='item'>
           <span>قیمت خرید</span>
           <span className='item-price item-price-buy'>
-            <span>۳,۷۳۶,۹۵۳</span> <span>تومان</span>
+            <span>{formatNumberToPersian(goldBuyBalance)}</span>{' '}
+            <span>تومان</span>
           </span>
         </div>
         <div className='item-center'>
@@ -71,7 +75,8 @@ export default function TradingTrans() {
         <div className='item'>
           <span>قیمت فروش</span>
           <span className='item-price item-price-sell'>
-            <span>۳,۶۵۲,۱۰۶</span> <span>تومان</span>
+            <span>{formatNumberToPersian(goldSellBalance)}</span>{' '}
+            <span>تومان</span>
           </span>
         </div>
       </span>
