@@ -11,6 +11,7 @@ import MyCards from '../components/MyCards/MyCards';
 import NoCards from '../components/NoCards/NoCards';
 import ModalAddCredit from '../../../components/Modal/ModalAddCredit';
 import { AuthContext } from '../../../Context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const theme = createTheme({
   palette: {
@@ -23,14 +24,49 @@ const theme = createTheme({
 export default function WithDraw() {
   const { walletBalance, cards, updateUserPocket } =
     useContext(UserPocketContext);
-  const { token } = useContext(AuthContext);
+  const { token, userInfo } = useContext(AuthContext);
   const [open, setOpen] = useState(false);
+  const [withDrawal, setWithDrawal] = useState('');
+  const navigate = useNavigate();
+
+  const withDrawalHandler = () => {
+    if (withDrawal.length) {
+      let newWalletBalance = Number(walletBalance) - Number(withDrawal);
+
+      let updatedUser = {
+        ...userInfo,
+        pocket: {
+          ...userInfo.pocket,
+          walletBalance: newWalletBalance,
+        },
+      };
+
+      fetch(`http://localhost:4000/users/${token}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedUser), // ارسال اطلاعات به سرور
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          navigate('/panel/dashboard');
+        })
+        .catch((err) => console.log(err));
+    }
+  };
 
   useEffect(() => {
     fetch(`http://localhost:4000/users/${token}`)
       .then((res) => res.json())
       .then((user) => updateUserPocket({ cards: user.pocket.cards }));
   }, [token]);
+
+  useEffect(() => {
+    if (withDrawal >= walletBalance) {
+      setWithDrawal(walletBalance);
+    }
+  }, [withDrawal, walletBalance]);
 
   return (
     <div className='panel-withdraw'>
@@ -50,17 +86,22 @@ export default function WithDraw() {
               <CreditCardOutlinedIcon style={{ fontSize: 24, marginLeft: 8 }} />
               موجودی: {formatNumberToPersian(walletBalance)} تومان
             </div>
-            <Input2 label={'مبلغ برداشت'} type={'تومان'} bgBlack />
+            <Input2
+              value={withDrawal}
+              setValue={setWithDrawal}
+              label={'مبلغ برداشت'}
+              type={'تومان'}
+              bgBlack
+            />
             <span></span>
             <div style={{ padding: 18 }}>
               <Box className='paenl-withdraw-slider'>
                 <Slider
-                  defaultValue={0}
-                  shiftStep={30}
-                  step={10}
+                  value={Number(withDrawal)}
+                  step={500000}
                   marks
-                  min={10}
-                  max={100}
+                  min={0}
+                  max={walletBalance}
                   style={{ color: 'rgb(189, 189, 189)' }}
                 />
               </Box>
@@ -88,8 +129,9 @@ export default function WithDraw() {
                 fontWeight: 'bold',
                 boxShadow: 'none',
               }}
+              onClick={withDrawalHandler}
               variant='contained'
-              disabled
+              disabled={!withDrawal.length}
             >
               برداشت
             </Button>

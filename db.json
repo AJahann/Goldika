@@ -7,13 +7,17 @@
       "number": "09036636381",
       "pass": "darya1010",
       "pocket": {
-        "walletBalance": 6500000,
+        "walletBalance": 1200000,
         "goldWalletBalance": "0.000",
         "cart": [],
         "cards": [
           {
             "cardNumber": "60376950770156851",
             "cardName": "بانک دی"
+          },
+          {
+            "cardNumber": "60370000000085262",
+            "cardName": "ملت"
           }
         ]
       }
