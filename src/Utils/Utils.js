@@ -63,3 +63,15 @@ export const combineNumbersFromGroups = (string = '') => {
   const strippedString = string.replace(/-/g, '');
   return strippedString || '';
 };
+
+export const countDecimals = function (val) {
+  if (Math.floor(val.valueOf()) === val.valueOf()) return 0;
+
+  var str = val.toString();
+  if (str.indexOf('.') !== -1 && str.indexOf('-') !== -1) {
+    return str.split('-')[1] || 0;
+  } else if (str.indexOf('.') !== -1) {
+    return str.split('.')[1].length || 0;
+  }
+  return str.split('-')[1] || 0;
+};

@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Input2 from './../../../components/Input2/Input2';
+import GoldInput from './../../../components/Input3/Input3';
 import { Box, Button, ButtonGroup, Slider, createTheme } from '@mui/material';
 import { ThemeProvider } from '@emotion/react';
 import CreditCardOutlinedIcon from '@mui/icons-material/CreditCardOutlined';
@@ -21,6 +22,9 @@ export default function Trade() {
   const userPocketContext = useContext(UserPocketContext);
   const { goldBuyBalance, goldSellBalance } = useContext(GoldPriceContext);
   const [tradeAction, setTradeAction] = useState('buy');
+
+  const [sumTotal, setSumTotal] = useState('');
+  const [sumTotalGold, setSumTotalGold] = useState('');
 
   const [queryParams] = useSearchParams();
   const urlParam = queryParams.get('trade_action');
@@ -70,10 +74,19 @@ export default function Trade() {
                 </p>
               </div>
 
-              <Input2 label={'ارزش کل'} type={'تومان'} />
+              <Input2
+                value={sumTotal}
+                setValue={setSumTotal}
+                label={'ارزش کل'}
+                type={'تومان'}
+              />
               <span></span>
               <div style={{ marginTop: 48, width: '100%' }}>
-                <Input2 label={'مقدار طلا'} type={'گرم'} />
+                <GoldInput
+                  value={sumTotalGold}
+                  setValue={setSumTotalGold}
+                  label={'مقدار طلا'}
+                />
               </div>
             </div>
             <div style={{ padding: 18 }}>

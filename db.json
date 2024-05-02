@@ -7,8 +7,8 @@
       "number": "09036636381",
       "pass": "darya1010",
       "pocket": {
-        "walletBalance": 1200000,
-        "goldWalletBalance": "0.000",
+        "walletBalance": 1350000,
+        "goldWalletBalance": "0.001",
         "cart": [],
         "cards": [
           {
@@ -23,5 +23,8 @@
       }
     }
   ],
-  "gold": { "buy": "3488452", "sell": "3408455" }
+  "gold": {
+    "buy": "3488452",
+    "sell": "3408455"
+  }
 }
