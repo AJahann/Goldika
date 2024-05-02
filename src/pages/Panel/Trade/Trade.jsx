@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 import Input2 from './../../../components/Input2/Input2';
 import GoldInput from './../../../components/Input3/Input3';
 import { Box, Button, ButtonGroup, Slider, createTheme } from '@mui/material';
@@ -34,6 +34,29 @@ export default function Trade() {
       setTradeAction(urlParam);
     }
   }, [urlParam]);
+
+  useEffect(() => {
+    let sumGold = 0;
+    if (tradeAction === 'buy') {
+      sumGold = Number(sumTotal) / Number(goldBuyBalance);
+    } else {
+      sumGold = Number(sumTotal) / Number(goldSellBalance);
+    }
+    sumGold = Math.round(sumGold * 1000) / 1000;
+
+    setSumTotalGold(String(sumGold));
+  }, [sumTotal, tradeAction, goldBuyBalance, goldSellBalance]);
+
+  useEffect(() => {
+    let sumPrice = 0;
+    if (tradeAction === 'buy') {
+      sumPrice = Math.floor(Number(goldBuyBalance) * Number(sumTotalGold));
+    } else {
+      sumPrice = Math.floor(Number(goldSellBalance) * Number(sumTotalGold));
+    }
+
+    setSumTotal(String(sumPrice));
+  }, [sumTotalGold, tradeAction, goldBuyBalance, goldSellBalance]);
 
   return (
     <div className='panel-trade'>
