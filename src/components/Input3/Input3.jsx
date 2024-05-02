@@ -28,7 +28,7 @@ const theme = createTheme({
   },
 });
 
-function GoldInput({ value = '', setValue, label, bgBlack }) {
+function GoldInput({ value = '', setValue, label, bgBlack, setWichFocus }) {
   useEffect(() => {
     if (value.length >= 9) {
       setValue('1000');
@@ -42,6 +42,9 @@ function GoldInput({ value = '', setValue, label, bgBlack }) {
           fullWidth
           color='primary'
           variant='outlined'
+          onFocus={() => {
+            setWichFocus && setWichFocus('gold');
+          }}
           value={EntoFa(value)}
           onChange={(e) => {
             let inputValue = e.target.value;
@@ -49,7 +52,6 @@ function GoldInput({ value = '', setValue, label, bgBlack }) {
             const newValue = inputValue.replace(/[^\d.]|(?<=\..*)\./g, '');
             if (countDecimals(newValue) <= 3) {
               setValue(newValue);
-              console.log(inputValue);
             }
           }}
           style={{

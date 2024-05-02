@@ -25,6 +25,7 @@ export default function Trade() {
 
   const [sumTotal, setSumTotal] = useState('');
   const [sumTotalGold, setSumTotalGold] = useState('');
+  const [wichFocus, setWichFocus] = useState('price');
 
   const [queryParams] = useSearchParams();
   const urlParam = queryParams.get('trade_action');
@@ -36,27 +37,36 @@ export default function Trade() {
   }, [urlParam]);
 
   useEffect(() => {
-    let sumGold = 0;
-    if (tradeAction === 'buy') {
-      sumGold = Number(sumTotal) / Number(goldBuyBalance);
-    } else {
-      sumGold = Number(sumTotal) / Number(goldSellBalance);
-    }
-    sumGold = Math.round(sumGold * 1000) / 1000;
+    if (wichFocus === 'gold') {
+      let sumPrice = 0;
+      if (tradeAction === 'buy') {
+        sumPrice = Math.floor(Number(goldBuyBalance) * Number(sumTotalGold));
+      } else {
+        sumPrice = Math.floor(Number(goldSellBalance) * Number(sumTotalGold));
+      }
 
-    setSumTotalGold(String(sumGold));
-  }, [sumTotal, tradeAction, goldBuyBalance, goldSellBalance]);
+      setSumTotal(String(sumPrice));
+    }
+  }, [sumTotalGold]);
 
   useEffect(() => {
-    let sumPrice = 0;
-    if (tradeAction === 'buy') {
-      sumPrice = Math.floor(Number(goldBuyBalance) * Number(sumTotalGold));
-    } else {
-      sumPrice = Math.floor(Number(goldSellBalance) * Number(sumTotalGold));
-    }
+    if (wichFocus === 'price') {
+      let sumGold = 0;
+      if (tradeAction === 'buy') {
+        sumGold = Number(sumTotal) / Number(goldBuyBalance);
+      } else {
+        sumGold = Number(sumTotal) / Number(goldSellBalance);
+      }
+      sumGold = Math.round(sumGold * 1000) / 1000;
 
-    setSumTotal(String(sumPrice));
-  }, [sumTotalGold, tradeAction, goldBuyBalance, goldSellBalance]);
+      setSumTotalGold(String(sumGold));
+    }
+  }, [sumTotal]);
+
+  useEffect(() => {
+    setSumTotal('');
+    setSumTotalGold('');
+  }, [tradeAction]);
 
   return (
     <div className='panel-trade'>
@@ -102,6 +112,7 @@ export default function Trade() {
                 setValue={setSumTotal}
                 label={'ارزش کل'}
                 type={'تومان'}
+                setWichFocus={setWichFocus}
               />
               <span></span>
               <div style={{ marginTop: 48, width: '100%' }}>
@@ -109,6 +120,7 @@ export default function Trade() {
                   value={sumTotalGold}
                   setValue={setSumTotalGold}
                   label={'مقدار طلا'}
+                  setWichFocus={setWichFocus}
                 />
               </div>
             </div>

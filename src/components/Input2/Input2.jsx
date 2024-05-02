@@ -36,7 +36,15 @@ const theme = createTheme({
   },
 });
 
-function Input2({ value = '', setValue, label, type, bgBlack, card }) {
+function Input2({
+  value = '',
+  setValue,
+  label,
+  type,
+  bgBlack,
+  card,
+  setWichFocus,
+}) {
   return (
     <div className='input2'>
       <ThemeProvider theme={theme}>
@@ -55,6 +63,9 @@ function Input2({ value = '', setValue, label, type, bgBlack, card }) {
             } else {
               setValue(removeNonNumericCharacters(PetoEn(e.target.value)));
             }
+          }}
+          onFocus={() => {
+            setWichFocus && setWichFocus('price');
           }}
           style={{
             backgroundColor: `${bgBlack ? '#2a2c34' : '#373943'}`,
