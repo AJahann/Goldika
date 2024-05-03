@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Input2 from './../../../components/Input2/Input2';
 import GoldInput from './../../../components/Input3/Input3';
 import { Box, Button, ButtonGroup, Slider, createTheme } from '@mui/material';
@@ -19,7 +19,7 @@ const theme = createTheme({
 });
 
 export default function Trade() {
-  const userPocketContext = useContext(UserPocketContext);
+  const { walletBalance, goldWalletBalance } = useContext(UserPocketContext);
   const { goldBuyBalance, goldSellBalance } = useContext(GoldPriceContext);
   const [tradeAction, setTradeAction] = useState('buy');
 
@@ -127,12 +127,11 @@ export default function Trade() {
             <div style={{ padding: 18 }}>
               <Box className='paenl-trade-slider'>
                 <Slider
-                  defaultValue={0}
-                  shiftStep={30}
-                  step={10}
+                  value={Number(sumTotal)}
+                  step={50000}
                   marks
-                  min={10}
-                  max={100}
+                  min={0}
+                  max={Number(walletBalance)}
                   style={{ color: 'rgb(189, 189, 189)' }}
                 />
               </Box>
@@ -150,11 +149,11 @@ export default function Trade() {
               {tradeAction === 'buy'
                 ? `
                 موجودی کیف پول:${' '}
-                ${formatNumberToPersian(userPocketContext.walletBalance)} تومان
+                ${formatNumberToPersian(walletBalance)} تومان
                 `
                 : `
               موجودی کیف طلا:${' '}
-              ${formatNumberToPersian(userPocketContext.goldWalletBalance)} گرم
+              ${formatNumberToPersian(goldWalletBalance)} گرم
               `}
             </div>
             <div className='panel-pay-btn'>
