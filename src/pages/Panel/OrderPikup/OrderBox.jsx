@@ -1,7 +1,7 @@
 import { Box, Button } from '@mui/material';
 import React from 'react';
 
-export default function OrderBox({ name, imgSrc }) {
+export default function OrderBox({ name, imgSrc, onClick }) {
   return (
     <Box className='panel-orderPikup-item'>
       <div className='panel-orderPikup-item-img'>
@@ -9,7 +9,11 @@ export default function OrderBox({ name, imgSrc }) {
       </div>
       <div className='panel-orderPikup-item-txt'>
         <p>{name}</p>
-        <Button variant='outlined' style={{ borderRadius: 8, height: 31 }}>
+        <Button
+          onClick={onClick}
+          variant='outlined'
+          style={{ borderRadius: 8, height: 31 }}
+        >
           افزودن به سبد
         </Button>
       </div>
