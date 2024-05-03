@@ -7,8 +7,10 @@ import CreditCardOutlinedIcon from '@mui/icons-material/CreditCardOutlined';
 import { UserPocketContext } from '../../../Context/UserPocketContext';
 import { GoldPriceContext } from '../../../Context/GoldPriceContext';
 import { formatNumberToPersian } from '../../../Utils/Utils';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import './Trade.css';
+import { toast } from 'react-toastify';
+import { AuthContext } from '../../../Context/AuthContext';
 
 const theme = createTheme({
   palette: {
@@ -21,6 +23,7 @@ const theme = createTheme({
 export default function Trade() {
   const { walletBalance, goldWalletBalance } = useContext(UserPocketContext);
   const { goldBuyBalance, goldSellBalance } = useContext(GoldPriceContext);
+  const { userInfo, token } = useContext(AuthContext);
   const [tradeAction, setTradeAction] = useState('buy');
 
   const [sumTotal, setSumTotal] = useState('');
@@ -29,6 +32,7 @@ export default function Trade() {
 
   const [queryParams] = useSearchParams();
   const urlParam = queryParams.get('trade_action');
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (urlParam) {
@@ -67,6 +71,75 @@ export default function Trade() {
     setSumTotal('');
     setSumTotalGold('');
   }, [tradeAction]);
+
+  const tradeBuyHandler = () => {
+    let newWalletBalance = Number(walletBalance) - Number(sumTotal);
+    let newWalletGoldBalance = Number(goldWalletBalance) + Number(sumTotalGold);
+
+    if (
+      Number(sumTotal) >= 100000 &&
+      Number(sumTotal) < Number(walletBalance)
+    ) {
+      let updatedUser = {
+        ...userInfo,
+        pocket: {
+          ...userInfo.pocket,
+          walletBalance: String(newWalletBalance),
+          goldWalletBalance: String(newWalletGoldBalance),
+        },
+      };
+
+      fetch(`http://localhost:4000/users/${token}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedUser), // ارسال اطلاعات به سرور
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          console.log(res);
+          navigate('/panel');
+        })
+        .catch((err) => console.log(err));
+    } else {
+      console.log('مقادیر به درستی وارد نشده است');
+    }
+  };
+  const tradeSellHandler = () => {
+    let newWalletBalance = Number(walletBalance) + Number(sumTotal);
+    let newWalletGoldBalance = Number(goldWalletBalance) - Number(sumTotalGold);
+
+    if (
+      Number(sumTotalGold) > 0 &&
+      Number(sumTotalGold) < Number(goldWalletBalance)
+    ) {
+      let updatedUser = {
+        ...userInfo,
+        pocket: {
+          ...userInfo.pocket,
+          walletBalance: String(newWalletBalance),
+          goldWalletBalance: String(newWalletGoldBalance),
+        },
+      };
+
+      fetch(`http://localhost:4000/users/${token}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedUser), // ارسال اطلاعات به سرور
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          console.log(res);
+          navigate('/panel');
+        })
+        .catch((err) => console.log(err));
+    } else {
+      console.log('مقادیر به درستی وارد نشده است');
+    }
+  };
 
   return (
     <div className='panel-trade'>
@@ -159,6 +232,9 @@ export default function Trade() {
             <div className='panel-pay-btn'>
               <Button
                 fullWidth
+                onClick={
+                  tradeAction === 'buy' ? tradeBuyHandler : tradeSellHandler
+                }
                 style={{
                   marginTop: 24,
                   maxWidth: 360,
