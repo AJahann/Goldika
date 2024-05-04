@@ -7,38 +7,10 @@
       "number": "09036636381",
       "pass": "darya1010",
       "pocket": {
-        "walletBalance": 1500000,
-        "goldWalletBalance": "0.623",
-        "cart": [
-          {
-            "id": 2,
-            "name": "سکه ۱.۲ گرمی کهزاد",
-            "imgSrc": "سکه%20۱.۲%20گرمی%20کهزاد",
-            "wages": 65000,
-            "weight": 1.2
-          },
-          {
-            "id": 9,
-            "name": "سکه ۱۰۰ سوتی کهزاد",
-            "imgSrc": "سکه%20۱۰۰%20سوتی%20کهزاد",
-            "wages": 50000,
-            "weight": 0.1
-          }
-        ],
-        "cards": [
-          {
-            "cardNumber": "11111111111111111",
-            "cardName": "کارت بانکی"
-          },
-          {
-            "cardNumber": "22222222222222222",
-            "cardName": "کارت بانکی۲"
-          },
-          {
-            "cardNumber": "33333333333333333",
-            "cardName": "کارت بانکی۳"
-          }
-        ]
+        "walletBalance": 11500000,
+        "goldWalletBalance": "3.803",
+        "cart": [],
+        "cards": []
       }
     }
   ],

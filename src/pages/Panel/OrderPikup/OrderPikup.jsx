@@ -3,13 +3,13 @@ import LocalGroceryStoreOutlinedIcon from '@mui/icons-material/LocalGroceryStore
 import React, { useContext, useState } from 'react';
 import BigNumber from 'bignumber.js'; // ایمپورت کتابخونه BigNumber.js
 import { formatNumberToPersian } from '../../../Utils/Utils';
-import { UserPocketContext } from '../../../Context/UserPocketContext';
 import { AuthContext } from '../../../Context/AuthContext';
 import { productsData as data } from '../../../data/data';
 import Cart from './Cart';
 
 import './OrderPikup.css';
 import OrderBox from './OrderBox';
+import { ToastContainer, toast } from 'react-toastify';
 
 const theme = createTheme({
   palette: {
@@ -20,18 +20,17 @@ const theme = createTheme({
 });
 
 export default function OrderPickup() {
-  const { goldWalletBalance } = useContext(UserPocketContext);
   const { userInfo, token, updateUserInfo } = useContext(AuthContext);
   const [isOpenCart, setIsOpenCart] = useState(false);
-  const [amountUserGold, setAmountUserGold] = useState(
-    new BigNumber(goldWalletBalance),
-  );
 
   const orderHandler = async (item) => {
     const itemWeight = new BigNumber(item.weight);
+    const amountUserGold = new BigNumber(userInfo.pocket.goldWalletBalance);
 
     if (itemWeight.isGreaterThan(amountUserGold)) {
-      console.log('موجودی کافی نمی باشد');
+      toast.error('موجودی کافی نمی باشد', {
+        theme: 'colored',
+      });
       return;
     }
 
@@ -57,9 +56,13 @@ export default function OrderPickup() {
     try {
       await sendRequest(token, updateUser);
       updateUserInfo(updateUser);
-      setAmountUserGold((prev) => prev.minus(itemWeight));
+      toast.success('محصول با موفقیت اضافه شد.', {
+        theme: 'colored',
+      });
     } catch (error) {
-      console.log(error);
+      toast.error('خطا در ارسال درخواست', {
+        theme: 'colored',
+      });
     }
   };
 
@@ -88,8 +91,8 @@ export default function OrderPickup() {
               <div>
                 <h2 className='panel-title'>دریافت طلا</h2>
                 <p>
-                  موجودی طلا: {formatNumberToPersian(amountUserGold.toString())}{' '}
-                  گرم
+                  موجودی طلا:{' '}
+                  {formatNumberToPersian(userInfo.pocket.goldWalletBalance)} گرم
                 </p>
               </div>
               <div>
@@ -149,6 +152,19 @@ export default function OrderPickup() {
             </div>
           </div>
         </div>
+        {/* toast */}
+        <ToastContainer
+          position='top-right'
+          autoClose={3000}
+          hideProgressBar
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme='dark'
+        />
       </ThemeProvider>
     </div>
   );
