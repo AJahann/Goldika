@@ -1,29 +1,27 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './Dashboard.css';
 import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
 import SellIcon from '@mui/icons-material/Sell';
 import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalanceWalletOutlined';
 import DashboardBox from '../../../components/DashboardBox/DashboardBox';
 import Chart from './../../../components/Main/Chart/Chart';
-import { formatNumberToPersian } from '../../../Utils/Utils';
-import { UserPocketContext } from '../../../Context/UserPocketContext';
 import { AuthContext } from '../../../Context/AuthContext';
+import { formatNumberToPersian } from '../../../Utils/Utils';
 
 export default function Dashboard() {
-  const { updateUserPocket, walletBalance, goldWalletBalance } =
-    useContext(UserPocketContext);
   const { userInfo } = useContext(AuthContext);
+  const [goldBuyPrice, setGoldBuyPrice] = useState('0');
+  const [goldSellPrice, setGoldSellPrice] = useState('0');
 
   useEffect(() => {
-    fetch(`http://localhost:4000/users/${userInfo.id}`)
+    fetch(`http://localhost:4000/gold`)
       .then((res) => res.json())
       .then((res) => {
-        updateUserPocket({
-          walletBalance: res.pocket.walletBalance,
-          goldWalletBalance: res.pocket.goldWalletBalance,
-        });
-      });
-  }, [updateUserPocket, userInfo]);
+        setGoldBuyPrice(res.buy);
+        setGoldSellPrice(res.sell);
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   return (
     <div className='panel-dashboard'>
@@ -34,7 +32,7 @@ export default function Dashboard() {
             link={'/panel/trade?trade_action=buy'}
             title={'خرید از گلدیکا:'}
             txt={'(هرگرم طلای ۱۸ عیار)'}
-            price={formatNumberToPersian('3714086')}
+            price={formatNumberToPersian(goldBuyPrice)}
             btnName={'خرید'}
             icon={<CurrencyExchangeIcon fontSize='20px' />}
             bgColor={'#24b73d'}
@@ -44,7 +42,7 @@ export default function Dashboard() {
             title={'فروش به گلدیکا:'}
             txt={'(هرگرم طلای ۱۸ عیار)'}
             btnName={'فروش'}
-            price={formatNumberToPersian('3402485')}
+            price={formatNumberToPersian(goldSellPrice)}
             icon={<SellIcon fontSize='20px' />}
             bgColor={'#da2b2b'}
           />
@@ -52,13 +50,13 @@ export default function Dashboard() {
             link={'/panel/deposit'}
             title={'موجودی کیف پول:'}
             btnName={'افزایش موجودی'}
-            price={formatNumberToPersian(walletBalance)}
+            price={formatNumberToPersian(userInfo.pocket.walletBalance)}
             icon={<AccountBalanceWalletOutlinedIcon fontSize='20px' />}
             bgColor={'#f1ab1f'}
           />
           <DashboardBox
             title={'موجودی کیف طلا:'}
-            price={formatNumberToPersian(goldWalletBalance)}
+            price={formatNumberToPersian(userInfo.pocket.goldWalletBalance)}
             geram
           />
         </div>

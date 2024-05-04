@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalanceWalletOutlined';
 import StickyNote2OutlinedIcon from '@mui/icons-material/StickyNote2Outlined';
 import SellOutlinedIcon from '@mui/icons-material/SellOutlined';
@@ -8,11 +8,15 @@ import Logo from './Logo';
 
 import './Wallet.css';
 import PanelChart from '../../../components/PanelChart/PanelChart';
-import { UserPocketContext } from '../../../Context/UserPocketContext';
 import { formatNumberToPersian } from '../../../Utils/Utils';
+import { AuthContext } from '../../../Context/AuthContext';
 
 export default function Wallet() {
-  const userPocketContext = useContext(UserPocketContext);
+  const { userInfo } = useContext(AuthContext);
+  const [walletBalance, goldWalletBalance] = [
+    userInfo.pocket.walletBalance,
+    userInfo.pocket.goldWalletBalance,
+  ];
 
   return (
     <div className='panel-wallet'>
@@ -20,9 +24,7 @@ export default function Wallet() {
         <h2 className='panel-title'>کیف دارایی</h2>
         <div className='panel-wallet-container'>
           <div className='panel-wallet-top'>
-            <p>
-              {formatNumberToPersian(userPocketContext.walletBalance)} تومان
-            </p>
+            <p>{formatNumberToPersian(walletBalance)} تومان</p>
             <PanelChart />
           </div>
           <div className='panel-wallet-actions'>
@@ -53,10 +55,7 @@ export default function Wallet() {
               </div>
               <div>
                 <p>کیف طلایی</p>
-                <span>
-                  {formatNumberToPersian(userPocketContext.goldWalletBalance)}{' '}
-                  گرم
-                </span>
+                <span>{formatNumberToPersian(goldWalletBalance)} گرم</span>
               </div>
             </div>
             <div className='panel-wallets_wallet'>
@@ -65,9 +64,7 @@ export default function Wallet() {
               </div>
               <div>
                 <p>کیف پول</p>
-                <span>
-                  {formatNumberToPersian(userPocketContext.walletBalance)} تومان
-                </span>
+                <span>{formatNumberToPersian(walletBalance)} تومان</span>
               </div>
             </div>
           </div>
