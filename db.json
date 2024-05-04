@@ -7,33 +7,36 @@
       "number": "09036636381",
       "pass": "darya1010",
       "pocket": {
-        "walletBalance": "532967",
-        "goldWalletBalance": "1.921",
+        "walletBalance": 1500000,
+        "goldWalletBalance": "0.623",
         "cart": [
           {
-            "id": 1,
-            "name": "سکه ۲ گرمی زردیس",
-            "imgSrc": "سکه%20۲%20گرمی%20زردیس",
-            "wages": 70000,
-            "weight": 2,
-            "count": 2
+            "id": 2,
+            "name": "سکه ۱.۲ گرمی کهزاد",
+            "imgSrc": "سکه%20۱.۲%20گرمی%20کهزاد",
+            "wages": 65000,
+            "weight": 1.2
           },
           {
-            "id": 4,
-            "name": "سکه ۸۰۰ سوتی کهزاد",
-            "imgSrc": "سکه%20۸۰۰%20سوتی%20کهزاد",
-            "wages": 65000,
-            "weight": 0.8
+            "id": 9,
+            "name": "سکه ۱۰۰ سوتی کهزاد",
+            "imgSrc": "سکه%20۱۰۰%20سوتی%20کهزاد",
+            "wages": 50000,
+            "weight": 0.1
           }
         ],
         "cards": [
           {
-            "cardNumber": "60376950770156851",
-            "cardName": "بانک دی"
+            "cardNumber": "11111111111111111",
+            "cardName": "کارت بانکی"
           },
           {
-            "cardNumber": "60370000000085262",
-            "cardName": "ملت"
+            "cardNumber": "22222222222222222",
+            "cardName": "کارت بانکی۲"
+          },
+          {
+            "cardNumber": "33333333333333333",
+            "cardName": "کارت بانکی۳"
           }
         ]
       }

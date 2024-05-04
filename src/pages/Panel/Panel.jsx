@@ -4,15 +4,11 @@ import SideBar from './SideBar/SideBar';
 import TopBar from './TopBar/TopBar';
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthContext';
-import {
-  UserPocketContext,
-  UserPocketProvider,
-} from '../../Context/UserPocketContext';
+import { UserPocketProvider } from '../../Context/UserPocketContext';
 
 export default function Panel() {
   const [isShowSideBar, setIsShowBar] = useState(true);
   const authContext = useContext(AuthContext);
-  const userPocketContext = useContext(UserPocketContext);
   const navigate = useNavigate();
   const URL = useParams();
 

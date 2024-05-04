@@ -24,35 +24,43 @@ const theme = createTheme({
 export default function WithDraw() {
   const { walletBalance, cards, updateUserPocket } =
     useContext(UserPocketContext);
-  const { token, userInfo } = useContext(AuthContext);
+  const { token, userInfo, updateUserInfo } = useContext(AuthContext);
   const [open, setOpen] = useState(false);
   const [withDrawal, setWithDrawal] = useState('');
   const navigate = useNavigate();
 
-  const withDrawalHandler = () => {
-    if (withDrawal.length) {
-      let newWalletBalance = Number(walletBalance) - Number(withDrawal);
+  const updateWalletBalance = async (newWalletBalance) => {
+    const updatedUser = {
+      ...userInfo,
+      pocket: {
+        ...userInfo.pocket,
+        walletBalance: newWalletBalance,
+      },
+    };
 
-      let updatedUser = {
-        ...userInfo,
-        pocket: {
-          ...userInfo.pocket,
-          walletBalance: newWalletBalance,
-        },
-      };
-
-      fetch(`http://localhost:4000/users/${token}`, {
+    try {
+      const response = await fetch(`http://localhost:4000/users/${token}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(updatedUser), // ارسال اطلاعات به سرور
-      })
-        .then((res) => res.json())
-        .then((res) => {
-          navigate('/panel/dashboard');
-        })
-        .catch((err) => console.log(err));
+        body: JSON.stringify(updatedUser),
+      });
+
+      if (!response.ok) {
+        throw new Error('خطا در ارسال درخواست');
+      }
+      updateUserInfo(updatedUser);
+      navigate('/panel/dashboard');
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleWithdrawal = () => {
+    if (withDrawal.length) {
+      const newWalletBalance = Number(walletBalance) - Number(withDrawal);
+      updateWalletBalance(newWalletBalance);
     }
   };
 
@@ -101,7 +109,7 @@ export default function WithDraw() {
                   step={500000}
                   marks
                   min={0}
-                  max={walletBalance}
+                  max={Number(walletBalance)}
                   style={{ color: 'rgb(189, 189, 189)' }}
                 />
               </Box>
@@ -129,7 +137,7 @@ export default function WithDraw() {
                 fontWeight: 'bold',
                 boxShadow: 'none',
               }}
-              onClick={withDrawalHandler}
+              onClick={handleWithdrawal}
               variant='contained'
               disabled={!withDrawal.length}
             >

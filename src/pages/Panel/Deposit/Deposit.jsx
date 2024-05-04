@@ -23,16 +23,16 @@ const theme = createTheme({
 export default function Deposit() {
   const { updateUserPocket, walletBalance, cards } =
     useContext(UserPocketContext);
-  const { token, userInfo } = useContext(AuthContext);
+  const { token, userInfo, updateUserInfo } = useContext(AuthContext);
   const [deposit, setDeposit] = useState('');
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
 
-  const creditHandler = () => {
+  const creditHandler = async () => {
     if (deposit.length) {
-      let newWalletBalance = Number(walletBalance) + Number(deposit);
+      const newWalletBalance = Number(walletBalance) + Number(deposit);
 
-      let updatedUser = {
+      const updatedUser = {
         ...userInfo,
         pocket: {
           ...userInfo.pocket,
@@ -40,30 +40,43 @@ export default function Deposit() {
         },
       };
 
-      fetch(`http://localhost:4000/users/${token}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(updatedUser), // ارسال اطلاعات به سرور
-      })
-        .then((res) => res.json())
-        .then((res) => {
-          navigate('/panel/dashboard');
-        })
-        .catch((err) => console.log(err));
+      try {
+        const response = await fetch(`http://localhost:4000/users/${token}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(updatedUser),
+        });
+        if (!response.ok) {
+          throw new Error('خطا در ارسال درخواست');
+        }
+        updateUserInfo(updatedUser);
+        navigate('/panel/dashboard');
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
   useEffect(() => {
-    fetch(`http://localhost:4000/users/${token}`)
-      .then((res) => res.json())
-      .then((user) => updateUserPocket({ cards: user.pocket.cards }));
+    const fetchUserData = async () => {
+      try {
+        const response = await fetch(`http://localhost:4000/users/${token}`);
+        if (!response.ok) {
+          throw new Error('خطا در دریافت اطلاعات کاربر');
+        }
+        const user = await response.json();
+        updateUserPocket({ cards: user.pocket.cards });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchUserData();
   }, [token]);
 
   return (
     <div className='panel-deposit'>
-      {console.log('deposit')}
       <ThemeProvider theme={theme}>
         <div className='panel-wrap'>
           <div className='panel-title'>واریز</div>
@@ -78,48 +91,34 @@ export default function Deposit() {
             <span></span>
             <div className='panel-deposit-stock'>
               <div className='panel-deposit-stock-top'>
-                <Button
-                  fullWidth
-                  style={{ height: 31, borderRadius: 8 }}
-                  color='primary'
-                  variant='outlined'
-                  onClick={() => setDeposit('500000')}
-                >
-                  <AddIcon style={{ fontSize: 20, marginLeft: 8 }} />
-                  ۵۰۰,۰۰۰ تومان
-                </Button>
-                <Button
-                  fullWidth
-                  style={{ height: 31, borderRadius: 8 }}
-                  color='primary'
-                  variant='outlined'
-                  onClick={() => setDeposit('1000000')}
-                >
-                  <AddIcon style={{ fontSize: 20, marginLeft: 8 }} />
-                  ۱,۰۰۰,۰۰۰ تومان
-                </Button>
+                {[500000, 1000000].map((amount) => (
+                  <Button
+                    key={amount}
+                    fullWidth
+                    style={{ height: 31, borderRadius: 8 }}
+                    color='primary'
+                    variant='outlined'
+                    onClick={() => setDeposit(String(amount))}
+                  >
+                    <AddIcon style={{ fontSize: 20, marginLeft: 8 }} />
+                    {new Intl.NumberFormat('fa').format(amount)} تومان
+                  </Button>
+                ))}
               </div>
               <div className='panel-deposit-stock-bottom'>
-                <Button
-                  fullWidth
-                  style={{ height: 31, borderRadius: 8 }}
-                  color='primary'
-                  variant='outlined'
-                  onClick={() => setDeposit('5000000')}
-                >
-                  <AddIcon style={{ fontSize: 20, marginLeft: 8 }} />
-                  ۵,۰۰۰,۰۰۰ تومان
-                </Button>
-                <Button
-                  fullWidth
-                  style={{ height: 31, borderRadius: 8 }}
-                  color='primary'
-                  variant='outlined'
-                  onClick={() => setDeposit('10000000')}
-                >
-                  <AddIcon style={{ fontSize: 20, marginLeft: 8 }} />
-                  ۱۰,۰۰۰,۰۰۰ تومان
-                </Button>
+                {[5000000, 10000000].map((amount) => (
+                  <Button
+                    key={amount}
+                    fullWidth
+                    style={{ height: 31, borderRadius: 8 }}
+                    color='primary'
+                    variant='outlined'
+                    onClick={() => setDeposit(String(amount))}
+                  >
+                    <AddIcon style={{ fontSize: 20, marginLeft: 8 }} />
+                    {new Intl.NumberFormat('fa').format(amount)} تومان
+                  </Button>
+                ))}
               </div>
             </div>
 

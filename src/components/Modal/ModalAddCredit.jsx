@@ -1,5 +1,5 @@
 import { Alert, Box, Button, Typography } from '@mui/material';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Input2 from '../Input2/Input2';
 import Input from '../Input/Input';
 import Modal from './../../components/Modal/Modal';
@@ -7,16 +7,22 @@ import { AuthContext } from '../../Context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
 export default function ModalAddCredit({ open, setOpen }) {
-  const { token, userInfo } = useContext(AuthContext);
+  const { token, userInfo, updateUserInfo } = useContext(AuthContext);
   const [cardNumber, setCardNumber] = useState('');
   const [cardName, setCardName] = useState('');
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (!open) {
+      setCardName('');
+      setCardNumber('');
+    }
+  }, [open]);
+
   const addCreditCardHandler = () => {
     if (cardNumber.length && cardName.length) {
-      let cardInfo = { cardNumber, cardName };
-
-      let updatedUser = {
+      const cardInfo = { cardNumber, cardName };
+      const updatedUser = {
         ...userInfo,
         pocket: {
           ...userInfo.pocket,
@@ -24,23 +30,29 @@ export default function ModalAddCredit({ open, setOpen }) {
         },
       };
 
-      fetch(`http://localhost:4000/users/${token}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(updatedUser), // ارسال اطلاعات به سرور
-      })
-        .then((res) => res.json())
-        .then((res) => {
-          navigate('/panel/dashboard');
-        })
-        .catch((err) => console.log(err));
-
-      setCardName('');
-      setCardNumber('');
-      setOpen(false);
+      updateUser(updatedUser);
     }
+  };
+
+  const updateUser = (updatedUser) => {
+    fetch(`http://localhost:4000/users/${token}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updatedUser),
+    })
+      .then((res) => res.json())
+      .then(() => {
+        updateUserInfo(updatedUser);
+        navigate('/panel/dashboard');
+        setOpen(false);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const handleClose = () => {
+    setOpen(false);
   };
 
   return (
@@ -78,9 +90,7 @@ export default function ModalAddCredit({ open, setOpen }) {
       </Box>
       <Box textAlign={'right'} marginTop={2}>
         <Button
-          onClick={() => {
-            setOpen(false);
-          }}
+          onClick={handleClose}
           style={{
             borderRadius: 8,
             backgroundColor: 'transparent',
