@@ -1,4 +1,4 @@
-import { createContext } from 'react';
+import { createContext, useCallback, useEffect, useState } from 'react';
 
 export const AuthContext = createContext({
   isLogin: false,
@@ -6,4 +6,52 @@ export const AuthContext = createContext({
   userInfo: {},
   login: () => {},
   logout: () => {},
+  updateUserInfo: () => {},
 });
+
+export const AuthContextProvider = ({ children }) => {
+  const [isLogin, setIsLogin] = useState(false);
+  const [token, setToken] = useState('');
+  const [userInfo, setUserInfo] = useState({});
+
+  const updateUserInfo = useCallback((userInfo) => {
+    userInfo && setUserInfo(userInfo);
+  }, []);
+
+  const login = useCallback((userInfo, token) => {
+    setIsLogin(true);
+    setToken(token);
+    setUserInfo(userInfo);
+    const expiryDate = new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000);
+    document.cookie = `token=${token}; expires=${expiryDate.toUTCString()}; path=/; Priority=High`;
+  }, []);
+
+  const logout = useCallback(() => {
+    setIsLogin(false);
+    setToken('');
+    setUserInfo({});
+    document.cookie = `token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+  }, []);
+
+  useEffect(() => {
+    const cookieToken = document.cookie.split('=')[1];
+    if (cookieToken) {
+      fetch(`http://localhost:4000/users/${cookieToken}`)
+        .then((res) => res.json())
+        .then((res) => {
+          login(res, res.id);
+        })
+        .catch((res) => {
+          logout();
+        });
+    }
+  }, [login, logout]);
+
+  return (
+    <AuthContext.Provider
+      value={{ isLogin, token, userInfo, login, logout, updateUserInfo }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
+};
