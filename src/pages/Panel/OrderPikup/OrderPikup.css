@@ -68,6 +68,10 @@
   font-size: 20px;
   line-height: 24px;
 }
+.MuiTableRow-root th,
+.MuiTableRow-root td {
+  color: var(--white);
+}
 
 @media screen and (max-width: 1168px) {
   .panel-orderPikup-items {
@@ -79,6 +83,10 @@
 @media screen and (max-width: 680px) {
   .panel-orderPikup-items {
     grid-template-columns: 1fr;
+  }
+  #cart-alert {
+    font-size: 16px !important;
+    padding: 1rem !important;
   }
 }
 @media screen and (max-width: 480px) {

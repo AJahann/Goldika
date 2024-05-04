@@ -2,11 +2,12 @@ import { Alert, Button, ThemeProvider, createTheme } from '@mui/material';
 import LocalGroceryStoreOutlinedIcon from '@mui/icons-material/LocalGroceryStoreOutlined';
 import React, { useContext, useEffect, useState } from 'react';
 import BigNumber from 'bignumber.js'; // ایمپورت کتابخونه BigNumber.js
+import { formatNumberToPersian } from '../../../Utils/Utils';
+import { UserPocketContext } from '../../../Context/UserPocketContext';
+import Cart from './Cart';
 
 import './OrderPikup.css';
 import OrderBox from './OrderBox';
-import { formatNumberToPersian } from '../../../Utils/Utils';
-import { UserPocketContext } from '../../../Context/UserPocketContext';
 
 const theme = createTheme({
   palette: {
@@ -119,6 +120,7 @@ const data = [
 
 export default function OrderPikup() {
   const { goldWalletBalance } = useContext(UserPocketContext);
+  const [isOpenCart, setIsOpenCart] = useState(false);
 
   const [userCart, setUserCart] = useState([]);
   const [amountUserGold, setAmountUserGold] = useState(
@@ -146,11 +148,6 @@ export default function OrderPikup() {
     }
   };
 
-  useEffect(() => {
-    console.log(userCart);
-    console.log(amountUserGold.toString());
-  }, [userCart, amountUserGold]);
-
   return (
     <div className='panel-orderPikup'>
       <ThemeProvider theme={theme}>
@@ -176,11 +173,17 @@ export default function OrderPikup() {
                   فیلترها
                 </Button>
                 <Button
+                  onClick={() => setIsOpenCart(true)}
                   style={{ borderRadius: 8, boxShadow: 'none' }}
                   variant='contained'
                 >
                   <LocalGroceryStoreOutlinedIcon />
                 </Button>
+                <Cart
+                  isOpen={isOpenCart}
+                  onClose={() => setIsOpenCart(false)}
+                  cart={userCart}
+                />
               </div>
             </div>
 
