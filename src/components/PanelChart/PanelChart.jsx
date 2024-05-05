@@ -1,9 +1,19 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { AreaChart, Area, XAxis, YAxis, ResponsiveContainer } from 'recharts';
 import { panelChartData } from './../../data/data';
 import './PanelChart.css';
+import { AuthContext } from '../../Context/AuthContext';
 
 export default function PanelChart() {
+  const { userInfo } = useContext(AuthContext);
+
+  useEffect(() => {
+    if (userInfo.pocket.walletBalance) {
+      panelChartData[2].میانگین = 2;
+    } else {
+      panelChartData[2].میانگین = 1;
+    }
+  }, [userInfo.pocket.walletBalance]);
   return (
     <div className='panel-chart'>
       <ResponsiveContainer width='100%' height={160}>

@@ -12,7 +12,19 @@ export const AuthContext = createContext({
 export const AuthContextProvider = ({ children }) => {
   const [isLogin, setIsLogin] = useState(false);
   const [token, setToken] = useState('');
-  const [userInfo, setUserInfo] = useState({});
+  const [userInfo, setUserInfo] = useState({
+    id: '0',
+    name: '0',
+    family: '0',
+    number: '0',
+    pass: '0',
+    pocket: {
+      walletBalance: '0',
+      goldWalletBalance: '0',
+      cart: [],
+      cards: [],
+    },
+  });
 
   const updateUserInfo = useCallback((userInfo) => {
     userInfo && setUserInfo(userInfo);
@@ -21,7 +33,7 @@ export const AuthContextProvider = ({ children }) => {
   const login = useCallback((userInfo, token) => {
     setIsLogin(true);
     setToken(token);
-    setUserInfo(userInfo);
+    updateUserInfo(userInfo);
     const expiryDate = new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000);
     document.cookie = `token=${token}; expires=${expiryDate.toUTCString()}; path=/; Priority=High`;
   }, []);
