@@ -2,11 +2,11 @@ import { Button } from '@mui/material';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import React, { useContext } from 'react';
 import './MyCards.css';
-import { UserPocketContext } from '../../../../Context/UserPocketContext';
 import { separateNumbersTo4Groups } from '../../../../Utils/Utils';
+import { AuthContext } from '../../../../Context/AuthContext';
 
 export default function MyCards({ setOpen }) {
-  const { cards } = useContext(UserPocketContext);
+  const { userInfo } = useContext(AuthContext);
 
   return (
     <>
@@ -21,7 +21,7 @@ export default function MyCards({ setOpen }) {
         </Button>
       </div>
       <div className='panel_myCards-bottom'>
-        {cards.map((card, index) => {
+        {(userInfo.pocket.cards || []).map((card, index) => {
           return (
             <div key={index} className='panel_myCards-card'>
               <div>

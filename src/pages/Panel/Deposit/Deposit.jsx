@@ -4,7 +4,6 @@ import Input2 from './../../../components/Input2/Input2';
 import AddIcon from '@mui/icons-material/Add';
 import { ThemeProvider } from '@emotion/react';
 import { useNavigate } from 'react-router-dom';
-import { UserPocketContext } from './../../../Context/UserPocketContext';
 import { AuthContext } from './../../../Context/AuthContext';
 
 import './Deposit.css';
@@ -21,16 +20,16 @@ const theme = createTheme({
 });
 
 export default function Deposit() {
-  const { updateUserPocket, walletBalance, cards } =
-    useContext(UserPocketContext);
   const { token, userInfo, updateUserInfo } = useContext(AuthContext);
-  const [deposit, setDeposit] = useState('');
-  const [open, setOpen] = useState(false);
   const navigate = useNavigate();
+
+  const [open, setOpen] = useState(false);
+  const [deposit, setDeposit] = useState('');
 
   const creditHandler = async () => {
     if (deposit.length) {
-      const newWalletBalance = Number(walletBalance) + Number(deposit);
+      const newWalletBalance =
+        Number(userInfo.pocket.walletBalance) + Number(deposit);
 
       const updatedUser = {
         ...userInfo,
@@ -67,7 +66,7 @@ export default function Deposit() {
           throw new Error('خطا در دریافت اطلاعات کاربر');
         }
         const user = await response.json();
-        updateUserPocket({ cards: user.pocket.cards });
+        updateUserInfo(user);
       } catch (error) {
         console.log(error);
       }
@@ -123,7 +122,7 @@ export default function Deposit() {
             </div>
 
             <div className='panel-deposit-myCards'>
-              {cards.length ? (
+              {userInfo.pocket.cards.length ? (
                 <MyCards setOpen={setOpen} />
               ) : (
                 <NoCards setOpen={setOpen} />
@@ -140,9 +139,9 @@ export default function Deposit() {
                 fontWeight: 'bold',
                 boxShadow: 'none',
               }}
-              onClick={creditHandler}
+              onClick={userInfo.pocket.cards.length ? creditHandler : null}
               variant='contained'
-              disabled={!deposit.length}
+              disabled={!deposit.length || !userInfo.pocket.cards.length}
             >
               پرداخت
             </Button>

@@ -4,7 +4,6 @@ import SideBar from './SideBar/SideBar';
 import TopBar from './TopBar/TopBar';
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthContext';
-import { UserPocketProvider } from '../../Context/UserPocketContext';
 
 export default function Panel() {
   const [isShowSideBar, setIsShowBar] = useState(true);
@@ -24,18 +23,16 @@ export default function Panel() {
 
   return (
     <div className='panel'>
-      <UserPocketProvider>
-        <div className={isShowSideBar ? 'sideBar' : 'sideBar hide'}>
-          <SideBar logout={authContext.logout} />
-        </div>
-        <div className='panel-content'>
-          <TopBar
-            number={authContext.userInfo.number}
-            sideBarHandler={() => setIsShowBar(!isShowSideBar)}
-          />
-          <Outlet />
-        </div>
-      </UserPocketProvider>
+      <div className={isShowSideBar ? 'sideBar' : 'sideBar hide'}>
+        <SideBar logout={authContext.logout} />
+      </div>
+      <div className='panel-content'>
+        <TopBar
+          number={authContext.userInfo.number}
+          sideBarHandler={() => setIsShowBar(!isShowSideBar)}
+        />
+        <Outlet />
+      </div>
     </div>
   );
 }

@@ -5,7 +5,6 @@ import { ThemeProvider } from '@emotion/react';
 import CreditCardOutlinedIcon from '@mui/icons-material/CreditCardOutlined';
 
 import './WithDraw.css';
-import { UserPocketContext } from '../../../Context/UserPocketContext';
 import { formatNumberToPersian } from '../../../Utils/Utils';
 import MyCards from '../components/MyCards/MyCards';
 import NoCards from '../components/NoCards/NoCards';
@@ -22,8 +21,6 @@ const theme = createTheme({
 });
 
 export default function WithDraw() {
-  const { walletBalance, cards, updateUserPocket } =
-    useContext(UserPocketContext);
   const { token, userInfo, updateUserInfo } = useContext(AuthContext);
   const [open, setOpen] = useState(false);
   const [withDrawal, setWithDrawal] = useState('');
@@ -59,22 +56,17 @@ export default function WithDraw() {
 
   const handleWithdrawal = () => {
     if (withDrawal.length) {
-      const newWalletBalance = Number(walletBalance) - Number(withDrawal);
+      const newWalletBalance =
+        Number(userInfo.pocket.walletBalance) - Number(withDrawal);
       updateWalletBalance(newWalletBalance);
     }
   };
 
   useEffect(() => {
-    fetch(`http://localhost:4000/users/${token}`)
-      .then((res) => res.json())
-      .then((user) => updateUserPocket({ cards: user.pocket.cards }));
-  }, [token]);
-
-  useEffect(() => {
-    if (withDrawal >= walletBalance) {
-      setWithDrawal(walletBalance);
+    if (withDrawal >= userInfo.pocket.walletBalance) {
+      setWithDrawal(userInfo.pocket.walletBalance);
     }
-  }, [withDrawal, walletBalance]);
+  }, [withDrawal, userInfo.pocket.walletBalance]);
 
   return (
     <div className='panel-withdraw'>
@@ -92,7 +84,10 @@ export default function WithDraw() {
               }}
             >
               <CreditCardOutlinedIcon style={{ fontSize: 24, marginLeft: 8 }} />
-              موجودی: {formatNumberToPersian(walletBalance)} تومان
+              موجودی: {formatNumberToPersian(
+                userInfo.pocket.walletBalance,
+              )}{' '}
+              تومان
             </div>
             <Input2
               value={withDrawal}
@@ -109,7 +104,7 @@ export default function WithDraw() {
                   step={500000}
                   marks
                   min={0}
-                  max={Number(walletBalance)}
+                  max={Number(userInfo.pocket.walletBalance)}
                   style={{ color: 'rgb(189, 189, 189)' }}
                 />
               </Box>
@@ -120,7 +115,7 @@ export default function WithDraw() {
               </Alert>
             </Box>
             <div className='panel-myCards'>
-              {cards.length ? (
+              {(userInfo.pocket.cards || []).length ? (
                 <MyCards setOpen={setOpen} />
               ) : (
                 <NoCards setOpen={setOpen} />
@@ -137,9 +132,9 @@ export default function WithDraw() {
                 fontWeight: 'bold',
                 boxShadow: 'none',
               }}
-              onClick={handleWithdrawal}
+              onClick={userInfo.pocket.cards.length ? handleWithdrawal : null}
               variant='contained'
-              disabled={!withDrawal.length}
+              disabled={!withDrawal.length || !userInfo.pocket.cards.length}
             >
               برداشت
             </Button>

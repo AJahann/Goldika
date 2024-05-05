@@ -4,7 +4,6 @@ import GoldInput from './../../../components/Input3/Input3';
 import { Box, Button, ButtonGroup, Slider, createTheme } from '@mui/material';
 import { ThemeProvider } from '@emotion/react';
 import CreditCardOutlinedIcon from '@mui/icons-material/CreditCardOutlined';
-import { UserPocketContext } from '../../../Context/UserPocketContext';
 import { GoldPriceContext } from '../../../Context/GoldPriceContext';
 import { formatNumberToPersian } from '../../../Utils/Utils';
 import { useNavigate, useSearchParams } from 'react-router-dom';
@@ -21,9 +20,8 @@ const theme = createTheme({
 });
 
 export default function Trade() {
-  const { walletBalance, goldWalletBalance } = useContext(UserPocketContext);
   const { goldBuyBalance, goldSellBalance } = useContext(GoldPriceContext);
-  const { userInfo, token } = useContext(AuthContext);
+  const { userInfo, token, updateUserInfo } = useContext(AuthContext);
   const [tradeAction, setTradeAction] = useState('buy');
 
   const [sumTotal, setSumTotal] = useState('');
@@ -73,12 +71,14 @@ export default function Trade() {
   }, [tradeAction]);
 
   const tradeBuyHandler = () => {
-    let newWalletBalance = Number(walletBalance) - Number(sumTotal);
-    let newWalletGoldBalance = Number(goldWalletBalance) + Number(sumTotalGold);
+    let newWalletBalance =
+      Number(userInfo.pocket.walletBalance) - Number(sumTotal);
+    let newWalletGoldBalance =
+      Number(userInfo.pocket.goldWalletBalance) + Number(sumTotalGold);
 
     if (
       Number(sumTotal) >= 100000 &&
-      Number(sumTotal) < Number(walletBalance)
+      Number(sumTotal) < Number(userInfo.pocket.walletBalance)
     ) {
       let updatedUser = {
         ...userInfo,
@@ -98,7 +98,7 @@ export default function Trade() {
       })
         .then((res) => res.json())
         .then((res) => {
-          console.log(res);
+          updateUserInfo(updatedUser);
           navigate('/panel');
         })
         .catch((err) => console.log(err));
@@ -107,12 +107,14 @@ export default function Trade() {
     }
   };
   const tradeSellHandler = () => {
-    let newWalletBalance = Number(walletBalance) + Number(sumTotal);
-    let newWalletGoldBalance = Number(goldWalletBalance) - Number(sumTotalGold);
+    let newWalletBalance =
+      Number(userInfo.pocket.walletBalance) + Number(sumTotal);
+    let newWalletGoldBalance =
+      Number(userInfo.pocket.goldWalletBalance) - Number(sumTotalGold);
 
     if (
       Number(sumTotalGold) > 0 &&
-      Number(sumTotalGold) < Number(goldWalletBalance)
+      Number(sumTotalGold) < Number(userInfo.pocket.goldWalletBalance)
     ) {
       let updatedUser = {
         ...userInfo,
@@ -132,7 +134,7 @@ export default function Trade() {
       })
         .then((res) => res.json())
         .then((res) => {
-          console.log(res);
+          updateUserInfo(updatedUser);
           navigate('/panel');
         })
         .catch((err) => console.log(err));
@@ -204,7 +206,7 @@ export default function Trade() {
                   step={50000}
                   marks
                   min={0}
-                  max={Number(walletBalance)}
+                  max={Number(userInfo.pocket.walletBalance)}
                   style={{ color: 'rgb(189, 189, 189)' }}
                 />
               </Box>
@@ -222,11 +224,11 @@ export default function Trade() {
               {tradeAction === 'buy'
                 ? `
                 موجودی کیف پول:${' '}
-                ${formatNumberToPersian(walletBalance)} تومان
+                ${formatNumberToPersian(userInfo.pocket.walletBalance)} تومان
                 `
                 : `
               موجودی کیف طلا:${' '}
-              ${formatNumberToPersian(goldWalletBalance)} گرم
+              ${formatNumberToPersian(userInfo.pocket.goldWalletBalance)} گرم
               `}
             </div>
             <div className='panel-pay-btn'>
