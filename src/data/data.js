@@ -88,6 +88,8 @@ const productsData = [
     imgSrc: 'سکه%20۲%20گرمی%20زردیس',
     wages: 70000,
     weight: 2,
+    brand: 'پارسس',
+    type: 'سکه پارسیان',
   },
   {
     id: 2,
@@ -95,6 +97,8 @@ const productsData = [
     imgSrc: 'سکه%20۱.۲%20گرمی%20کهزاد',
     wages: 65000,
     weight: 1.2,
+    brand: 'کهزاد',
+    type: 'سکه پارسیان',
   },
   {
     id: 3,
@@ -102,6 +106,8 @@ const productsData = [
     imgSrc: 'سکه%20۱%20گرمی%20کهزاد',
     wages: 65000,
     weight: 1,
+    brand: 'کهزاد',
+    type: 'سکه پارسیان',
   },
   {
     id: 4,
@@ -109,6 +115,8 @@ const productsData = [
     imgSrc: 'سکه%20۸۰۰%20سوتی%20کهزاد',
     wages: 65000,
     weight: 0.8,
+    brand: 'کهزاد',
+    type: 'سکه پارسیان',
   },
   {
     id: 5,
@@ -116,6 +124,8 @@ const productsData = [
     imgSrc: 'سکه%20۵۰۰%20سوتی%20کهزاد',
     wages: 65000,
     weight: 0.5,
+    brand: 'کهزاد',
+    type: 'سکه پارسیان',
   },
   {
     id: 6,
@@ -123,6 +133,8 @@ const productsData = [
     imgSrc: 'سکه%20۴۰۰%20سوتی%20کهزاد',
     wages: 65000,
     weight: 0.4,
+    brand: 'کهزاد',
+    type: 'سکه پارسیان',
   },
   {
     id: 7,
@@ -130,6 +142,8 @@ const productsData = [
     imgSrc: 'سکه%20۲۵۰%20سوتی%20کهزاد',
     wages: 65000,
     weight: 0.25,
+    brand: 'کهزاد',
+    type: 'سکه پارسیان',
   },
   {
     id: 8,
@@ -137,6 +151,8 @@ const productsData = [
     imgSrc: 'سکه%20۲۰۰%20سوتی%20کهزاد',
     wages: 65000,
     weight: 0.2,
+    brand: 'کهزاد',
+    type: 'سکه پارسیان',
   },
   {
     id: 9,
@@ -144,6 +160,8 @@ const productsData = [
     imgSrc: 'سکه%20۱۰۰%20سوتی%20کهزاد',
     wages: 50000,
     weight: 0.1,
+    brand: 'کهزاد',
+    type: 'سکه پارسیان',
   },
   {
     id: 10,
@@ -151,6 +169,8 @@ const productsData = [
     imgSrc: 'سکه%20۷۰%20سوتی%20کهزاد',
     wages: 50000,
     weight: 0.07,
+    brand: 'کهزاد',
+    type: 'سکه پارسیان',
   },
   {
     id: 11,
@@ -158,6 +178,8 @@ const productsData = [
     imgSrc: 'سکه%20۵۰%20سوتی%20کهزاد',
     wages: 50000,
     weight: 0.05,
+    brand: 'کهزاد',
+    type: 'سکه پارسیان',
   },
   {
     id: 12,
@@ -165,6 +187,8 @@ const productsData = [
     imgSrc: 'سکه%20۳۰۰%20سوتی%20لوکس',
     wages: 65000,
     weight: 0.3,
+    brand: 'لوکس',
+    type: 'سکه پارسیان',
   },
   {
     id: 13,
@@ -172,6 +196,8 @@ const productsData = [
     imgSrc: 'سکه%20۱۵۰%20سوتی%20لوکس',
     wages: 65000,
     weight: 0.15,
+    brand: 'لوکس',
+    type: 'سکه پارسیان',
   },
   {
     id: 14,
@@ -179,6 +205,8 @@ const productsData = [
     imgSrc: 'سکه%20۱۰۰%20سوتی%20لوکس',
     wages: 50000,
     weight: 0.1,
+    brand: 'لوکس',
+    type: 'سکه پارسیان',
   },
 ];
 

@@ -4,12 +4,13 @@ import React, { useContext, useState } from 'react';
 import BigNumber from 'bignumber.js'; // ایمپورت کتابخونه BigNumber.js
 import { formatNumberToPersian } from '../../../Utils/Utils';
 import { AuthContext } from '../../../Context/AuthContext';
-import { productsData as data } from '../../../data/data';
+import { productsData } from '../../../data/data';
 import Cart from './Cart';
 
 import './OrderPikup.css';
 import OrderBox from './OrderBox';
 import { ToastContainer, toast } from 'react-toastify';
+import OrderFilters from './OrderFilters';
 
 const theme = createTheme({
   palette: {
@@ -22,6 +23,9 @@ const theme = createTheme({
 export default function OrderPickup() {
   const { userInfo, token, updateUserInfo } = useContext(AuthContext);
   const [isOpenCart, setIsOpenCart] = useState(false);
+  const [isOpenFilters, setIsOpenFilters] = useState(false);
+  const [products] = useState(productsData || []);
+  const [filterProducts, setFilterProducts] = useState(productsData || []);
 
   const orderHandler = async (item) => {
     const itemWeight = new BigNumber(item.weight);
@@ -102,6 +106,7 @@ export default function OrderPickup() {
                     boxShadow: 'none',
                     fontWeight: 'bold',
                   }}
+                  onClick={() => setIsOpenFilters(true)}
                   variant='contained'
                 >
                   فیلترها
@@ -138,7 +143,7 @@ export default function OrderPickup() {
                 </Alert>
               </div>
               <div className='panel-orderPikup-items'>
-                {data.map((item) => (
+                {filterProducts.map((item) => (
                   <OrderBox
                     onClick={() => {
                       orderHandler(item);
@@ -164,6 +169,13 @@ export default function OrderPickup() {
           draggable
           pauseOnHover
           theme='dark'
+        />
+        {/* filters */}
+        <OrderFilters
+          isOpen={isOpenFilters}
+          onClose={() => setIsOpenFilters(false)}
+          data={products}
+          setData={setFilterProducts}
         />
       </ThemeProvider>
     </div>

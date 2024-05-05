@@ -1,0 +1,91 @@
+.order-filters {
+  z-index: 9999 !important;
+  box-sizing: border-box;
+}
+.order-filters .MuiPaper-root {
+  left: 0 !important;
+  right: auto;
+}
+.order-filters-wrap {
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.order-filters-header {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  margin-bottom: 13px;
+}
+.order-filters-header h3 {
+  flex: 1;
+  color: #fff;
+  text-align: center;
+  padding: 16px;
+  font-size: 18px;
+}
+.order-filters-header .MuiButtonBase-root {
+  color: #fff;
+  height: fit-content;
+  border-radius: 50%;
+  padding: 8px;
+}
+.order-filters-body {
+  height: 100%;
+}
+.order-filter {
+  padding: 20px 0;
+}
+.order-filter .header {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+}
+.order-filter .header span {
+  font-size: 20px;
+  color: #bfbcb6;
+}
+.order-filter .header .MuiButton-root {
+  font-size: 16px;
+  color: rgb(244, 67, 54);
+}
+.order-filter .filter {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+}
+.order-filter .filter .MuiSlider-root span {
+  color: var(--primary-color);
+}
+.order-filter .filter .MuiSlider-root .MuiSlider-thumb {
+  margin-left: -20px !important;
+}
+.order-filter .filter span {
+  font-size: 18px;
+  color: #fff;
+}
+.order-filters-footer {
+  width: 100%;
+  background-color: rgb(72, 74, 84);
+  display: flex;
+  padding: 20px;
+  justify-content: center;
+  margin-right: -15px;
+}
+.order-filters-footer .MuiButton-root {
+  background-color: #808080;
+  width: 200px;
+  padding: 6px 16px;
+  box-sizing: border-box;
+  border-radius: 8px;
+  color: #fff;
+}
+
+@media screen and (max-width: 320px) {
+  .order-filters-wrap {
+    width: 280px;
+    box-sizing: border-box;
+  }
+}
