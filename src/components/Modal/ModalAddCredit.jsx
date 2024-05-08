@@ -35,7 +35,7 @@ export default function ModalAddCredit({ open, setOpen }) {
   };
 
   const updateUser = (updatedUser) => {
-    fetch(`http://localhost:4000/users/${token}`, {
+    fetch(`https://goldikaserver.liara.run/users/${token}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

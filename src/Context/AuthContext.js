@@ -48,7 +48,7 @@ export const AuthContextProvider = ({ children }) => {
   useEffect(() => {
     const cookieToken = document.cookie.split('=')[1];
     if (cookieToken) {
-      fetch(`http://localhost:4000/users/${cookieToken}`)
+      fetch(`https://goldikaserver.liara.run/users/${cookieToken}`)
         .then((res) => res.json())
         .then((res) => {
           login(res, res.id);

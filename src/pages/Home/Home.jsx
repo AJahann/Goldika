@@ -17,7 +17,7 @@ export default function Home() {
   const authContext = useContext(AuthContext);
   const { updatePrices } = useContext(GoldPriceContext);
   useEffect(() => {
-    fetch(`http://localhost:4000/gold`)
+    fetch(`https://goldikaserver.liara.run/gold`)
       .then((res) => res.json())
       .then((res) => {
         updatePrices({

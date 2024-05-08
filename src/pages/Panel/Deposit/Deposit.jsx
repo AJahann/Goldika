@@ -40,13 +40,16 @@ export default function Deposit() {
       };
 
       try {
-        const response = await fetch(`http://localhost:4000/users/${token}`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
+        const response = await fetch(
+          `https://goldikaserver.liara.run/users/${token}`,
+          {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(updatedUser),
           },
-          body: JSON.stringify(updatedUser),
-        });
+        );
         if (!response.ok) {
           throw new Error('خطا در ارسال درخواست');
         }
@@ -61,7 +64,9 @@ export default function Deposit() {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await fetch(`http://localhost:4000/users/${token}`);
+        const response = await fetch(
+          `https://goldikaserver.liara.run/users/${token}`,
+        );
         if (!response.ok) {
           throw new Error('خطا در دریافت اطلاعات کاربر');
         }

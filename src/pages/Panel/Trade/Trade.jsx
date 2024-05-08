@@ -89,7 +89,7 @@ export default function Trade() {
         },
       };
 
-      fetch(`http://localhost:4000/users/${token}`, {
+      fetch(`https://goldikaserver.liara.run/users/${token}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -125,7 +125,7 @@ export default function Trade() {
         },
       };
 
-      fetch(`http://localhost:4000/users/${token}`, {
+      fetch(`https://goldikaserver.liara.run/users/${token}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
