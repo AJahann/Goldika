@@ -11,8 +11,8 @@ export const GoldPriceContextProvider = ({ children }) => {
   const [goldSellBalance, setGoldSellBalance] = useState('0');
 
   const updatePrices = ({ goldBuyBalance, goldSellBalance }) => {
-    goldBuyBalance && setGoldBuyBalance(goldBuyBalance);
-    goldSellBalance && setGoldSellBalance(goldSellBalance);
+    setGoldBuyBalance(goldBuyBalance);
+    setGoldSellBalance(goldSellBalance);
   };
 
   return (

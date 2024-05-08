@@ -5,6 +5,7 @@ export default function Loading() {
   return (
     <div
       style={{
+        overflow: 'hidden',
         backgroundColor: '#2A2C34',
         position: 'fixed',
         inset: '0',
