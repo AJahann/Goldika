@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import './Dashboard.css';
 import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
 import SellIcon from '@mui/icons-material/Sell';
@@ -7,21 +7,11 @@ import DashboardBox from '../../../components/DashboardBox/DashboardBox';
 import Chart from './../../../components/Main/Chart/Chart';
 import { AuthContext } from '../../../Context/AuthContext';
 import { formatNumberToPersian } from '../../../Utils/Utils';
+import { GoldPriceContext } from '../../../Context/GoldPriceContext';
 
 export default function Dashboard() {
   const { userInfo } = useContext(AuthContext);
-  const [goldBuyPrice, setGoldBuyPrice] = useState('0');
-  const [goldSellPrice, setGoldSellPrice] = useState('0');
-
-  useEffect(() => {
-    fetch(`https://goldikaserver.liara.run/gold`)
-      .then((res) => res.json())
-      .then((res) => {
-        setGoldBuyPrice(res.buy);
-        setGoldSellPrice(res.sell);
-      })
-      .catch((err) => console.log(err));
-  }, []);
+  const { goldBuyBalance, goldSellBalance } = useContext(GoldPriceContext);
 
   return (
     <div className='panel-dashboard'>
@@ -32,7 +22,7 @@ export default function Dashboard() {
             link={'/panel/trade?trade_action=buy'}
             title={'خرید از گلدیکا:'}
             txt={'(هرگرم طلای ۱۸ عیار)'}
-            price={formatNumberToPersian(goldBuyPrice)}
+            price={formatNumberToPersian(goldBuyBalance)}
             btnName={'خرید'}
             icon={<CurrencyExchangeIcon fontSize='20px' />}
             bgColor={'#24b73d'}
@@ -42,7 +32,7 @@ export default function Dashboard() {
             title={'فروش به گلدیکا:'}
             txt={'(هرگرم طلای ۱۸ عیار)'}
             btnName={'فروش'}
-            price={formatNumberToPersian(goldSellPrice)}
+            price={formatNumberToPersian(goldSellBalance)}
             icon={<SellIcon fontSize='20px' />}
             bgColor={'#da2b2b'}
           />
