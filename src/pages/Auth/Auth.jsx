@@ -11,6 +11,7 @@ import { createTheme } from '@mui/material/styles';
 import Modal from './../../components/Modal/Modal';
 import { ToastContainer, toast } from 'react-toastify';
 import GoldikaTypo from './../../components/LogoTypo/GoldikaTypo';
+import { useQuery } from 'react-query';
 import Svg from './Svg';
 
 import './Auth.css';
@@ -29,6 +30,8 @@ const theme = createTheme({
       styleOverrides: {
         notchedOutline: {
           borderColor: '#f2f2f360',
+        },
+        root: {
           borderRadius: 16,
         },
       },
@@ -43,6 +46,20 @@ const theme = createTheme({
   },
 });
 
+const fetchData = async (number) => {
+  const response = await fetch(
+    `https://goldikaserver.liara.run/users?number=${number}`,
+  );
+  if (!response.ok) {
+    throw new Error('Network response was not ok');
+  }
+  return response.json();
+};
+
+const codeGenerator = (setCode) => {
+  setCode(Math.floor(1000 + Math.random() * 90000));
+};
+
 export default function Auth() {
   const [isUser, setIsUser] = useState(false);
   const [number, setNumber] = useState('');
@@ -50,38 +67,32 @@ export default function Auth() {
   const [code, setCode] = useState('');
   const [codeValid, setCodeValid] = useState(false);
   const [open, setOpen] = useState(false);
+  const { refetch: refetchIsUser } = useQuery({
+    queryKey: ['isUser'],
+    queryFn: () => fetchData(number),
+    cacheTime: 0,
+    enabled: false,
+  });
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
-  const codeGenerator = () => {
-    setCode(Math.floor(1000 + Math.random() * 90000));
-  };
-  const getIsUser = (number) => {
-    fetch(`http://localhost:4000/users?number=${number}`)
-      .then((res) => res.json())
-      .then((res) => {
-        if (res.length) {
-          console.log(res);
-          setIsUser(true);
-        } else {
-          setIsUser(false);
-        }
-      })
-      .catch((err) => console.log(err));
+  const getIsUser = () => {
+    refetchIsUser().then((res) => {
+      if (res.data[0]?.number === number) {
+        setIsUser(true);
+        setNumberValid(true);
+        toast.success('کد به شماره تلفن همراه ارسال شد.');
+      } else {
+        setNumberValid(true);
+        toast.success('کد به شماره تلفن همراه ارسال شد.');
+      }
+    });
   };
 
   const submitHandler = () => {
     const numberRegex = /^09\d{9}$/g;
     if (numberRegex.test(number)) {
-      setNumberValid(true);
-      codeGenerator();
+      setIsUser(false);
+      codeGenerator(setCode);
       getIsUser(number);
-
-      toast.success('کد به شماره تلفن همراه ارسال شد.');
     } else {
       toast.error('مطمئنی این شمارتون هست؟');
     }
@@ -129,7 +140,7 @@ export default function Auth() {
             <AuthNumber
               number={number}
               setNumber={setNumber}
-              handleClickOpen={handleClickOpen}
+              handleClickOpen={() => setOpen(true)}
               onSubmit={submitHandler}
             />
           )}
@@ -184,7 +195,7 @@ export default function Auth() {
           </DialogContent>
           <DialogActions>
             <Button
-              onClick={handleClose}
+              onClick={() => setOpen(false)}
               style={{ borderRadius: 8 }}
               variant='contained'
             >

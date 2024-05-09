@@ -5,6 +5,19 @@ import { toast } from 'react-toastify';
 import { AuthContext } from '../../Context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { EntoFa, PetoEn } from '../../Utils/Utils';
+import Loading from './../../components/Loading/Loading';
+import { useQuery } from 'react-query';
+
+const getUser = async (number) => {
+  const response = await fetch(
+    `https://goldikaserver.liara.run/users?number=${number}`,
+  );
+  if (!response.ok) {
+    throw new Error('Network response was not ok');
+  }
+  const data = await response.json();
+  return data.length ? data[0] : null;
+};
 
 export default function AuthCode({
   number,
@@ -17,6 +30,16 @@ export default function AuthCode({
   const navigate = useNavigate();
   const [inputCode, setInputCode] = useState('');
 
+  const {
+    data: userData,
+    isLoading,
+    error,
+    isFetched,
+  } = useQuery(['user', number], () => getUser(number), {
+    enabled: true,
+    cacheTime: 0,
+  });
+
   const onClickSignUp = () => {
     if (Number(inputCode) === code) {
       setCodeValid(true);
@@ -24,31 +47,26 @@ export default function AuthCode({
       toast.error('کد وارد شده اشتباه است.');
     }
   };
+
   const onClickLogin = () => {
-    if (Number(inputCode) === code) {
-      getUser(number);
+    if (Number(inputCode) === code && userData.number === number) {
+      authContext.login(userData, userData.id);
+      navigate('/');
     } else {
       toast.error('کد وارد شده اشتباه است.');
     }
   };
 
-  const getUser = (number) => {
-    fetch(`http://localhost:4000/users?number=${number}`)
-      .then((res) => res.json())
-      .then((res) => {
-        if (res.length) {
-          authContext.login(res[0], res[0].id);
-          navigate('/');
-        }
-      })
-      .catch((err) => console.log(err));
-  };
-
   useEffect(() => {
-    toast.success(`کد شما : ${EntoFa(String(code))}`, {
-      position: 'top-right',
-    });
-  }, [code]);
+    if (isFetched) {
+      toast.success(`کد شما : ${EntoFa(String(code))}`, {
+        position: 'top-right',
+      });
+    }
+  }, [code, isFetched]);
+
+  if (isLoading) return <Loading />;
+  if (error) return <div>Error: {error.message}</div>;
 
   return (
     <div className='auth-box'>
@@ -86,9 +104,6 @@ export default function AuthCode({
           autoFocus
           value={EntoFa(inputCode)}
           onChange={(e) => setInputCode(PetoEn(e.target.value))}
-          onInput={(e) => {
-            // e.target.value = e.target.value.replace(/[^\d]/g, '');
-          }}
           inputProps={{
             style: {
               fontSize: 18,
@@ -109,9 +124,7 @@ export default function AuthCode({
       </Typography>
       {isUser ? (
         <Button
-          onClick={() => {
-            onClickLogin();
-          }}
+          onClick={onClickLogin}
           style={{ borderRadius: 8, marginTop: 24 }}
           fullWidth
           variant='contained'
@@ -120,9 +133,7 @@ export default function AuthCode({
         </Button>
       ) : (
         <Button
-          onClick={() => {
-            onClickSignUp();
-          }}
+          onClick={onClickSignUp}
           style={{ borderRadius: 8, marginTop: 24 }}
           fullWidth
           variant='contained'

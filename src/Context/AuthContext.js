@@ -31,11 +31,15 @@ export const AuthContextProvider = ({ children }) => {
   }, []);
 
   const login = useCallback((userInfo, token) => {
-    setIsLogin(true);
-    setToken(token);
-    updateUserInfo(userInfo);
-    const expiryDate = new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000);
-    document.cookie = `token=${token}; expires=${expiryDate.toUTCString()}; path=/; Priority=High`;
+    if (userInfo && token) {
+      setIsLogin(true);
+      setToken(token);
+      updateUserInfo(userInfo);
+      const expiryDate = new Date(
+        new Date().getTime() + 7 * 24 * 60 * 60 * 1000,
+      );
+      document.cookie = `token=${token}; expires=${expiryDate.toUTCString()}; path=/; Priority=High`;
+    }
   }, []);
 
   const logout = useCallback(() => {
