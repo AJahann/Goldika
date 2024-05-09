@@ -7,24 +7,56 @@ import { useContext, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { AuthContext } from '../../Context/AuthContext';
 import { EntoFa } from '../../Utils/Utils';
+import { useMutation } from 'react-query';
+
+const createUser = async (userInfo) => {
+  const response = await fetch('https://goldikaserver.liara.run/users', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(userInfo),
+  });
+  if (!response.ok) {
+    throw new Error('Network response was not ok');
+  }
+  const data = await response.json();
+  return data;
+};
 
 export default function AuthForm({ number, setNumberValid, setCodeValid }) {
+  const authContext = useContext(AuthContext);
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const navigate = useNavigate();
-  const authContext = useContext(AuthContext);
 
-  const submitHandler = ({ name, family, pass, rePass }) => {
-    if (pass === rePass) {
-      let userInfo = {
+  const { mutate } = useMutation(createUser, {
+    onSuccess: (data) => {
+      authContext.login(data, data.id);
+      navigate('/panel');
+    },
+    onError: () => {
+      toast.error('خطایی رخ داده است. لطفا دوباره تلاش کنید.');
+    },
+  });
+
+  useEffect(() => {
+    toast.success('لطفا فرم را به دقت پر کنید.');
+  }, []);
+
+  useEffect(() => {
+    errors.pass && toast.error('دوست عزیز پسورد خود را چک کنید.');
+  }, [errors]);
+
+  const onSubmit = (formData) => {
+    if (formData.pass === formData.rePass) {
+      const userInfo = {
         id: uuidv4(),
-        name,
-        family,
+        ...formData,
         number,
-        pass,
         pocket: {
           walletBalance: '0',
           goldWalletBalance: '0.000',
@@ -32,28 +64,11 @@ export default function AuthForm({ number, setNumberValid, setCodeValid }) {
           cards: [],
         },
       };
-      fetch(`http://localhost:4000/users`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(userInfo),
-      })
-        .then((res) => res.json())
-        .then((result) => {
-          authContext.login(userInfo, userInfo.id);
-          navigate('/panel');
-        })
-        .catch((err) => console.log(err));
+      mutate(userInfo);
+    } else {
+      toast.error('دوست عزیز پسورد خود را چک کنید.');
     }
   };
-
-  useEffect(() => {
-    toast.success('لطفا فرم را به دقت پر کنید.');
-  }, []);
-  useEffect(() => {
-    errors.pass && toast.error('دوست عزیز پسورد شما دارای شرایط حدقلی نیست.');
-  }, [errors]);
 
   return (
     <div className='auth-box'>
@@ -85,7 +100,7 @@ export default function AuthForm({ number, setNumberValid, setCodeValid }) {
       </div>
       <hr style={{ opacity: '.5' }} />
       <form
-        onSubmit={handleSubmit(submitHandler)}
+        onSubmit={handleSubmit(onSubmit)}
         style={{ marginTop: 27 }}
         className='auth-box-input-wrap'
       >
