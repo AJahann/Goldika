@@ -13,6 +13,7 @@ import WithDraw from './pages/Panel/WithDraw/WithDraw';
 import Trade from './pages/Panel/Trade/Trade';
 import Report from './pages/Panel/Report/Report';
 import OrderPikup from './pages/Panel/OrderPikup/OrderPikup';
+import Page404 from './pages/Page404/Page404';
 
 const routes = [
   {
@@ -75,18 +76,7 @@ const routes = [
   },
   {
     path: '/*',
-    element: (
-      <div
-        style={{
-          textAlign: 'center',
-          fontSize: 100,
-          color: '#fff',
-          marginTop: 50,
-        }}
-      >
-        404
-      </div>
-    ),
+    element: <Page404 />,
   },
 ];
 
