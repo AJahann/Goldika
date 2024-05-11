@@ -1,9 +1,12 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { styled } from '@mui/material/styles';
 import { Tabs, Tab, Box, Button } from '@mui/material';
 import Input2 from './../Input2/Input2';
 import { GoldPriceContext } from '../../Context/GoldPriceContext';
 import { formatNumberToPersian } from '../../Utils/Utils';
+import { AuthContext } from '../../Context/AuthContext';
+import GoldInput from '../Input3/Input3';
+import { useNavigate } from 'react-router-dom';
 
 const StyledTabs = styled((props) => (
   <Tabs
@@ -21,7 +24,6 @@ const StyledTabs = styled((props) => (
     backgroundColor: '#f1ab1f',
   },
 });
-
 const StyledTab = styled((props) => <Tab disableRipple {...props} />)(
   ({ theme }) => ({
     textTransform: 'none',
@@ -43,11 +45,57 @@ const StyledTab = styled((props) => <Tab disableRipple {...props} />)(
 
 export default function TradingTrans() {
   const { goldBuyBalance, goldSellBalance } = useContext(GoldPriceContext);
-  const [value, setValue] = useState(0);
+  const { isLogin } = useContext(AuthContext);
+  const [tab, SetTab] = useState(0);
+  const [tradeAction, setTradeAction] = useState('buy');
+  const [sumTotal, setSumTotal] = useState('');
+  const [sumTotalGold, setSumTotalGold] = useState('');
+  const [wichFocus, setWichFocus] = useState('price');
+  const navigate = useNavigate();
 
   const handleChange = (event, newValue) => {
-    setValue(newValue);
+    SetTab(newValue);
   };
+
+  useEffect(() => {
+    if (wichFocus === 'gold') {
+      let sumPrice = 0;
+      if (tradeAction === 'buy') {
+        sumPrice = Math.floor(Number(goldBuyBalance) * Number(sumTotalGold));
+      } else {
+        sumPrice = Math.floor(Number(goldSellBalance) * Number(sumTotalGold));
+      }
+
+      setSumTotal(String(sumPrice));
+    }
+  }, [sumTotalGold]);
+
+  useEffect(() => {
+    if (wichFocus === 'price') {
+      let sumGold = 0;
+      if (tradeAction === 'buy') {
+        sumGold = Number(sumTotal) / Number(goldBuyBalance);
+      } else {
+        sumGold = Number(sumTotal) / Number(goldSellBalance);
+      }
+      sumGold = Math.round(sumGold * 1000) / 1000;
+
+      setSumTotalGold(String(sumGold));
+    }
+  }, [sumTotal]);
+
+  useEffect(() => {
+    setSumTotal('');
+    setSumTotalGold('');
+  }, [tradeAction]);
+
+  useEffect(() => {
+    if (tab === 0) {
+      setTradeAction('buy');
+    } else {
+      setTradeAction('sell');
+    }
+  }, [tab]);
 
   return (
     <>
@@ -83,15 +131,26 @@ export default function TradingTrans() {
 
       <div className='tradingBox-left-main'>
         <Box>
-          <StyledTabs value={value} onChange={handleChange}>
+          <StyledTabs value={tab} onChange={handleChange}>
             <StyledTab label='خرید' />
             <StyledTab label='فروش' />
           </StyledTabs>
         </Box>
 
         <div className='tradingBox-left_inputs'>
-          <Input2 label='ارزش کل' type='تومان' />
-          <Input2 label='مقدار طلا' type='گرم' />
+          <Input2
+            value={sumTotal}
+            setValue={setSumTotal}
+            label={'ارزش کل'}
+            type={'تومان'}
+            setWichFocus={setWichFocus}
+          />{' '}
+          <GoldInput
+            value={sumTotalGold}
+            setValue={setSumTotalGold}
+            label={'مقدار طلا'}
+            setWichFocus={setWichFocus}
+          />
         </div>
       </div>
 
@@ -105,8 +164,15 @@ export default function TradingTrans() {
           size='large'
           fullWidth
           variant='outlined'
+          onClick={() => {
+            if (isLogin) {
+              navigate('/panel/trade');
+            } else {
+              navigate('/auth');
+            }
+          }}
         >
-          خرید
+          {tab ? 'فروش' : 'خرید'}
         </Button>
       </div>
     </>

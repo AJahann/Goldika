@@ -28,9 +28,9 @@ const theme = createTheme({
   },
 });
 
-function GoldInput({ value = '', setValue, label, bgBlack, setWichFocus }) {
+function GoldInput({ value = '0', setValue, label, bgBlack, setWichFocus }) {
   useEffect(() => {
-    if (value.length >= 9) {
+    if (Number(value) >= 9999) {
       setValue('1000');
     }
   }, [value]);

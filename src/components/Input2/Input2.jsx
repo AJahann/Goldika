@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { TextField, InputAdornment, createTheme } from '@mui/material';
 import { ThemeProvider } from '@emotion/react';
 
@@ -37,7 +37,7 @@ const theme = createTheme({
 });
 
 function Input2({
-  value = '',
+  value = '0',
   setValue,
   label,
   type,
@@ -78,6 +78,7 @@ function Input2({
               paddingLeft: 14,
               borderRadius: 16,
             },
+            maxLength: 12,
           }}
           label={label}
           InputProps={{
