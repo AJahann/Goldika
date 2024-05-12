@@ -8,7 +8,7 @@ import { GoldPriceContext } from '../../../Context/GoldPriceContext';
 import { formatNumberToPersian } from '../../../Utils/Utils';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import './Trade.css';
-import { toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import { AuthContext } from '../../../Context/AuthContext';
 
 const theme = createTheme({
@@ -78,7 +78,7 @@ export default function Trade() {
 
     if (
       Number(sumTotal) >= 100000 &&
-      Number(sumTotal) < Number(userInfo.pocket.walletBalance)
+      Number(sumTotal) <= Number(userInfo.pocket.walletBalance)
     ) {
       let updatedUser = {
         ...userInfo,
@@ -100,10 +100,11 @@ export default function Trade() {
         .then((res) => {
           updateUserInfo(updatedUser);
           navigate('/panel');
+          notify({ isSuccess: true });
         })
-        .catch((err) => console.log(err));
+        .catch((err) => notify({ netError: true }));
     } else {
-      console.log('مقادیر به درستی وارد نشده است');
+      notify({ countError: true });
     }
   };
   const tradeSellHandler = () => {
@@ -114,7 +115,7 @@ export default function Trade() {
 
     if (
       Number(sumTotalGold) > 0 &&
-      Number(sumTotalGold) < Number(userInfo.pocket.goldWalletBalance)
+      Number(sumTotalGold) <= Number(userInfo.pocket.goldWalletBalance)
     ) {
       let updatedUser = {
         ...userInfo,
@@ -136,11 +137,17 @@ export default function Trade() {
         .then((res) => {
           updateUserInfo(updatedUser);
           navigate('/panel');
+          notify({ isSuccess: true });
         })
-        .catch((err) => console.log(err));
+        .catch((err) => notify({ netError: true }));
     } else {
-      console.log('مقادیر به درستی وارد نشده است');
+      notify({ countError: true });
     }
+  };
+  const notify = ({ isSuccess, countError, netError }) => {
+    if (isSuccess) toast.success('معامله با موفقیت انجام شد');
+    if (countError) toast.error('مقادیر به درستی وارد نشده است');
+    if (netError) toast.warn('خطا در برقراری ارتباط با سرور.');
   };
 
   return (
@@ -203,7 +210,11 @@ export default function Trade() {
               <Box className='paenl-trade-slider'>
                 <Slider
                   value={Number(sumTotal)}
-                  step={50000}
+                  step={
+                    +userInfo.pocket.walletBalance > 100_000_000
+                      ? 5_000_000
+                      : 50_000
+                  }
                   marks
                   min={0}
                   max={Number(userInfo.pocket.walletBalance)}
@@ -253,6 +264,18 @@ export default function Trade() {
             </div>
           </div>
         </div>
+        <ToastContainer
+          position='top-right'
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme='colored'
+        />
       </ThemeProvider>
     </div>
   );
