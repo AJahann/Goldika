@@ -50,6 +50,7 @@ export default function Input({ label, setNumberInput, card, style }) {
             paddingRight: 22,
             borderRadius: 16,
           },
+          maxLength: 12,
         }}
       />
     </ThemeProvider>
