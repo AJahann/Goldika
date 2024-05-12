@@ -10,10 +10,11 @@ export default function Panel() {
   const authContext = useContext(AuthContext);
   const navigate = useNavigate();
   const URL = useParams();
+  const screen = window.innerWidth;
 
   useEffect(() => {
-    setIsShowBar(false);
-  }, [URL]);
+    if (screen < 1000) setIsShowBar(false);
+  }, [URL, screen]);
 
   useEffect(() => {
     if (!authContext.isLogin) {
