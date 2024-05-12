@@ -64,7 +64,7 @@ export default function WithDraw() {
   };
 
   useEffect(() => {
-    if (withDrawal > userInfo.pocket.walletBalance) {
+    if (Number(withDrawal) > Number(userInfo.pocket.walletBalance)) {
       setWithDrawal(userInfo.pocket.walletBalance);
     }
   }, [withDrawal, userInfo.pocket.walletBalance]);
@@ -102,7 +102,7 @@ export default function WithDraw() {
               <Box className='paenl-withdraw-slider'>
                 <Slider
                   value={Number(withDrawal)}
-                  step={500000}
+                  step={+userInfo.pocket.walletBalance / 50}
                   marks
                   min={0}
                   max={Number(userInfo.pocket.walletBalance)}
