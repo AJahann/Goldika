@@ -210,11 +210,7 @@ export default function Trade() {
               <Box className='paenl-trade-slider'>
                 <Slider
                   value={Number(sumTotal)}
-                  step={
-                    +userInfo.pocket.walletBalance > 100_000_000
-                      ? 5_000_000
-                      : 50_000
-                  }
+                  step={+userInfo.pocket.walletBalance / 50}
                   marks
                   min={0}
                   max={Number(userInfo.pocket.walletBalance)}
