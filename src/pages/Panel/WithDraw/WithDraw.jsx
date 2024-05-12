@@ -58,15 +58,13 @@ export default function WithDraw() {
   };
 
   const handleWithdrawal = () => {
-    if (withDrawal.length) {
-      const newWalletBalance =
-        Number(userInfo.pocket.walletBalance) - Number(withDrawal);
-      updateWalletBalance(newWalletBalance);
-    }
+    const newWalletBalance =
+      Number(userInfo.pocket.walletBalance) - Number(withDrawal);
+    updateWalletBalance(newWalletBalance);
   };
 
   useEffect(() => {
-    if (withDrawal >= userInfo.pocket.walletBalance) {
+    if (withDrawal > userInfo.pocket.walletBalance) {
       setWithDrawal(userInfo.pocket.walletBalance);
     }
   }, [withDrawal, userInfo.pocket.walletBalance]);
@@ -137,7 +135,9 @@ export default function WithDraw() {
               }}
               onClick={userInfo.pocket.cards.length ? handleWithdrawal : null}
               variant='contained'
-              disabled={!withDrawal.length || !userInfo.pocket.cards.length}
+              disabled={
+                Number(withDrawal) <= 0 || !userInfo.pocket.cards.length
+              }
             >
               برداشت
             </Button>
