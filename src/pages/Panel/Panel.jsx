@@ -16,11 +16,9 @@ export default function Panel() {
     if (screen < 1000) setIsShowBar(false);
   }, [URL, screen]);
 
-  useEffect(() => {
-    if (!authContext.isLogin) {
-      navigate('/');
-    }
-  }, [authContext.isLogin, navigate]);
+  if (!authContext.isLogin) {
+    return navigate('/');
+  }
 
   return (
     <div className='panel'>
