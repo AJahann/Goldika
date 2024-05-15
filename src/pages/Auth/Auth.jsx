@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import {
   Button,
   ThemeProvider,
@@ -18,6 +18,8 @@ import './Auth.css';
 import AuthNumber from './AuthNumber';
 import AuthCode from './AuthCode';
 import AuthForm from './AuthForm';
+import { AuthContext } from '../../Context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const theme = createTheme({
   palette: {
@@ -61,6 +63,8 @@ const codeGenerator = (setCode) => {
 };
 
 export default function Auth() {
+  const { isLogin } = useContext(AuthContext);
+  const navigate = useNavigate();
   const [isUser, setIsUser] = useState(false);
   const [number, setNumber] = useState('');
   const [numberValid, setNumberValid] = useState(false);
@@ -97,6 +101,10 @@ export default function Auth() {
       toast.error('مطمئنی این شمارتون هست؟');
     }
   };
+
+  if (isLogin) {
+    return navigate('/panel/dashboard');
+  }
   return (
     <div className='auth'>
       <ThemeProvider theme={theme}>
