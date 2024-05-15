@@ -102,7 +102,11 @@ export default function WithDraw() {
               <Box className='paenl-withdraw-slider'>
                 <Slider
                   value={Number(withDrawal)}
-                  step={+userInfo.pocket.walletBalance / 50}
+                  step={
+                    +userInfo.pocket.walletBalance
+                      ? +userInfo.pocket.walletBalance / 50
+                      : 10
+                  }
                   marks
                   min={0}
                   max={Number(userInfo.pocket.walletBalance)}

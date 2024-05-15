@@ -8,7 +8,7 @@ export default function PanelChart() {
   const { userInfo } = useContext(AuthContext);
 
   useEffect(() => {
-    if (userInfo.pocket.walletBalance) {
+    if (+userInfo.pocket.walletBalance) {
       panelChartData[2].میانگین = 2;
     } else {
       panelChartData[2].میانگین = 1;

@@ -27,7 +27,7 @@ const theme = createTheme({
     },
   },
 });
-export default function Input({ label, setNumberInput, card, style }) {
+export default function Input({ label, setNumberInput, card, style, max12 }) {
   return (
     <ThemeProvider theme={theme}>
       <TextField
@@ -50,7 +50,7 @@ export default function Input({ label, setNumberInput, card, style }) {
             paddingRight: 22,
             borderRadius: 16,
           },
-          maxLength: 12,
+          maxLength: `${max12 ? 12 : null}`,
         }}
       />
     </ThemeProvider>

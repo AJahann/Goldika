@@ -80,6 +80,7 @@ export default function TradingBox() {
                   <Input
                     setNumberInput={setNumberInput}
                     label='شماره تلفن همراه خود را وارد کنید'
+                    max12={true}
                   />
                   <Link to={`/auth?_phone=${numberInput}`}>
                     <Button

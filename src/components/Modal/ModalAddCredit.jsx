@@ -20,7 +20,7 @@ export default function ModalAddCredit({ open, setOpen }) {
   }, [open]);
 
   const addCreditCardHandler = () => {
-    if (cardNumber.length && cardName.length) {
+    if (cardNumber.length === 16 && cardName.length) {
       const cardInfo = { cardNumber, cardName };
       const updatedUser = {
         ...userInfo,
@@ -80,12 +80,14 @@ export default function ModalAddCredit({ open, setOpen }) {
           value={cardNumber}
           setValue={setCardNumber}
           card
+          maxCard={true}
         />
         <Input
           style={{ width: '100%', marginTop: '14px' }}
           label={'نام انتخابی'}
           setNumberInput={setCardName}
           card
+          max12
         />
       </Box>
       <Box textAlign={'right'} marginTop={2}>

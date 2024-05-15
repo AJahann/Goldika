@@ -36,6 +36,7 @@
 .panel-orderPikup-items {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 12px;
 }
 .panel-orderPikup-item {

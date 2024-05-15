@@ -27,7 +27,7 @@ export default function Deposit() {
   const [deposit, setDeposit] = useState('');
 
   const creditHandler = async () => {
-    if (deposit.length) {
+    if (+deposit > 10000) {
       const newWalletBalance =
         Number(userInfo.pocket.walletBalance) + Number(deposit);
 

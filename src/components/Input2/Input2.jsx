@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { TextField, InputAdornment, createTheme } from '@mui/material';
 import { ThemeProvider } from '@emotion/react';
 
@@ -44,6 +44,7 @@ function Input2({
   bgBlack,
   card,
   setWichFocus,
+  maxCard,
 }) {
   return (
     <div className='input2'>
@@ -78,7 +79,7 @@ function Input2({
               paddingLeft: 14,
               borderRadius: 16,
             },
-            maxLength: 12,
+            maxLength: `${maxCard ? 19 : 12}`,
           }}
           label={label}
           InputProps={{
