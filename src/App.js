@@ -33,6 +33,7 @@ export default function App() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    console.log('ارتباط با توسعه دهنده : https://github.com/AJahann');
   }, [router]);
 
   useEffect(() => {
