@@ -40,6 +40,7 @@ export default function Info() {
                   style={{
                     color: '#ffffff',
                     margin: '14px 0',
+                    lineHeight: '34px',
                   }}
                   fontSize={28}
                   gutterBottom
@@ -81,6 +82,7 @@ export default function Info() {
                   style={{
                     color: '#ffffff',
                     margin: '14px 0',
+                    lineHeight: '34px',
                   }}
                   fontSize={28}
                   gutterBottom
@@ -145,6 +147,7 @@ export default function Info() {
                   style={{
                     color: '#ffffff',
                     margin: '14px 0',
+                    lineHeight: '34px',
                   }}
                   fontSize={28}
                   gutterBottom
@@ -187,6 +190,7 @@ export default function Info() {
                   style={{
                     color: '#ffffff',
                     margin: '14px 0',
+                    lineHeight: '34px',
                   }}
                   fontSize={28}
                   gutterBottom

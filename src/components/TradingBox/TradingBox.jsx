@@ -89,6 +89,7 @@ export default function TradingBox() {
                         backgroundColor: 'var(--primary-color)',
                         zIndex: 10,
                         color: '#000',
+                        boxShadow: '30px 0px 10px 0px rgb(42 44 52)',
                       }}
                       variant='contained'
                     >

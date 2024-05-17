@@ -78,3 +78,14 @@
     display: flex !important;
   }
 }
+@media screen and (max-width: 385px) {
+  #my-stepper .MuiStepLabel-label.Mui-active {
+    font-size: 15px;
+  }
+  .stepper-parent .stepper-desc-box.sm {
+    display: flex !important;
+    flex-direction: column-reverse;
+    align-items: center;
+    padding-top: 45px !important;
+  }
+}
