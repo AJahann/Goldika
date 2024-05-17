@@ -120,6 +120,7 @@ export default function AuthForm({ number, setNumberValid, setCodeValid }) {
               fontSize: 18,
               color: '#fff',
               textAlign: 'right',
+              direction: 'rtl',
             },
           }}
         />
@@ -138,6 +139,7 @@ export default function AuthForm({ number, setNumberValid, setCodeValid }) {
               fontSize: 18,
               color: '#fff',
               textAlign: 'right',
+              direction: 'rtl',
             },
           }}
         />
