@@ -61,6 +61,7 @@ export default function AuthCode({
     if (isFetched) {
       toast.success(`کد شما : ${EntoFa(String(code))}`, {
         position: 'top-right',
+        autoClose: 4000,
       });
     }
   }, [code, isFetched]);
