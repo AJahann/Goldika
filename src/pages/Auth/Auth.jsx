@@ -83,10 +83,10 @@ export default function Auth() {
       if (res.data[0]?.number === number) {
         setIsUser(true);
         setNumberValid(true);
-        toast.success('کد به شماره تلفن همراه ارسال شد.');
+        // toast.success('کد به شماره تلفن همراه ارسال شد.');
       } else {
         setNumberValid(true);
-        toast.success('کد به شماره تلفن همراه ارسال شد.');
+        // toast.success('کد به شماره تلفن همراه ارسال شد.');
       }
     });
   };
