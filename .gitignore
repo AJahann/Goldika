@@ -2,6 +2,8 @@
 
 # dependencies
 /node_modules
+/Goldika-back
+/build
 /config
 /.pnp
 .pnp.js
