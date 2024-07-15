@@ -1,4 +1,7 @@
 import { createContext, useCallback, useEffect, useState } from "react";
+import { useQuery } from "react-query";
+import supabase from "../supabase/supabase";
+import Loading from "../components/Loading/Loading";
 
 export const AuthContext = createContext({
   isLogin: false,
@@ -9,6 +12,22 @@ export const AuthContext = createContext({
 });
 
 export const AuthContextProvider = ({ children }) => {
+  const {
+    data: reqRes,
+    isError,
+    isLoading,
+  } = useQuery({
+    queryKey: ["auth"],
+    queryFn: () => supabase.auth.getSession(),
+    select(data) {
+      if (!data.data.session) {
+        throw new Error("user in not logged in");
+      } else {
+        return data;
+      }
+    },
+  });
+
   const [isLogin, setIsLogin] = useState(false);
   const [userInfo, setUserInfo] = useState(null);
 
@@ -21,24 +40,27 @@ export const AuthContextProvider = ({ children }) => {
       });
   }, []);
 
-  const login = useCallback(
-    (data) => {
-      if (data) {
-        setIsLogin(true);
-        updateUserInfo(data);
-      }
-    },
-    [updateUserInfo],
-  );
+  const login = useCallback((data) => {
+    if (data) {
+      setIsLogin(true);
+      updateUserInfo(data);
+    }
+  }, []);
 
   const logout = useCallback(() => {
     setIsLogin(false);
     setUserInfo(null);
+    console.log("logout");
   }, []);
 
   useEffect(() => {
-    console.log(userInfo);
-  }, [userInfo]);
+    if (reqRes) {
+      login(reqRes.data.session.user);
+    }
+  }, [reqRes]);
+
+  if (isLoading) return <Loading />;
+  if (isError) return <p>Oops! Check your Network</p>;
 
   return (
     <AuthContext.Provider
