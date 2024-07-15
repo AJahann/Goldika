@@ -1,21 +1,21 @@
-import { Alert, Button, ThemeProvider, createTheme } from '@mui/material';
-import LocalGroceryStoreOutlinedIcon from '@mui/icons-material/LocalGroceryStoreOutlined';
-import React, { useContext, useState } from 'react';
-import BigNumber from 'bignumber.js'; // ایمپورت کتابخونه BigNumber.js
-import { formatNumberToPersian } from '../../../Utils/Utils';
-import { AuthContext } from '../../../Context/AuthContext';
-import { productsData } from '../../../data/data';
-import Cart from './Cart';
+import { Alert, Button, ThemeProvider, createTheme } from "@mui/material";
+import LocalGroceryStoreOutlinedIcon from "@mui/icons-material/LocalGroceryStoreOutlined";
+import React, { useContext, useState } from "react";
+import BigNumber from "bignumber.js"; // ایمپورت کتابخونه BigNumber.js
+import { formatNumberToPersian } from "../../../Utils/Utils";
+import { AuthContext } from "../../../Context/AuthContext";
+import { productsData } from "../../../data/data";
+import Cart from "./Cart";
 
-import './OrderPikup.css';
-import OrderBox from './OrderBox';
-import { ToastContainer, toast } from 'react-toastify';
-import OrderFilters from './OrderFilters';
+import "./OrderPikup.css";
+import OrderBox from "./OrderBox";
+import { ToastContainer, toast } from "react-toastify";
+import OrderFilters from "./OrderFilters";
 
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#f1ab1f',
+      main: "#f1ab1f",
     },
   },
 });
@@ -32,8 +32,8 @@ export default function OrderPickup() {
     const amountUserGold = new BigNumber(userInfo.pocket.goldWalletBalance);
 
     if (itemWeight.isGreaterThan(amountUserGold)) {
-      toast.error('موجودی کافی نمی باشد', {
-        theme: 'colored',
+      toast.error("موجودی کافی نمی باشد", {
+        theme: "colored",
       });
       return;
     }
@@ -60,45 +60,45 @@ export default function OrderPickup() {
     try {
       await sendRequest(token, updateUser);
       updateUserInfo(updateUser);
-      toast.success('محصول با موفقیت اضافه شد.', {
-        theme: 'colored',
+      toast.success("محصول با موفقیت اضافه شد.", {
+        theme: "colored",
       });
     } catch (error) {
-      toast.error('خطا در ارسال درخواست', {
-        theme: 'colored',
+      toast.error("خطا در ارسال درخواست", {
+        theme: "colored",
       });
     }
   };
 
   const sendRequest = async (token, updateUser) => {
     const response = await fetch(
-      `https://goldikaserver.liara.run/users/${token}`,
+      `https://goldikaserver2.liara.run/users/${token}`,
       {
-        method: 'PUT',
+        method: "PUT",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(updateUser),
       },
     );
 
     if (!response.ok) {
-      throw new Error('خطا در ارسال درخواست');
+      throw new Error("خطا در ارسال درخواست");
     }
 
     return response.json();
   };
 
   return (
-    <div className='panel-orderPikup'>
+    <div className="panel-orderPikup">
       <ThemeProvider theme={theme}>
-        <div className='panel-wrap'>
-          <div className='panel-orderPikup-container'>
-            <div className='panel-orderPikup-topbar'>
+        <div className="panel-wrap">
+          <div className="panel-orderPikup-container">
+            <div className="panel-orderPikup-topbar">
               <div>
-                <h2 className='panel-title'>دریافت طلا</h2>
+                <h2 className="panel-title">دریافت طلا</h2>
                 <p>
-                  موجودی طلا:{' '}
+                  موجودی طلا:{" "}
                   {formatNumberToPersian(userInfo.pocket.goldWalletBalance)} گرم
                 </p>
               </div>
@@ -106,18 +106,18 @@ export default function OrderPickup() {
                 <Button
                   style={{
                     borderRadius: 8,
-                    boxShadow: 'none',
-                    fontWeight: 'bold',
+                    boxShadow: "none",
+                    fontWeight: "bold",
                   }}
                   onClick={() => setIsOpenFilters(true)}
-                  variant='contained'
+                  variant="contained"
                 >
                   فیلترها
                 </Button>
                 <Button
                   onClick={() => setIsOpenCart(true)}
-                  style={{ borderRadius: 8, boxShadow: 'none' }}
-                  variant='contained'
+                  style={{ borderRadius: 8, boxShadow: "none" }}
+                  variant="contained"
                 >
                   <LocalGroceryStoreOutlinedIcon />
                 </Button>
@@ -129,15 +129,15 @@ export default function OrderPickup() {
               </div>
             </div>
 
-            <div className='panel-orderPikup-content'>
-              <div className='panel-orderPikup-alert'>
+            <div className="panel-orderPikup-content">
+              <div className="panel-orderPikup-alert">
                 <Alert
-                  severity='info'
+                  severity="info"
                   style={{
                     borderRadius: 16,
-                    maxWidth: '63rem',
-                    background: '#071318',
-                    color: '#b8e7fb',
+                    maxWidth: "63rem",
+                    background: "#071318",
+                    color: "#b8e7fb",
                   }}
                 >
                   تحویل طلا به صورت حضوری و در شعبه اداری گلدیکا صورت می‌گیرد.
@@ -145,7 +145,7 @@ export default function OrderPickup() {
                   پستی یا پیک میسر نمی‌باشد.
                 </Alert>
               </div>
-              <div className='panel-orderPikup-items'>
+              <div className="panel-orderPikup-items">
                 {filterProducts.map((item) => (
                   <OrderBox
                     onClick={() => {
@@ -162,7 +162,7 @@ export default function OrderPickup() {
         </div>
         {/* toast */}
         <ToastContainer
-          position='top-right'
+          position="top-right"
           autoClose={3000}
           hideProgressBar
           newestOnTop={false}
@@ -171,7 +171,7 @@ export default function OrderPickup() {
           pauseOnFocusLoss
           draggable
           pauseOnHover
-          theme='dark'
+          theme="dark"
         />
         {/* filters */}
         <OrderFilters

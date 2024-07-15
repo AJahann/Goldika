@@ -1,21 +1,21 @@
-import { Alert, Box, Button, Typography } from '@mui/material';
-import React, { useContext, useEffect, useState } from 'react';
-import Input2 from '../Input2/Input2';
-import Input from '../Input/Input';
-import Modal from './../../components/Modal/Modal';
-import { AuthContext } from '../../Context/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { Alert, Box, Button, Typography } from "@mui/material";
+import React, { useContext, useEffect, useState } from "react";
+import Input2 from "../Input2/Input2";
+import Input from "../Input/Input";
+import Modal from "./../../components/Modal/Modal";
+import { AuthContext } from "../../Context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 export default function ModalAddCredit({ open, setOpen }) {
   const { token, userInfo, updateUserInfo } = useContext(AuthContext);
-  const [cardNumber, setCardNumber] = useState('');
-  const [cardName, setCardName] = useState('');
+  const [cardNumber, setCardNumber] = useState("");
+  const [cardName, setCardName] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
     if (!open) {
-      setCardName('');
-      setCardNumber('');
+      setCardName("");
+      setCardNumber("");
     }
   }, [open]);
 
@@ -35,17 +35,17 @@ export default function ModalAddCredit({ open, setOpen }) {
   };
 
   const updateUser = (updatedUser) => {
-    fetch(`https://goldikaserver.liara.run/users/${token}`, {
-      method: 'PUT',
+    fetch(`https://goldikaserver2.liara.run/users/${token}`, {
+      method: "PUT",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(updatedUser),
     })
       .then((res) => res.json())
       .then(() => {
         updateUserInfo(updatedUser);
-        navigate('/panel/dashboard');
+        navigate("/panel/dashboard");
         setOpen(false);
       })
       .catch((err) => console.log(err));
@@ -56,26 +56,26 @@ export default function ModalAddCredit({ open, setOpen }) {
   };
 
   return (
-    <Modal open={open} className={'modal-panel'}>
+    <Modal open={open} className={"modal-panel"}>
       <Typography
         style={{
           fontSize: 20,
           marginBottom: 16,
-          color: '#fff',
-          fontWeight: 'bold',
+          color: "#fff",
+          fontWeight: "bold",
         }}
       >
         افزودن کارت بانکی
       </Typography>
-      <Box width={'100%'}>
+      <Box width={"100%"}>
         <Alert
-          severity='warning'
-          style={{ backgroundColor: 'rgb(25, 18, 7) !important' }}
+          severity="warning"
+          style={{ backgroundColor: "rgb(25, 18, 7) !important" }}
         >
           مالکیت کارت باید به نام خودتان باشد.
         </Alert>
         <Input2
-          label={'شماره کارت'}
+          label={"شماره کارت"}
           type={null}
           value={cardNumber}
           setValue={setCardNumber}
@@ -83,31 +83,31 @@ export default function ModalAddCredit({ open, setOpen }) {
           maxCard={true}
         />
         <Input
-          style={{ width: '100%', marginTop: '14px' }}
-          label={'نام انتخابی'}
+          style={{ width: "100%", marginTop: "14px" }}
+          label={"نام انتخابی"}
           setNumberInput={setCardName}
           card
           max12
         />
       </Box>
-      <Box textAlign={'right'} marginTop={2}>
+      <Box textAlign={"right"} marginTop={2}>
         <Button
           onClick={handleClose}
           style={{
             borderRadius: 8,
-            backgroundColor: 'transparent',
-            boxShadow: 'none',
+            backgroundColor: "transparent",
+            boxShadow: "none",
             marginLeft: 8,
-            color: '#fff',
+            color: "#fff",
           }}
-          variant='contained'
+          variant="contained"
         >
           انصراف
         </Button>
         <Button
           onClick={addCreditCardHandler}
-          style={{ borderRadius: 8, boxShadow: 'none' }}
-          variant='contained'
+          style={{ borderRadius: 8, boxShadow: "none" }}
+          variant="contained"
         >
           افزودن
         </Button>

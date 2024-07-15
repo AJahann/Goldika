@@ -31,6 +31,7 @@
 }
 .auth-box-input-wrap {
   display: flex;
+  margin-top: 12px;
   flex-direction: column;
 }
 .auth-box-input-wrap > span {

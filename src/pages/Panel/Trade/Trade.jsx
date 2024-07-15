@@ -1,20 +1,20 @@
-import React, { useContext, useEffect, useState } from 'react';
-import Input2 from './../../../components/Input2/Input2';
-import GoldInput from './../../../components/Input3/Input3';
-import { Box, Button, ButtonGroup, Slider, createTheme } from '@mui/material';
-import { ThemeProvider } from '@emotion/react';
-import CreditCardOutlinedIcon from '@mui/icons-material/CreditCardOutlined';
-import { GoldPriceContext } from '../../../Context/GoldPriceContext';
-import { formatNumberToPersian } from '../../../Utils/Utils';
-import { useNavigate, useSearchParams } from 'react-router-dom';
-import './Trade.css';
-import { ToastContainer, toast } from 'react-toastify';
-import { AuthContext } from '../../../Context/AuthContext';
+import React, { useContext, useEffect, useState } from "react";
+import Input2 from "./../../../components/Input2/Input2";
+import GoldInput from "./../../../components/Input3/Input3";
+import { Box, Button, ButtonGroup, Slider, createTheme } from "@mui/material";
+import { ThemeProvider } from "@emotion/react";
+import CreditCardOutlinedIcon from "@mui/icons-material/CreditCardOutlined";
+import { GoldPriceContext } from "../../../Context/GoldPriceContext";
+import { formatNumberToPersian } from "../../../Utils/Utils";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import "./Trade.css";
+import { ToastContainer, toast } from "react-toastify";
+import { AuthContext } from "../../../Context/AuthContext";
 
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#f1ab1f',
+      main: "#f1ab1f",
     },
   },
 });
@@ -22,14 +22,14 @@ const theme = createTheme({
 export default function Trade() {
   const { goldBuyBalance, goldSellBalance } = useContext(GoldPriceContext);
   const { userInfo, token, updateUserInfo } = useContext(AuthContext);
-  const [tradeAction, setTradeAction] = useState('buy');
+  const [tradeAction, setTradeAction] = useState("buy");
 
-  const [sumTotal, setSumTotal] = useState('');
-  const [sumTotalGold, setSumTotalGold] = useState('');
-  const [wichFocus, setWichFocus] = useState('price');
+  const [sumTotal, setSumTotal] = useState("");
+  const [sumTotalGold, setSumTotalGold] = useState("");
+  const [wichFocus, setWichFocus] = useState("price");
 
   const [queryParams] = useSearchParams();
-  const urlParam = queryParams.get('trade_action');
+  const urlParam = queryParams.get("trade_action");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -39,9 +39,9 @@ export default function Trade() {
   }, [urlParam]);
 
   useEffect(() => {
-    if (wichFocus === 'gold') {
+    if (wichFocus === "gold") {
       let sumPrice = 0;
-      if (tradeAction === 'buy') {
+      if (tradeAction === "buy") {
         sumPrice = Math.floor(Number(goldBuyBalance) * Number(sumTotalGold));
       } else {
         sumPrice = Math.floor(Number(goldSellBalance) * Number(sumTotalGold));
@@ -52,9 +52,9 @@ export default function Trade() {
   }, [sumTotalGold]);
 
   useEffect(() => {
-    if (wichFocus === 'price') {
+    if (wichFocus === "price") {
       let sumGold = 0;
-      if (tradeAction === 'buy') {
+      if (tradeAction === "buy") {
         sumGold = Number(sumTotal) / Number(goldBuyBalance);
       } else {
         sumGold = Number(sumTotal) / Number(goldSellBalance);
@@ -66,8 +66,8 @@ export default function Trade() {
   }, [sumTotal]);
 
   useEffect(() => {
-    setSumTotal('');
-    setSumTotalGold('');
+    setSumTotal("");
+    setSumTotalGold("");
   }, [tradeAction]);
 
   const tradeBuyHandler = () => {
@@ -89,17 +89,17 @@ export default function Trade() {
         },
       };
 
-      fetch(`https://goldikaserver.liara.run/users/${token}`, {
-        method: 'PUT',
+      fetch(`https://goldikaserver2.liara.run/users/${token}`, {
+        method: "PUT",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(updatedUser), // ارسال اطلاعات به سرور
       })
         .then((res) => res.json())
         .then((res) => {
           updateUserInfo(updatedUser);
-          navigate('/panel');
+          navigate("/panel");
           notify({ isSuccess: true });
         })
         .catch((err) => notify({ netError: true }));
@@ -126,17 +126,17 @@ export default function Trade() {
         },
       };
 
-      fetch(`https://goldikaserver.liara.run/users/${token}`, {
-        method: 'PUT',
+      fetch(`https://goldikaserver2.liara.run/users/${token}`, {
+        method: "PUT",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(updatedUser), // ارسال اطلاعات به سرور
       })
         .then((res) => res.json())
         .then((res) => {
           updateUserInfo(updatedUser);
-          navigate('/panel');
+          navigate("/panel");
           notify({ isSuccess: true });
         })
         .catch((err) => notify({ netError: true }));
@@ -145,45 +145,45 @@ export default function Trade() {
     }
   };
   const notify = ({ isSuccess, countError, netError }) => {
-    if (isSuccess) toast.success('معامله با موفقیت انجام شد');
-    if (countError) toast.error('مقادیر به درستی وارد نشده است');
-    if (netError) toast.warn('خطا در برقراری ارتباط با سرور.');
+    if (isSuccess) toast.success("معامله با موفقیت انجام شد");
+    if (countError) toast.error("مقادیر به درستی وارد نشده است");
+    if (netError) toast.warn("خطا در برقراری ارتباط با سرور.");
   };
 
   return (
-    <div className='panel-trade'>
+    <div className="panel-trade">
       <ThemeProvider theme={theme}>
-        <div className='panel-wrap'>
-          <div className='panel-title'>معامله‌ی طلا</div>
-          <div className='panel-trade-container'>
-            <div className='panel-trade-top'>
-              <ButtonGroup className='panel-trade-top-btns' variant='contained'>
+        <div className="panel-wrap">
+          <div className="panel-title">معامله‌ی طلا</div>
+          <div className="panel-trade-container">
+            <div className="panel-trade-top">
+              <ButtonGroup className="panel-trade-top-btns" variant="contained">
                 <Button
-                  onClick={() => setTradeAction('buy')}
-                  className={tradeAction === 'buy' ? 'selected' : ''}
-                  style={{ borderRadius: '0 8px 8px 0' }}
+                  onClick={() => setTradeAction("buy")}
+                  className={tradeAction === "buy" ? "selected" : ""}
+                  style={{ borderRadius: "0 8px 8px 0" }}
                 >
                   خرید
                 </Button>
                 <Button
-                  onClick={() => setTradeAction('sell')}
-                  className={tradeAction === 'sell' ? 'selected' : ''}
-                  style={{ borderRadius: '8px 0 0 8px' }}
+                  onClick={() => setTradeAction("sell")}
+                  className={tradeAction === "sell" ? "selected" : ""}
+                  style={{ borderRadius: "8px 0 0 8px" }}
                 >
                   فروش
                 </Button>
               </ButtonGroup>
 
-              <div className='panel-trade-top-txt'>
+              <div className="panel-trade-top-txt">
                 <p>
-                  قیمت {tradeAction === 'buy' ? 'خرید' : 'فروش'} <br />
+                  قیمت {tradeAction === "buy" ? "خرید" : "فروش"} <br />
                   <small>(هرگرم طلای ۱۸ عیار)</small>
                 </p>
                 <p>
                   <b>
-                    {tradeAction === 'buy'
+                    {tradeAction === "buy"
                       ? formatNumberToPersian(goldBuyBalance)
-                      : formatNumberToPersian(goldSellBalance)}{' '}
+                      : formatNumberToPersian(goldSellBalance)}{" "}
                     تومان
                   </b>
                 </p>
@@ -192,22 +192,22 @@ export default function Trade() {
               <Input2
                 value={sumTotal}
                 setValue={setSumTotal}
-                label={'ارزش کل'}
-                type={'تومان'}
+                label={"ارزش کل"}
+                type={"تومان"}
                 setWichFocus={setWichFocus}
               />
               <span></span>
-              <div style={{ marginTop: 48, width: '100%' }}>
+              <div style={{ marginTop: 48, width: "100%" }}>
                 <GoldInput
                   value={sumTotalGold}
                   setValue={setSumTotalGold}
-                  label={'مقدار طلا'}
+                  label={"مقدار طلا"}
                   setWichFocus={setWichFocus}
                 />
               </div>
             </div>
             <div style={{ padding: 18 }}>
-              <Box className='paenl-trade-slider'>
+              <Box className="paenl-trade-slider">
                 <Slider
                   value={Number(sumTotal)}
                   step={
@@ -218,54 +218,54 @@ export default function Trade() {
                   marks
                   min={0}
                   max={Number(userInfo.pocket.walletBalance)}
-                  style={{ color: 'rgb(189, 189, 189)' }}
+                  style={{ color: "rgb(189, 189, 189)" }}
                 />
               </Box>
             </div>
             <div
               style={{
-                color: '#9fa0a8',
-                display: 'flex',
-                alignItems: 'center',
-                margin: '',
+                color: "#9fa0a8",
+                display: "flex",
+                alignItems: "center",
+                margin: "",
                 paddingRight: 4,
               }}
             >
               <CreditCardOutlinedIcon style={{ fontSize: 24, marginLeft: 8 }} />
-              {tradeAction === 'buy'
+              {tradeAction === "buy"
                 ? `
-                موجودی کیف پول:${' '}
+                موجودی کیف پول:${" "}
                 ${formatNumberToPersian(userInfo.pocket.walletBalance)} تومان
                 `
                 : `
-              موجودی کیف طلا:${' '}
+              موجودی کیف طلا:${" "}
               ${formatNumberToPersian(userInfo.pocket.goldWalletBalance)} گرم
               `}
             </div>
-            <div className='panel-pay-btn'>
+            <div className="panel-pay-btn">
               <Button
                 fullWidth
                 onClick={
-                  tradeAction === 'buy' ? tradeBuyHandler : tradeSellHandler
+                  tradeAction === "buy" ? tradeBuyHandler : tradeSellHandler
                 }
                 style={{
                   marginTop: 24,
                   maxWidth: 360,
-                  padding: '12px 0',
+                  padding: "12px 0",
                   borderRadius: 8,
-                  fontWeight: 'bold',
-                  boxShadow: 'none',
-                  backgroundColor: `${tradeAction === 'buy' ? 'green' : 'red'}`,
+                  fontWeight: "bold",
+                  boxShadow: "none",
+                  backgroundColor: `${tradeAction === "buy" ? "green" : "red"}`,
                 }}
-                variant='contained'
+                variant="contained"
               >
-                {tradeAction === 'buy' ? 'خرید' : 'فروش'}
+                {tradeAction === "buy" ? "خرید" : "فروش"}
               </Button>
             </div>
           </div>
         </div>
         <ToastContainer
-          position='top-right'
+          position="top-right"
           autoClose={3000}
           hideProgressBar={false}
           newestOnTop={false}
@@ -274,7 +274,7 @@ export default function Trade() {
           pauseOnFocusLoss
           draggable
           pauseOnHover
-          theme='colored'
+          theme="colored"
         />
       </ThemeProvider>
     </div>

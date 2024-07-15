@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState } from "react";
 import {
   Button,
   ThemeProvider,
@@ -6,32 +6,31 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-} from '@mui/material';
-import { createTheme } from '@mui/material/styles';
-import Modal from './../../components/Modal/Modal';
-import { ToastContainer, toast } from 'react-toastify';
-import GoldikaTypo from './../../components/LogoTypo/GoldikaTypo';
-import { useQuery } from 'react-query';
-import Svg from './Svg';
+} from "@mui/material";
+import { createTheme } from "@mui/material/styles";
+import Modal from "./../../components/Modal/Modal";
+import { ToastContainer } from "react-toastify";
+import GoldikaTypo from "./../../components/LogoTypo/GoldikaTypo";
+// import { useQuery } from "react-query";
+import Svg from "./Svg";
 
-import './Auth.css';
-import AuthNumber from './AuthNumber';
-import AuthCode from './AuthCode';
-import AuthForm from './AuthForm';
-import { AuthContext } from '../../Context/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import "./Auth.css";
+import AuthNumber from "./AuthNumber";
+import { AuthContext } from "../../Context/AuthContext";
+import { useNavigate } from "react-router-dom";
+import AuthSignUp from "./AuthSignUp";
 
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#f1ab1f',
+      main: "#f1ab1f",
     },
   },
   components: {
     MuiOutlinedInput: {
       styleOverrides: {
         notchedOutline: {
-          borderColor: '#f2f2f360',
+          borderColor: "#f2f2f360",
         },
         root: {
           borderRadius: 16,
@@ -41,77 +40,29 @@ const theme = createTheme({
     MuiInputLabel: {
       styleOverrides: {
         root: {
-          color: '#ffffffb0',
+          color: "#ffffffb0",
         },
       },
     },
   },
 });
 
-const fetchData = async (number) => {
-  const response = await fetch(
-    `https://goldikaserver.liara.run/users?number=${number}`,
-  );
-  if (!response.ok) {
-    throw new Error('Network response was not ok');
-  }
-  return response.json();
-};
-
-const codeGenerator = (setCode) => {
-  setCode(Math.floor(1000 + Math.random() * 90000));
-};
-
 export default function Auth() {
   const { isLogin } = useContext(AuthContext);
   const navigate = useNavigate();
   const [isUser, setIsUser] = useState(false);
-  const [number, setNumber] = useState('');
-  const [numberValid, setNumberValid] = useState(false);
-  const [code, setCode] = useState('');
-  const [codeValid, setCodeValid] = useState(false);
   const [open, setOpen] = useState(false);
-  const { refetch: refetchIsUser } = useQuery({
-    queryKey: ['isUser'],
-    queryFn: () => fetchData(number),
-    cacheTime: 0,
-    enabled: false,
-  });
-
-  const getIsUser = () => {
-    refetchIsUser().then((res) => {
-      if (res.data[0]?.number === number) {
-        setIsUser(true);
-        setNumberValid(true);
-        // toast.success('کد به شماره تلفن همراه ارسال شد.');
-      } else {
-        setNumberValid(true);
-        // toast.success('کد به شماره تلفن همراه ارسال شد.');
-      }
-    });
-  };
-
-  const submitHandler = () => {
-    const numberRegex = /^09\d{9}$/g;
-    if (numberRegex.test(number)) {
-      setIsUser(false);
-      codeGenerator(setCode);
-      getIsUser(number);
-    } else {
-      toast.error('مطمئنی این شمارتون هست؟');
-    }
-  };
 
   if (isLogin) {
-    return navigate('/panel/dashboard');
+    return navigate("/panel/dashboard");
   }
   return (
-    <div className='auth'>
+    <div className="auth">
       <ThemeProvider theme={theme}>
-        <div className='auth-content'>
-          <div className='auth-content-wrap'>
+        <div className="auth-content">
+          <div className="auth-content-wrap">
             <GoldikaTypo />
-            <div className='auth-content-txt'>
+            <div className="auth-content-txt">
               <h3>
                 با هر مبلغی بدون پرداخت اجرت و مالیات، طلا بخرید و بفروشید و در
                 هر زمان تحویل بگیرید.
@@ -119,9 +70,9 @@ export default function Auth() {
               <div>
                 <span>پشتیبانی:</span>
                 <span>
-                  {' '}
+                  {" "}
                   شماره تماس :
-                  <span style={{ direction: 'ltr' }}>۰۲۱-۹۱۰ ۹۶ ۱۹۵</span>
+                  <span style={{ direction: "ltr" }}>۰۲۱-۹۱۰ ۹۶ ۱۹۵</span>
                 </span>
                 <span>رایانامه: support@goldika.ir</span>
                 <Svg />
@@ -129,32 +80,18 @@ export default function Auth() {
             </div>
           </div>
         </div>
-        <div className='auth-container'>
-          {codeValid ? (
-            <AuthForm
-              number={number}
-              setCodeValid={setCodeValid}
-              setNumberValid={setNumberValid}
-            />
-          ) : numberValid ? (
-            <AuthCode
-              setCodeValid={setCodeValid}
-              code={code}
-              setNumberValid={setNumberValid}
-              number={number}
-              isUser={isUser}
+        <div className="auth-container">
+          {isUser ? (
+            <AuthNumber
+              setIsUser={setIsUser}
+              handleClickOpen={() => setOpen(true)}
             />
           ) : (
-            <AuthNumber
-              number={number}
-              setNumber={setNumber}
-              handleClickOpen={() => setOpen(true)}
-              onSubmit={submitHandler}
-            />
+            <AuthSignUp setIsUser={setIsUser} />
           )}
         </div>
         <ToastContainer
-          position='top-right'
+          position="top-right"
           autoClose={3000}
           hideProgressBar={false}
           newestOnTop={false}
@@ -163,15 +100,15 @@ export default function Auth() {
           pauseOnFocusLoss
           draggable
           pauseOnHover
-          theme='colored'
+          theme="colored"
         />
         <Modal open={open}>
           <DialogTitle
-            style={{ color: '#fff' }}
+            style={{ color: "#fff" }}
             sx={{ m: 0, p: 2 }}
-            id='customized-dialog-title'
+            id="customized-dialog-title"
           >
-            شرایط و قوانین{' '}
+            شرایط و قوانین{" "}
           </DialogTitle>
           <DialogContent dividers>
             <Typography gutterBottom>
@@ -205,7 +142,7 @@ export default function Auth() {
             <Button
               onClick={() => setOpen(false)}
               style={{ borderRadius: 8 }}
-              variant='contained'
+              variant="contained"
             >
               بستن
             </Button>
