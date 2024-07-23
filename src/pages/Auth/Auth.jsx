@@ -50,7 +50,7 @@ const theme = createTheme({
 export default function Auth() {
   const { isLogin } = useContext(AuthContext);
   const navigate = useNavigate();
-  const [isUser, setIsUser] = useState(false);
+  const [isUser, setIsUser] = useState(true);
   const [open, setOpen] = useState(false);
 
   if (isLogin) {

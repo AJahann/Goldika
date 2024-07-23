@@ -12,20 +12,9 @@ export const AuthContext = createContext({
 });
 
 export const AuthContextProvider = ({ children }) => {
-  const {
-    data: reqRes,
-    isError,
-    isLoading,
-  } = useQuery({
+  const { data: reqRes, isLoading } = useQuery({
     queryKey: ["auth"],
     queryFn: () => supabase.auth.getSession(),
-    select(data) {
-      if (!data.data.session) {
-        throw new Error("user in not logged in");
-      } else {
-        return data;
-      }
-    },
   });
 
   const [isLogin, setIsLogin] = useState(false);
@@ -54,13 +43,13 @@ export const AuthContextProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    if (reqRes) {
+    if (!isLoading && reqRes.data.session) {
       login(reqRes.data.session.user);
     }
   }, [reqRes]);
 
   if (isLoading) return <Loading />;
-  if (isError) return <p>Oops! Check your Network</p>;
+  // if (isError) return <p>Oops! Check your Network</p>;
 
   return (
     <AuthContext.Provider

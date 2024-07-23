@@ -69,7 +69,6 @@ export default function AuthSignUp({ setIsUser }) {
         location: "US",
       };
       mutate(userInfo);
-      console.log(userInfo);
     } else {
       toast.error("دوست عزیز پسورد خود را چک کنید.");
     }
