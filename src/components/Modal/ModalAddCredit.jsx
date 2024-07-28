@@ -4,13 +4,13 @@ import Input2 from "../Input2/Input2";
 import Input from "../Input/Input";
 import Modal from "./../../components/Modal/Modal";
 import { AuthContext } from "../../Context/AuthContext";
-import { useNavigate } from "react-router-dom";
+import supabase from "../../supabase/supabase";
 
 export default function ModalAddCredit({ open, setOpen }) {
-  const { token, userInfo, updateUserInfo } = useContext(AuthContext);
+  const { userInfo, updateUserInfo } = useContext(AuthContext);
   const [cardNumber, setCardNumber] = useState("");
   const [cardName, setCardName] = useState("");
-  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (!open) {
@@ -21,38 +21,27 @@ export default function ModalAddCredit({ open, setOpen }) {
 
   const addCreditCardHandler = () => {
     if (cardNumber.length === 16 && cardName.length) {
-      const cardInfo = { cardNumber, cardName };
-      const updatedUser = {
-        ...userInfo,
-        pocket: {
-          ...userInfo.pocket,
-          cards: [...userInfo.pocket.cards, cardInfo],
+      setIsLoading(true);
+
+      const req = supabase.auth.updateUser({
+        data: {
+          pocket: {
+            ...userInfo.pocket,
+            cards: [...userInfo.pocket.cards, { cardNumber, cardName }],
+          },
         },
-      };
+      });
 
-      updateUser(updatedUser);
-    }
-  };
-
-  const updateUser = (updatedUser) => {
-    fetch(`https://goldikaserver2.liara.run/users/${token}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(updatedUser),
-    })
-      .then((res) => res.json())
-      .then(() => {
-        updateUserInfo(updatedUser);
-        navigate("/panel/dashboard");
+      req.then((res) => {
         setOpen(false);
-      })
-      .catch((err) => console.log(err));
-  };
-
-  const handleClose = () => {
-    setOpen(false);
+        updateUserInfo(res.data.user);
+        setIsLoading(false);
+      });
+      req.catch((err) => {
+        setIsLoading(false);
+        console.log(err);
+      });
+    }
   };
 
   return (
@@ -92,7 +81,9 @@ export default function ModalAddCredit({ open, setOpen }) {
       </Box>
       <Box textAlign={"right"} marginTop={2}>
         <Button
-          onClick={handleClose}
+          onClick={() => {
+            setOpen(false);
+          }}
           style={{
             borderRadius: 8,
             backgroundColor: "transparent",
@@ -105,6 +96,7 @@ export default function ModalAddCredit({ open, setOpen }) {
           انصراف
         </Button>
         <Button
+          disabled={isLoading}
           onClick={addCreditCardHandler}
           style={{ borderRadius: 8, boxShadow: "none" }}
           variant="contained"

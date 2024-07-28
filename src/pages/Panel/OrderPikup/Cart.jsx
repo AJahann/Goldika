@@ -15,66 +15,63 @@ import RemoveShoppingCartOutlinedIcon from "@mui/icons-material/RemoveShoppingCa
 import { AuthContext } from "../../../Context/AuthContext";
 import { toast } from "react-toastify";
 import BigNumber from "bignumber.js";
+import supabase from "../../../supabase/supabase";
 
 export default function Cart({ isOpen, onClose, cart }) {
   const { userInfo, updateUserInfo, token } = useContext(AuthContext);
 
   const removeProductHandler = (id) => {
     let product = cart.find((item) => item.id === id);
-    let newCart = userInfo.pocket.cart.filter((item) => item.id !== id);
-    let updateUser = {
-      ...userInfo,
-      pocket: {
-        ...userInfo.pocket,
-        cart: newCart,
-        goldWalletBalance: new BigNumber(
-          userInfo.pocket.goldWalletBalance,
-        ).plus(product.weight * (product.count || 1)),
+    let newCart = userInfo.pocket.basket.filter((item) => item.id !== id);
+
+    let amountUserGold = new BigNumber(userInfo.pocket.goldWalletBalance);
+    let amountProductGold = new BigNumber(product.weight);
+
+    const req = supabase.auth.updateUser({
+      data: {
+        pocket: {
+          ...userInfo.pocket,
+          goldWalletBalance: amountUserGold.plus(
+            amountProductGold * (product.count || 1),
+          ),
+          basket: newCart,
+        },
       },
-    };
-    fetch(`https://goldikaserver2.liara.run/users/${token}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(updateUser),
-    })
-      .then((res) => res.json())
-      .then((result) => {
-        toast.success("محصول با موفقیت حذف شد", {
-          progress: false,
-          theme: "colored",
-        });
-        updateUserInfo(updateUser);
-      })
-      .catch((err) => toast.error("خطایی رخ داده است"));
+    });
+    req.then((res) => {
+      updateUserInfo(res.data.user);
+      toast.success("محصول با موفقیت حذف شد", {
+        theme: "colored",
+      });
+    });
+    req.catch((err) => {
+      toast.error("خطایی رخ داده است", {
+        theme: "colored",
+      });
+    });
   };
   const submitHandler = () => {
-    let updateUser = {
-      ...userInfo,
-      pocket: {
-        ...userInfo.pocket,
-        cart: [],
+    const req = supabase.auth.updateUser({
+      data: {
+        pocket: {
+          ...userInfo.pocket,
+          basket: [],
+        },
       },
-    };
-    fetch(`https://goldikaserver2.liara.run/users/${token}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(updateUser),
-    })
-      .then((res) => res.json())
-      .then((result) => {
-        updateUserInfo(updateUser);
-        toast.success("سفارش شما با موفقیت ثبت شد", {
-          theme: "colored",
-        });
-        toast.success("کارشناسان با شما تماس خواهند گرفت", {
-          theme: "colored",
-        });
-      })
-      .catch((err) => toast.error("خطایی رخ داده است", { theme: "colored" }));
+    });
+
+    req.then((res) => {
+      updateUserInfo(res.data.user);
+      onClose();
+      toast.success("ثبت سفارش با موفقیت انجام شد", {
+        theme: "colored",
+      });
+    });
+    req.catch((err) => {
+      toast.error("خطایی رخ داده است", {
+        theme: "colored",
+      });
+    });
   };
   return (
     <React.Fragment>

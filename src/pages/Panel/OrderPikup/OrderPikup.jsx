@@ -11,6 +11,7 @@ import "./OrderPikup.css";
 import OrderBox from "./OrderBox";
 import { ToastContainer, toast } from "react-toastify";
 import OrderFilters from "./OrderFilters";
+import supabase from "../../../supabase/supabase";
 
 const theme = createTheme({
   palette: {
@@ -21,7 +22,7 @@ const theme = createTheme({
 });
 
 export default function OrderPickup() {
-  const { userInfo, token, updateUserInfo } = useContext(AuthContext);
+  const { userInfo, updateUserInfo } = useContext(AuthContext);
   const [isOpenCart, setIsOpenCart] = useState(false);
   const [isOpenFilters, setIsOpenFilters] = useState(false);
   const [products] = useState(productsData || []);
@@ -38,55 +39,36 @@ export default function OrderPickup() {
       return;
     }
 
-    const isExist = userInfo.pocket.cart.some(
+    const isExist = userInfo.pocket.basket.some(
       (product) => product.id === item.id,
     );
 
-    const updateUser = {
-      ...userInfo,
-      pocket: {
-        ...userInfo.pocket,
-        goldWalletBalance: amountUserGold.minus(itemWeight),
-        cart: isExist
-          ? userInfo.pocket.cart.map((product) =>
-              product.id === item.id
-                ? { ...product, count: (product.count || 1) + 1 }
-                : product,
-            )
-          : [...userInfo.pocket.cart, item],
+    const req = supabase.auth.updateUser({
+      data: {
+        pocket: {
+          ...userInfo.pocket,
+          goldWalletBalance: amountUserGold.minus(itemWeight),
+          basket: isExist
+            ? userInfo.pocket.basket.map((product) =>
+                product.id === item.id
+                  ? { ...product, count: (product.count || 1) + 1 }
+                  : product,
+              )
+            : [...userInfo.pocket.basket, item],
+        },
       },
-    };
-
-    try {
-      await sendRequest(token, updateUser);
-      updateUserInfo(updateUser);
+    });
+    req.then((res) => {
+      updateUserInfo(res.data.user);
       toast.success("محصول با موفقیت اضافه شد.", {
         theme: "colored",
       });
-    } catch (error) {
+    });
+    req.catch((err) => {
       toast.error("خطا در ارسال درخواست", {
         theme: "colored",
       });
-    }
-  };
-
-  const sendRequest = async (token, updateUser) => {
-    const response = await fetch(
-      `https://goldikaserver2.liara.run/users/${token}`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(updateUser),
-      },
-    );
-
-    if (!response.ok) {
-      throw new Error("خطا در ارسال درخواست");
-    }
-
-    return response.json();
+    });
   };
 
   return (
@@ -124,7 +106,7 @@ export default function OrderPickup() {
                 <Cart
                   isOpen={isOpenCart}
                   onClose={() => setIsOpenCart(false)}
-                  cart={userInfo.pocket.cart}
+                  cart={userInfo.pocket.basket}
                 />
               </div>
             </div>

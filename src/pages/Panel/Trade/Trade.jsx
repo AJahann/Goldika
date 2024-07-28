@@ -10,6 +10,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import "./Trade.css";
 import { ToastContainer, toast } from "react-toastify";
 import { AuthContext } from "../../../Context/AuthContext";
+import supabase from "../../../supabase/supabase";
 
 const theme = createTheme({
   palette: {
@@ -21,7 +22,7 @@ const theme = createTheme({
 
 export default function Trade() {
   const { goldBuyBalance, goldSellBalance } = useContext(GoldPriceContext);
-  const { userInfo, token, updateUserInfo } = useContext(AuthContext);
+  const { userInfo, updateUserInfo } = useContext(AuthContext);
   const [tradeAction, setTradeAction] = useState("buy");
 
   const [sumTotal, setSumTotal] = useState("");
@@ -80,29 +81,31 @@ export default function Trade() {
       Number(sumTotal) >= 100000 &&
       Number(sumTotal) <= Number(userInfo.pocket.walletBalance)
     ) {
-      let updatedUser = {
-        ...userInfo,
-        pocket: {
-          ...userInfo.pocket,
-          walletBalance: String(newWalletBalance),
-          goldWalletBalance: String(newWalletGoldBalance),
+      const req = supabase.auth.updateUser({
+        data: {
+          pocket: {
+            ...userInfo.pocket,
+            transactions: [
+              ...userInfo.pocket.transactions,
+              {
+                type: "buy",
+                amount: sumTotal,
+                date: Date(),
+              },
+            ],
+            walletBalance: String(newWalletBalance),
+            goldWalletBalance: String(newWalletGoldBalance),
+          },
         },
-      };
-
-      fetch(`https://goldikaserver2.liara.run/users/${token}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(updatedUser), // ارسال اطلاعات به سرور
-      })
-        .then((res) => res.json())
-        .then((res) => {
-          updateUserInfo(updatedUser);
-          navigate("/panel");
-          notify({ isSuccess: true });
-        })
-        .catch((err) => notify({ netError: true }));
+      });
+      req.then((res) => {
+        updateUserInfo(res.data.user);
+        navigate("/panel");
+        notify({ isSuccess: true });
+      });
+      req.catch((err) => {
+        notify({ netError: true });
+      });
     } else {
       notify({ countError: true });
     }
@@ -117,29 +120,32 @@ export default function Trade() {
       Number(sumTotalGold) > 0 &&
       Number(sumTotalGold) <= Number(userInfo.pocket.goldWalletBalance)
     ) {
-      let updatedUser = {
-        ...userInfo,
-        pocket: {
-          ...userInfo.pocket,
-          walletBalance: String(newWalletBalance),
-          goldWalletBalance: String(newWalletGoldBalance),
-        },
-      };
+      const req = supabase.auth.updateUser({
+        data: {
+          pocket: {
+            ...userInfo.pocket,
+            transactions: [
+              ...userInfo.pocket.transactions,
 
-      fetch(`https://goldikaserver2.liara.run/users/${token}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
+              {
+                type: "sell",
+                amount: sumTotal,
+                date: Date(),
+              },
+            ],
+            walletBalance: String(newWalletBalance),
+            goldWalletBalance: String(newWalletGoldBalance),
+          },
         },
-        body: JSON.stringify(updatedUser), // ارسال اطلاعات به سرور
-      })
-        .then((res) => res.json())
-        .then((res) => {
-          updateUserInfo(updatedUser);
-          navigate("/panel");
-          notify({ isSuccess: true });
-        })
-        .catch((err) => notify({ netError: true }));
+      });
+      req.then((res) => {
+        updateUserInfo(res.data.user);
+        navigate("/panel");
+        notify({ isSuccess: true });
+      });
+      req.catch((err) => {
+        notify({ netError: true });
+      });
     } else {
       notify({ countError: true });
     }

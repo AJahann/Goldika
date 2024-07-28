@@ -11,6 +11,7 @@ import NoCards from "../components/NoCards/NoCards";
 import ModalAddCredit from "../../../components/Modal/ModalAddCredit";
 import { AuthContext } from "../../../Context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import supabase from "../../../supabase/supabase";
 
 const theme = createTheme({
   palette: {
@@ -21,40 +22,28 @@ const theme = createTheme({
 });
 
 export default function WithDraw() {
-  const { token, userInfo, updateUserInfo } = useContext(AuthContext);
+  const { userInfo, updateUserInfo } = useContext(AuthContext);
   const [open, setOpen] = useState(false);
   const [withDrawal, setWithDrawal] = useState("");
   const navigate = useNavigate();
 
   const updateWalletBalance = async (newWalletBalance) => {
-    const updatedUser = {
-      ...userInfo,
-      pocket: {
-        ...userInfo.pocket,
-        walletBalance: newWalletBalance,
-      },
-    };
-
-    try {
-      const response = await fetch(
-        `https://goldikaserver2.liara.run/users/${token}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(updatedUser),
+    const req = supabase.auth.updateUser({
+      data: {
+        pocket: {
+          ...userInfo.pocket,
+          walletBalance: newWalletBalance,
         },
-      );
+      },
+    });
 
-      if (!response.ok) {
-        throw new Error("خطا در ارسال درخواست");
-      }
-      updateUserInfo(updatedUser);
+    req.then((res) => {
+      updateUserInfo(res.data.user);
       navigate("/panel/dashboard");
-    } catch (error) {
-      console.log(error);
-    }
+    });
+    req.catch((err) => {
+      console.log(err);
+    });
   };
 
   const handleWithdrawal = () => {
