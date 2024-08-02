@@ -49,7 +49,24 @@ export default function App() {
     return <Loading />;
   }
   if (error) {
-    return <div>Error: {error.message}</div>;
+    return (
+      <div>
+        <h1
+          style={{
+            textAlign: "center",
+            fontSize: 24,
+            color: "white",
+            margin: 12,
+          }}
+        >
+          لطفا فیلتر شکن خود را خاموش/روشن کرده و{" "}
+          <a style={{ color: "royalblue" }} href="/">
+            صفحه را رفرش کنید
+          </a>{" "}
+          :)
+        </h1>
+      </div>
+    );
   }
 
   return <CacheProvider value={cacheRtl}>{router}</CacheProvider>;
