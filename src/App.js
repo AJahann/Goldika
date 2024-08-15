@@ -12,6 +12,7 @@ import Loading from "./components/Loading/Loading";
 
 import "./assets/css/reset.css";
 import "./assets/css/mainStyle.css";
+import supabase from "./supabase/supabase";
 
 const cacheRtl = createCache({
   key: "muirtl",
@@ -19,17 +20,24 @@ const cacheRtl = createCache({
 });
 
 async function fetchGoldPrice() {
-  const response = await fetch("https://goldikaserver2.liara.run/gold");
-  if (!response.ok) {
+  let { data: GoldPrice, error } = await supabase.from("GoldPrice").select("*");
+
+  if (error) {
     throw new Error("Failed to fetch gold price");
   }
-  return response.json();
+  return GoldPrice[0];
 }
 
 export default function App() {
   const router = useRoutes(routes);
   const { updatePrices } = useContext(GoldPriceContext);
-  const { isLoading, data: goldAmount, error } = useQuery([], fetchGoldPrice);
+  fetchGoldPrice();
+  const {
+    isLoading,
+    data: goldAmount,
+    error,
+  } = useQuery(["gold"], fetchGoldPrice);
+  console.log(goldAmount);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -39,8 +47,8 @@ export default function App() {
   useEffect(() => {
     if (goldAmount) {
       updatePrices({
-        goldBuyBalance: goldAmount.buy,
-        goldSellBalance: goldAmount.sell,
+        goldBuyBalance: goldAmount.goldBuy,
+        goldSellBalance: goldAmount.goldSell,
       });
     }
   }, [goldAmount, updatePrices]);
