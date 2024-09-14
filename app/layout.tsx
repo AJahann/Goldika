@@ -4,6 +4,9 @@ import "./style/mainStyle.css";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 
+// eslint-disable-next-line import/extensions, import/no-unresolved
+import CacheProviderWrapper from "@/providers/CacheProviderWrapper";
+
 const vazir = localFont({
   src: "./fonts/vazire.ttf",
   weight: "400",
@@ -21,7 +24,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fa" dir="rtl">
-      <body className={vazir.className}>{children}</body>
+      <body className={vazir.className}>
+        {<CacheProviderWrapper>{children}</CacheProviderWrapper>}
+      </body>
     </html>
   );
 }
