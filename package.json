@@ -9,16 +9,23 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/cache": "^11.13.1",
+    "@emotion/react": "^11.13.3",
+    "next": "14.2.11",
     "react": "^18",
     "react-dom": "^18",
-    "next": "14.2.11"
+    "stylis": "^4.3.4",
+    "stylis-plugin-rtl": "^2.1.1"
   },
   "devDependencies": {
-    "typescript": "^5",
+    "@fullstacksjs/eslint-config": "^10.11.1",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "eslint": "^8",
-    "eslint-config-next": "14.2.11"
+    "@types/stylis": "^4.2.6",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "14.2.11",
+    "prettier": "^3.3.3",
+    "typescript": "^5"
   }
 }
