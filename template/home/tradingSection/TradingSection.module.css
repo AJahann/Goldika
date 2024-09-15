@@ -1,0 +1,169 @@
+.tradingBoxWrap {
+  display: flex;
+  padding: 0 12px;
+  margin-top: 58px;
+}
+.tradingBoxRight {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.tradingBoxTxt {
+  display: flex;
+  padding-top: 44px;
+  align-items: center;
+  gap: 18px;
+  color: var(--white);
+}
+.tradingBoxTxt .title {
+  font-size: 48px;
+  font-weight: 500;
+  line-height: 48px;
+  color: var(--primary-color);
+}
+.tradingBoxTxt .verticalBar {
+  font-size: 36px;
+}
+.tradingBoxTxt .text {
+  font-size: 36px;
+}
+.rowBadges {
+  display: flex;
+  margin-top: 20px;
+  gap: 12px;
+}
+.tradingBoxTitle {
+  margin-top: 26px;
+  font-size: 28px;
+  line-height: 48px;
+  font-weight: 200;
+  color: var(--white);
+}
+.trandingBoxSubTitle {
+  font-size: 16px;
+  margin-top: 14px;
+  line-height: 24px;
+  color: #bcbdc2;
+}
+.numberInput > div {
+  margin-top: 32px;
+  width: 100%;
+}
+.inputNumberTxt {
+  font-size: 14px;
+  margin-top: 12px;
+  color: #bcbdc2;
+}
+.numberInput {
+  max-width: 32rem;
+  position: relative;
+}
+
+#inputNumberBtn {
+  position: absolute;
+  width: 74px;
+  height: 38px;
+  padding: 7px 13px;
+  font-size: 14px;
+  border-radius: 8px;
+  gap: 10px;
+  top: 42px;
+  left: 12px;
+}
+
+.tradingBoxLeft {
+  padding: 0 12px;
+  flex: 1;
+  display: flex;
+  justify-content: left;
+}
+.tradingBoxLeftWrapper {
+  max-width: 28rem;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 16px;
+  background-color: #373943;
+  padding: 18px;
+}
+.tradingBoxLeftHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  justify-content: space-evenly;
+  padding: 8px 0;
+}
+.tradingBoxLeftHeader .MuiTabsFlexContainer {
+  width: 50%;
+}
+.tradingBoxLeftHeader .item {
+  color: #fff;
+  max-width: 11rem;
+  align-items: center;
+  display: flex;
+  font-size: 16px;
+  line-height: 24px;
+  flex-direction: column;
+}
+.tradingBoxLeftHeader .itemPrice {
+  display: flex;
+  gap: 4px;
+  font-weight: bold;
+}
+.tradingBoxLeftHeader .itemPriceBuy {
+  color: #2ed64a;
+}
+.tradingBoxLeftHeader .itemPriceSell {
+  color: #da2b2b;
+}
+.tradingBoxLeftHeader .itemCenter {
+  width: 40px;
+  height: 40px;
+  font-size: 13px;
+  color: var(--primary-color);
+}
+.tradingBoxLeftMain {
+  background-color: #494c5a;
+  margin-top: 12px;
+  border-radius: 12px;
+  overflow: hidden;
+  width: 100%;
+}
+.tradingBoxLeftInputs {
+  padding: 8px;
+  padding-bottom: 20px;
+}
+.tradingBoxLeftBtn {
+  margin-top: 17px;
+  width: 88%;
+}
+
+@media screen and (max-width: 900px) {
+  .tradingBoxWrap {
+    flex-direction: column;
+    align-items: center;
+    margin-top: 0;
+  }
+  .tradingBoxLeft {
+    width: 100%;
+    justify-content: center;
+    margin-top: 3rem;
+  }
+  .tradingBoxTxt .text,
+  .tradingBoxTxt .verticalBar {
+    font-size: 20px;
+  }
+  .tradingBoxTitle,
+  .row-badges {
+    display: none;
+  }
+  .numberInput {
+    max-width: 23rem;
+    margin: 0 auto;
+  }
+  .inputNumberTxt {
+    text-align: center;
+  }
+}

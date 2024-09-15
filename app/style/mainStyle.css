@@ -13,10 +13,10 @@
   --box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.1);
 }
 * {
-  font-family: 'vazir' !important;
+  font-family: "vazir" !important;
 }
 body {
-  font-family: 'vazir';
+  font-family: "vazir";
   background-color: var(--black);
   direction: rtl;
 }
@@ -61,4 +61,19 @@ body::-webkit-scrollbar-thumb {
 }
 b {
   font-weight: bold;
+}
+
+.MuiOutlinedInput-root:hover:not(.Mui-focused)
+  .MuiOutlinedInput-notchedOutline {
+  border-color: #ffffff90;
+}
+.mui-rtl-putrnr input {
+  direction: ltr;
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px #00000086 inset !important;
+  -webkit-text-fill-color: #ffffff !important;
 }

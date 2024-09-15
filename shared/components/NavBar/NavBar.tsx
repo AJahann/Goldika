@@ -2,7 +2,6 @@
 import { Button } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
 
 import styles from "./NavBar.module.css";
 
@@ -55,21 +54,18 @@ const AuthBtn = () => {
 };
 
 const NavBar = () => {
-  const [isShow, setIsShow] = useState(false);
-
   return (
     <nav className={`container ${styles.nav}`}>
-      {/* <Menu onClick={() => setIsShow(false)} isActive={isShow} /> */}
       <div className={styles.navWrap}>
         <div>
-          <div className={styles.menu}>
+          {/* <div className={styles.menu}>
             <Button
               onClick={() => setIsShow(true)}
               style={{ color: "white", paddingLeft: 0, paddingRight: 0 }}
             >
-              {/* <MenuIcon /> */}
+              <MenuIcon />
             </Button>
-          </div>
+          </div> */}
           <div className={styles.logo}>
             <Link href="/">
               <Image src="/favicon.ico" alt="Goldika" width={40} height={40} />

@@ -1,10 +1,11 @@
-import NavBar from "@/shared/components/NavBar/NavBar";
+import NavBar from "@/shared/components/navBar/NavBar";
+import TradingSection from "@/template/home/tradingSection/TradingSection";
 
 const Home = () => {
   return (
     <div>
       <NavBar />
-      <h1>تست متن موجود</h1>
+      <TradingSection />
     </div>
   );
 };
