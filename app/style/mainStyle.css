@@ -77,3 +77,107 @@ input:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0 30px #00000086 inset !important;
   -webkit-text-fill-color: #ffffff !important;
 }
+
+/* stepper section */
+.stepper-parent {
+  padding: 0 18px;
+}
+.stepper h2 {
+  font-size: 1.5rem;
+  line-height: 24px;
+  font-weight: bold;
+  color: var(--white);
+}
+.stepper-wrap {
+  display: flex;
+}
+.stepper-wrap > div {
+  flex: 1;
+}
+.stepper-labels {
+  margin-top: 27px;
+}
+#myStepper {
+  align-items: flex-start;
+}
+#myStepper > .MuiStepConnector-root {
+  margin-right: 12px;
+}
+#myStepper .MuiStepLabel-label {
+  margin-right: 8px;
+  color: #ffffffb6;
+  font-size: 14px;
+}
+#myStepper .stepperBtn {
+  background-color: transparent;
+}
+#myStepper .MuiSvgIcon-root {
+  font-size: 24px;
+  color: #ffffff80;
+}
+#myStepper .MuiSvgIcon-root.Mui-active {
+  font-size: 24px;
+  color: var(--primary-color);
+}
+#myStepper .MuiStepLabel-label.Mui-active {
+  font-size: 20px;
+  color: var(--primary-color);
+}
+.stepper-description {
+  margin-top: 27px;
+}
+.stepper-desc-box {
+  display: flex;
+  border-radius: 16px;
+  padding: 16px;
+  min-height: 230px;
+  box-shadow: rgb(255, 215, 0) 0px 0px 32px 1px;
+}
+.stepper-desc-box p {
+  flex: 4;
+  text-align: justify;
+  font-size: 16px;
+  padding-left: 6px;
+  line-height: 32px;
+  color: var(--white);
+}
+.stepper-desc-box-icon {
+  width: 104px;
+  /* height: 100px; */
+  padding: 8px;
+}
+
+@media screen and (max-width: 870px) {
+  .stepper-parent h2 {
+    font-size: 1.25rem;
+    margin-top: 2rem;
+  }
+  .stepper-parent .stepper-description.sd {
+    display: none;
+  }
+  .stepper-parent .stepper-desc-box.sm {
+    display: flex !important;
+  }
+}
+@media screen and (max-width: 385px) {
+  #myStepper .MuiStepLabel-label.Mui-active {
+    font-size: 15px;
+  }
+  .stepper-parent .stepper-desc-box.sm {
+    display: flex !important;
+    flex-direction: column-reverse;
+    align-items: center;
+    padding-top: 45px !important;
+  }
+}
+
+/* stepper section end */
+
+/* chart */
+
+#myChart .recharts-cartesian-axis-line,
+#myChart .recharts-cartesian-axis-tick-line,
+#myChart .recharts-tooltip-wrapper {
+  display: none;
+}
+/* chart */
