@@ -1,0 +1,57 @@
+.aboutWrap {
+  color: var(--white);
+  margin-top: 56px;
+  padding: 0 18px;
+  height: auto;
+}
+
+.aboutTitle {
+  font-size: 18px;
+  line-height: 28px;
+  font-weight: bold;
+}
+
+.txtContainerHidden {
+  mask-image: linear-gradient(rgb(255, 255, 255), rgba(0, 0, 0, 0));
+  height: 11em;
+  overflow: hidden;
+}
+
+.txtContainer p {
+  line-height: 2rem;
+  font-size: 16px;
+  text-align: justify;
+}
+
+.txtContainer h3 {
+  font-size: 18px;
+  line-height: 28px;
+  font-weight: bold;
+}
+
+.aboutPLink span a {
+  font-size: 16px;
+  line-height: 32px;
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+.aboutPLink span a:hover {
+  text-decoration: underline;
+}
+
+.aboutBtn button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 16px;
+  line-height: 24px;
+  background-color: transparent;
+  color: var(--primary-color);
+  padding: 8px 0;
+  border: none;
+}
+
+.aboutBtn button:hover {
+  text-decoration: underline;
+}

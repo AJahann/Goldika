@@ -1,0 +1,165 @@
+.footer {
+  width: 100%;
+  height: auto;
+  background-color: #373943;
+}
+
+.footerWrap {
+  max-width: 66rem;
+  margin: 0 auto;
+  padding: 0 0.5rem;
+}
+
+.footerRow {
+  display: flex;
+  padding-top: 38px;
+}
+
+.footerLinks {
+  display: flex;
+  flex: 10;
+  justify-content: space-between;
+}
+
+.footerLinksRight,
+.footerLinksLeft {
+  display: flex;
+  flex-direction: column;
+}
+
+.footerLinksRight a,
+.footerLinksLeft a {
+  margin-top: 16px;
+  font-size: 16px;
+  color: var(--white);
+  text-decoration: none;
+}
+
+.footerGrow {
+  flex: 1;
+  min-width: 100px;
+}
+
+.footerNemads {
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
+  gap: 6px;
+}
+
+.footerNemad {
+  background-color: #dddddd;
+  border-radius: 1.2rem;
+  width: 9rem;
+  height: 9rem;
+  padding: 9px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.footerNemad div {
+  width: 5rem;
+  margin-top: 12px;
+  height: 5rem;
+}
+
+.footerNemad div img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.footerNemad p {
+  font-size: 0.75rem;
+  color: #000000;
+  margin-top: 6px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.footerInfo {
+  display: flex;
+  margin-top: 48px;
+}
+
+.footerAddr {
+  flex: 1.5;
+}
+
+.footerAddr p {
+  font-size: 16px;
+  margin-top: 8px;
+  line-height: 24px;
+  color: var(--white);
+}
+
+.footerConnect {
+  flex: 0.8;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.footerConnect .footerPhone {
+  font-size: 16px;
+  color: var(--white);
+}
+
+.footerConnect .footerPhone span {
+  color: gray;
+}
+
+.footerSocials {
+  margin-top: 8px;
+}
+
+.footerSocialsIcon {
+  display: flex;
+  gap: 6px;
+  color: var(--white);
+}
+
+@media screen and (max-width: 960px) {
+  .footerNemad {
+    width: 7rem;
+  }
+}
+
+@media screen and (max-width: 840px) {
+  .footerInfo {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .footerRow {
+    gap: 2rem;
+  }
+
+  .footerGrow {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 760px) {
+  .footerRow {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footerLinks {
+    gap: 8rem;
+  }
+}
+
+@media screen and (max-width: 448px) {
+  .footerLinks {
+    width: 100%;
+    justify-content: space-between;
+    gap: 0;
+  }
+
+  .footerNemad {
+    width: 100%;
+  }
+}
