@@ -6,8 +6,6 @@ import localFont from "next/font/local";
 
 import CacheProviderWrapper from "@/providers/CacheProviderWrapper";
 import ThemeProviderWrapper from "@/providers/ThemeProviderWrapper";
-import NavBar from "@/shared/components/navBar/NavBar";
-import Footer from "@/shared/components/footer/Footer";
 
 const vazir = localFont({
   src: "./fonts/vazire.ttf",
@@ -27,13 +25,11 @@ export default function RootLayout({
   return (
     <html lang="fa" dir="rtl">
       <body className={vazir.className}>
-        <NavBar />
         {
           <CacheProviderWrapper>
             <ThemeProviderWrapper>{children}</ThemeProviderWrapper>
           </CacheProviderWrapper>
         }
-        <Footer />
       </body>
     </html>
   );
