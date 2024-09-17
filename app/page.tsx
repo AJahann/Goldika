@@ -11,7 +11,6 @@ import TradingSection from "@/template/home/tradingSection/TradingSection";
 const Home = () => {
   return (
     <div>
-      <NavBar />
       <TradingSection />
       <InfoWorkGoldika />
       <StepperSection />
@@ -19,7 +18,6 @@ const Home = () => {
       <ArticleNewsSection />
       <AboutSection />
       <InviteBanner isLogin={false} />
-      <Footer />
     </div>
   );
 };
