@@ -189,3 +189,43 @@ input:-webkit-autofill:active {
   border-radius: 8px !important;
 }
 /* mui */
+
+/* dashboard */
+
+.dashboard * {
+  box-sizing: border-box;
+}
+.dashboard {
+  display: flex;
+}
+.dashboard-content {
+  flex: 1;
+  position: relative !important;
+}
+.dashboard > .sideBar {
+  width: 17rem;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 0.3s;
+}
+.dashboard > .sideBar.hide {
+  transform: translateX(2750px);
+  width: 0;
+  visibility: hidden;
+}
+.dashboard > .dashboard-content {
+  width: 100%;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 0.15s;
+}
+
+/* modal */
+
+.modal-dashboard .MuiPaper-root {
+  width: 100% !important;
+  max-width: 444px !important;
+  box-sizing: border-box;
+}
+
+/* dashboard */

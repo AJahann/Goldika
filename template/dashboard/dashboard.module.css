@@ -1,0 +1,117 @@
+.panelWrap {
+  padding: 28px 0;
+  margin: 0 auto;
+  max-width: 60rem;
+  box-sizing: border-box;
+}
+
+.panelTitle {
+  margin: 12px 0;
+  font-size: 2.5rem;
+  color: var(--white);
+}
+
+.dashboardDirections {
+  display: flex;
+  padding: 12px;
+  gap: 24px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.dashboardChart {
+  margin: 0 -20px !important;
+}
+
+@media screen and (max-width: 840px) {
+  .panelWrap {
+    padding: 1rem;
+  }
+
+  .dashboardDirections {
+    flex-wrap: wrap;
+  }
+
+  .panelTitle {
+    text-align: center;
+  }
+}
+
+.dashboardDirectionBox {
+  box-sizing: border-box;
+  background-color: #373943;
+  max-width: 13.65rem;
+  width: 100%;
+  padding: 18px;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.dashboardBoxTitle {
+  font-size: 16px;
+  text-align: right;
+  color: #fff;
+  line-height: 24px;
+  margin-bottom: 9px;
+}
+
+.dashboardBoxSpan {
+  font-size: 14.4px;
+  color: #808080;
+}
+
+.dashboardBoxPrice {
+  height: 100%;
+  margin-top: 20px;
+  color: #fff;
+  font-size: 20px;
+  text-align: left;
+  margin-bottom: 10px;
+}
+
+@media screen and (max-width: 840px) {
+  .dashboardDirectionBox {
+    max-width: 100%;
+  }
+}
+
+.panelTopBar {
+  position: sticky;
+  right: 0;
+  left: 0;
+  top: 0;
+  z-index: 9999;
+}
+.panelTopBarWrap {
+  padding: 8px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #494c5a;
+}
+
+.topBarCloseMenuBtn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: #fff !important;
+  min-width: 40px;
+}
+
+.topBarUserInfo {
+  color: #fff !important;
+  border-radius: 8px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.userId {
+  direction: ltr;
+}
+
+.personIcon {
+  margin-bottom: -5px;
+}
