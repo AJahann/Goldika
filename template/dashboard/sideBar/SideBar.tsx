@@ -10,7 +10,7 @@ import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 
 import styles from "./sideBar.module.css";
 import Link from "next/link";
-import LogoSVG from "../svg/LogoSVG";
+import LogoSVG from "../svg/SideBarLogoSVG";
 
 interface SideBarItemProps {
   name: string;

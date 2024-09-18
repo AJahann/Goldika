@@ -1,7 +1,12 @@
+import WalletPage from "@/template/dashboard/wallet/WalletPage";
 import React from "react";
 
 const Wallet = () => {
-  return <div>Wallet</div>;
+  return (
+    <div>
+      <WalletPage />
+    </div>
+  );
 };
 
 export default Wallet;

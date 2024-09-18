@@ -57,7 +57,7 @@ function DashboardActionBox({
 
 const DashboardPage = () => {
   return (
-    <div className={styles.panelDashboard}>
+    <div>
       <div className={styles.panelWrap}>
         <h2 className={styles.panelTitle}>خانه</h2>
         <div className={styles.dashboardDirections}>
