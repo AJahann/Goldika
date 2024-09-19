@@ -1,5 +1,7 @@
+import DepositPage from "@/template/dashboard/deposite/DepositePage";
+
 const Deposit = () => {
-  return <div>Deposit</div>;
+  return <DepositPage />;
 };
 
 export default Deposit;

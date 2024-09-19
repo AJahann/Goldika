@@ -188,6 +188,18 @@ input:-webkit-autofill:active {
   background-color: #373943 !important;
   border-radius: 8px !important;
 }
+
+.panelDepositMyCards {
+  margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+}
+
+.MuiAlert-message {
+  text-align: center;
+  width: 100%;
+}
+
 /* mui */
 
 /* dashboard */
