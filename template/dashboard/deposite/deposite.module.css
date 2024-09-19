@@ -1,0 +1,103 @@
+.panelWrap {
+  max-width: 640px;
+  padding: 28px 0;
+  margin: 0 auto;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.panelTitle {
+  margin: 12px 0;
+  font-size: 2.5rem;
+  color: var(--white);
+}
+
+.panelDepositContainer {
+  margin-top: 20px;
+  padding: 12px;
+  background-color: #373943;
+  border-radius: 16px;
+}
+
+.panelDepositStockButton {
+  background-color: #2a2c34 !important;
+  height: 31px;
+  border-radius: 8px !important;
+}
+
+.panelDepositStock {
+  display: flex;
+  flex-direction: column;
+  padding: 7px;
+  margin-top: 40px;
+}
+
+.panelDepositStock_inner {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+
+.panelDepositPayBtn {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+@media screen and (max-width: 480px) {
+  .panelDepositStockButton {
+    height: min-content !important;
+  }
+
+  .panelDepositPayBtnButton {
+    width: 100% !important;
+  }
+}
+
+@media screen and (max-width: 840px) {
+  .panelWrap {
+    padding: 1rem;
+  }
+
+  .panelTitle {
+    text-align: center;
+  }
+}
+
+.panel_myCards {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 16px;
+  color: #fff;
+}
+.panel_myCardsCard {
+  width: 100%;
+  display: flex;
+  padding: 12px;
+  margin-top: 16px;
+  box-sizing: border-box;
+  border: 2px solid var(--primary-color);
+  border-radius: 16px;
+}
+.panel_mayCardsCardTxt {
+  width: 100%;
+  color: #fff;
+  box-sizing: border-box;
+  padding: 8px 12px;
+}
+.panel_mayCardsCardName {
+  text-align: right;
+}
+.panel_mayCardsCardNumber {
+  text-align: left;
+  margin-top: 8px;
+}
+
+.panelDepositPayBtnDisabled {
+  color: rgb(255 255 255 / 26%) !important;
+  box-shadow: none;
+  background-color: rgb(189 184 184 / 12%) !important;
+}
