@@ -212,6 +212,16 @@ input:-webkit-autofill:active {
   font-size: 14;
 }
 
+.MuiDrawer-root .MuiPaper-root {
+  left: 0 !important;
+  right: auto !important;
+  padding: 16px !important;
+}
+
+.filter .MuiSlider-root .MuiSlider-thumb {
+  margin-left: -20px !important;
+}
+
 /* mui */
 
 /* dashboard */
