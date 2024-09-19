@@ -1,71 +1,9 @@
 import InputBase from "@/shared/components/UI/input/InputBase";
-import { AccountBalance, Add } from "@mui/icons-material";
-import { Alert, Button } from "@mui/material";
+import { Add } from "@mui/icons-material";
+import { Button } from "@mui/material";
 import styles from "./deposite.module.css";
-import formatCardNumberInPersian from "@/shared/utilities/formatCardNumber";
-
-const NoCard = () => {
-  return (
-    <>
-      <Alert
-        style={{
-          width: "100%",
-          color: "#ffe2b7",
-          backgroundColor: "#191207 !important",
-          borderRadius: "16px !important",
-          fontSize: 14,
-        }}
-        severity="warning"
-      >
-        کارتی در سامانه تعریف نشده است.
-      </Alert>
-      <Button
-        style={{
-          borderRadius: 8,
-          fontSize: 14,
-          margin: "0 auto",
-          marginTop: 12,
-          fontWeight: "bold",
-          boxShadow: "none",
-        }}
-        variant="contained"
-      >
-        افزودن کارت
-      </Button>
-    </>
-  );
-};
-const MyCards = () => {
-  return (
-    <>
-      <div className={styles.panel_myCards}>
-        <div>کارت های من:</div>
-        <Button variant="text">افزودن کارت</Button>
-      </div>
-      <div>
-        {[{ cardName: "کارت 1", cardNumber: 6037697650335489 }].map(
-          (card, index) => {
-            return (
-              <div key={index} className={styles.panel_myCardsCard}>
-                <div>
-                  <AccountBalance style={{ fontSize: 56, color: "#84879a" }} />
-                </div>
-                <div className={styles.panel_mayCardsCardTxt}>
-                  <p className={styles.panel_mayCardsCardName}>
-                    {card.cardName}
-                  </p>
-                  <p className={styles.panel_mayCardsCardNumber}>
-                    {formatCardNumberInPersian(card.cardNumber)}
-                  </p>
-                </div>
-              </div>
-            );
-          },
-        )}
-      </div>
-    </>
-  );
-};
+import MyCards from "../component/MyCards";
+import NoCard from "../component/NoCard";
 
 interface DepositPageProps {
   // Define any props here if needed in the future

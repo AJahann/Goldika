@@ -200,6 +200,18 @@ input:-webkit-autofill:active {
   width: 100%;
 }
 
+.MuiSliderThumb {
+  margin-left: -18px !important;
+}
+
+.MuiAlert-colorError {
+  background-color: #160b0b !important;
+  color: #ffe2b7 !important;
+  width: 100%;
+  border-radius: 16px !important;
+  font-size: 14;
+}
+
 /* mui */
 
 /* dashboard */
