@@ -1,9 +1,6 @@
-function convertToPersianDigits(num: string) {
-  const persianDigits = "۰۱۲۳۴۵۶۷۸۹";
-  return num.replace(/\d/g, (digit: string) => persianDigits[parseInt(digit)]);
-}
+import convertToPersianDigits from "./convertToPersianDigits";
 
-function formatCardNumberInPersian(cardNumber: number) {
+const formatCardNumberInPersian = (cardNumber: number) => {
   // تبدیل شماره کارت به رشته و سپس به گروه‌های ۴ رقمی جدا کردن
   const formattedCardNumber = cardNumber
     .toString()
@@ -13,6 +10,6 @@ function formatCardNumberInPersian(cardNumber: number) {
   const persianCardNumber = convertToPersianDigits(formattedCardNumber);
 
   return persianCardNumber;
-}
+};
 
 export default formatCardNumberInPersian;

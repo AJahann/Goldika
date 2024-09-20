@@ -4,15 +4,20 @@ import Image from "next/image";
 import Link from "next/link";
 
 import styles from "./NavBar.module.css";
+import formatPhoneNumber from "@/shared/utilities/formatPhoneNumber";
+import convertToPersianDigits from "@/shared/utilities/convertToPersianDigits";
 
 const AuthBtn = () => {
-  // const authContext = useContext(AuthContext);
   const authContext = {
     isLogin: true,
     userInfo: {
-      number: 123456789,
+      number: "09331914360",
     },
   };
+
+  const userNumber = convertToPersianDigits(
+    formatPhoneNumber(authContext.userInfo.number),
+  );
 
   return (
     <>
@@ -28,8 +33,7 @@ const AuthBtn = () => {
             variant="outlined"
           >
             <span dir="ltr" style={{ marginLeft: 6 }}>
-              {/* {EntoFa(separateNumbers(authContext.userInfo.number))} */}
-              {authContext.userInfo.number}
+              {userNumber}
             </span>
             | ناحیه کاربری
           </Button>
@@ -55,10 +59,11 @@ const AuthBtn = () => {
 
 const NavBar = () => {
   return (
-    <nav className={`container ${styles.nav}`}>
-      <div className={styles.navWrap}>
-        <div>
-          {/* <div className={styles.menu}>
+    <div className="container">
+      <nav className={` ${styles.nav}`}>
+        <div className={styles.navWrap}>
+          <div>
+            {/* <div className={styles.menu}>
             <Button
               onClick={() => setIsShow(true)}
               style={{ color: "white", paddingLeft: 0, paddingRight: 0 }}
@@ -66,25 +71,31 @@ const NavBar = () => {
               <MenuIcon />
             </Button>
           </div> */}
-          <div className={styles.logo}>
-            <Link href="/">
-              <Image src="/favicon.ico" alt="Goldika" width={40} height={40} />
-            </Link>
+            <div className={styles.logo}>
+              <Link href="/">
+                <Image
+                  src="/favicon.ico"
+                  alt="Goldika"
+                  width={40}
+                  height={40}
+                />
+              </Link>
+            </div>
+
+            <div className={styles.links}>
+              <Link href="/blog">وبلاگ</Link>
+              <Link href="/about">درباره ما</Link>
+              <Link href="/faq">سوالات متداول</Link>
+              <Link href="/contact">ارتباط با ما</Link>
+            </div>
           </div>
 
-          <div className={styles.links}>
-            <Link href="/blog">وبلاگ</Link>
-            <Link href="/about">درباره ما</Link>
-            <Link href="/faq">سوالات متداول</Link>
-            <Link href="/contact">ارتباط با ما</Link>
+          <div>
+            <AuthBtn />
           </div>
         </div>
-
-        <div>
-          <AuthBtn />
-        </div>
-      </div>
-    </nav>
+      </nav>
+    </div>
   );
 };
 
