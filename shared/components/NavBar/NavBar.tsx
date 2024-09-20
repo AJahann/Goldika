@@ -10,7 +10,7 @@ import { Menu } from "@mui/icons-material";
 
 const AuthBtn = () => {
   const authContext = {
-    isLogin: true,
+    isLogin: false,
     userInfo: {
       number: "09331914360",
     },
@@ -23,7 +23,7 @@ const AuthBtn = () => {
   return (
     <>
       {authContext.isLogin ? (
-        <Link href="/panel">
+        <Link href="/dashboard">
           <Button
             style={{
               color: "var(--primary-color)",
