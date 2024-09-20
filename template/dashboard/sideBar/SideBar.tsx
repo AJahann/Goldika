@@ -11,23 +11,21 @@ import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import styles from "./sideBar.module.css";
 import Link from "next/link";
 import LogoSVG from "../svg/SideBarLogoSVG";
+import { usePathname } from "next/navigation";
 
 interface SideBarItemProps {
   name: string;
   icon: React.ReactNode;
   to: string;
-  active?: boolean;
 }
 
-const SideBarItem: React.FC<SideBarItemProps> = ({
-  name,
-  icon,
-  to,
-  active,
-}) => {
+const SideBarItem: React.FC<SideBarItemProps> = ({ name, icon, to }) => {
+  const pathname = usePathname(); // دریافت مسیر فعلی
+  const isActive = pathname === to; // بررسی اینکه لینک فعال است یا نه
+
   return (
     <div className={styles.panelSideBarItem}>
-      <Link href={to} className={active ? styles.active : ""}>
+      <Link href={to} className={isActive ? styles.active : ""}>
         <span className={styles.sideBarItemIcon}>{icon}</span>
         <span className={styles.sideBarItemName}>{name}</span>
       </Link>
