@@ -1,4 +1,4 @@
-import AboutPage from "@/template/about/AboutMainSection";
+import AboutPage from "@/template/about/AboutPage";
 
 const About = () => {
   return (

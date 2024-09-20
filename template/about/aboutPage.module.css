@@ -16,18 +16,13 @@
   border-radius: 16px;
   background-color: #373943;
 }
-
-.aboutPageContent > p {
-  padding: 16px 27px;
-}
-
 .aboutPageContentBottom {
   display: flex;
-  align-items: center;
+  justify-content: center;
 }
 
-.aboutPageContentBottom > p {
-  padding: 27px;
+.aboutPageContent p {
+  padding: 16px 27px;
 }
 
 .aboutPageContentSvg {
@@ -42,7 +37,7 @@
   }
 
   .aboutPageContentBottom {
-    flex-direction: column-reverse;
+    flex-wrap: wrap;
   }
 
   .aboutPageMainWrap p {

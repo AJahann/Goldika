@@ -3,6 +3,7 @@
 # dependencies
 /node_modules
 /old-data
+/TODO
 /.pnp
 .pnp.js
 .yarn/install-state.gz

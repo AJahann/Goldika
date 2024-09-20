@@ -6,6 +6,7 @@ import Link from "next/link";
 import styles from "./NavBar.module.css";
 import formatPhoneNumber from "@/shared/utilities/formatPhoneNumber";
 import convertToPersianDigits from "@/shared/utilities/convertToPersianDigits";
+import { Menu } from "@mui/icons-material";
 
 const AuthBtn = () => {
   const authContext = {
@@ -57,20 +58,36 @@ const AuthBtn = () => {
   );
 };
 
+const MenuVirtualized = ({ isActive }: { isActive: boolean }) => {
+  return (
+    <div
+      className={`${styles.menuVirtualized} ${isActive ? styles.active : ""}`}
+    >
+      <div className={styles.menuVirtualizedWrap}>
+        <AuthBtn />
+        <Link href="/blog">وبلاگ</Link>
+        <Link href="/about">درباره ما</Link>
+        <Link href="/faq">سوالات متداول</Link>
+        <Link href="/contact">ارتباط با ما</Link>
+      </div>
+    </div>
+  );
+};
+
 const NavBar = () => {
   return (
-    <div className="container">
-      <nav className={` ${styles.nav}`}>
+    <div style={{ margin: "0 auto", maxWidth: "70rem" }}>
+      <nav className={`${styles.nav}`}>
+        <MenuVirtualized isActive={false} />
         <div className={styles.navWrap}>
           <div>
-            {/* <div className={styles.menu}>
-            <Button
-              onClick={() => setIsShow(true)}
-              style={{ color: "white", paddingLeft: 0, paddingRight: 0 }}
-            >
-              <MenuIcon />
-            </Button>
-          </div> */}
+            <div className={styles.menu}>
+              <Button
+                style={{ color: "white", paddingLeft: 0, paddingRight: 0 }}
+              >
+                <Menu />
+              </Button>
+            </div>
             <div className={styles.logo}>
               <Link href="/">
                 <Image

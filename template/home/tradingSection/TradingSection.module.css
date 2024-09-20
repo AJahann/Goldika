@@ -167,3 +167,9 @@
     text-align: center;
   }
 }
+
+@media screen and (max-width: 560px) {
+  .rowBadges {
+    display: none;
+  }
+}

@@ -30,8 +30,8 @@ const Content = () => (
       </Highlight>{" "}
       به منظور برطرف کردن این نیاز کاربران، اقدام به ایجاد گلدیکا نمودند.
     </p>
-    <div style={{ display: "flex", justifyContent: "center" }}>
-      <p style={{ marginTop: 40 }}>
+    <div className={styles.aboutPageContentBottom}>
+      <p>
         <Highlight>
           گلدیکا بستری است برای خرید و فروش طلا برای همه اقشار با هر سطحی از
           دارایی و به قیمت منصفانه؛
