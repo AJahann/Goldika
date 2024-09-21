@@ -1,4 +1,5 @@
 import axios from "axios";
+import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
@@ -18,6 +19,12 @@ export async function POST(request: Request) {
     );
 
     const { access_token, id_token } = response.data;
+    cookies().set("token", access_token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      path: "/",
+    });
+
     return NextResponse.json({ success: true, access_token, id_token });
   } catch (error: any) {
     console.error("Auth0 error:", error.response?.data || error.message);
