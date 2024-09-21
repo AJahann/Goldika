@@ -6,6 +6,7 @@ import localFont from "next/font/local";
 
 import CacheProviderWrapper from "@/providers/CacheProviderWrapper";
 import ThemeProviderWrapper from "@/providers/ThemeProviderWrapper";
+import { UserProvider, useUser } from "@auth0/nextjs-auth0/client";
 
 const vazir = localFont({
   src: "./fonts/vazire.ttf",
@@ -24,13 +25,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fa" dir="rtl">
-      <body className={vazir.className}>
-        {
-          <CacheProviderWrapper>
-            <ThemeProviderWrapper>{children}</ThemeProviderWrapper>
-          </CacheProviderWrapper>
-        }
-      </body>
+      <UserProvider>
+        <body className={vazir.className}>
+          {
+            <CacheProviderWrapper>
+              <ThemeProviderWrapper>{children}</ThemeProviderWrapper>
+            </CacheProviderWrapper>
+          }
+        </body>
+      </UserProvider>
     </html>
   );
 }

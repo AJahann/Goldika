@@ -40,7 +40,7 @@ const AuthBtn = () => {
           </Button>
         </Link>
       ) : (
-        <Link href="/auth">
+        <Link href="/login">
           <Button
             style={{
               color: "var(--primary-color)",
