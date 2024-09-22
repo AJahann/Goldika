@@ -4,24 +4,31 @@ import { ArrowBack } from "@mui/icons-material";
 import { Button } from "@mui/material";
 import axios from "axios";
 import Link from "next/link";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { use, useState } from "react";
 
 const Register = () => {
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [repeatPassword, setRepeatPassword] = useState("");
+
+  const router = useRouter();
 
   const handleRegister = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    if (name.trim() && number.trim() && password.trim() === repeatPassword) {
+    if (name.trim() && number.trim() && password.trim() && email.trim()) {
       try {
         const response = await axios.post("/api/auth/register", {
           name,
           number,
+          email,
           password,
         });
-        console.log("response =>", response);
+
+        if (response.data.success) {
+          router.replace("/dashboard");
+        }
       } catch (error) {
         console.error("An error occurred:", error);
       }
@@ -73,16 +80,16 @@ const Register = () => {
           label={"شماره موبایل"}
         />
         <InputBase
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          style={{ marginBottom: 14, width: "100%" }}
+          label={"ایمیل"}
+        />
+        <InputBase
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           style={{ marginBottom: 14, width: "100%" }}
           label={"پسورد"}
-        />
-        <InputBase
-          value={repeatPassword}
-          onChange={(e) => setRepeatPassword(e.target.value)}
-          style={{ marginBottom: 14, width: "100%" }}
-          label={"تکرار پسورد"}
         />
 
         <Button

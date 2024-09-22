@@ -2,8 +2,6 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { jwtVerify, createRemoteJWKSet } from "jose";
 
-const protectedRoutes = ["/dashboard"];
-
 const JWKS = createRemoteJWKSet(
   new URL(`https://${process.env.AUTH0_DOMAIN}/.well-known/jwks.json`),
 );
@@ -21,15 +19,9 @@ export async function middleware(req: NextRequest) {
       audience: process.env.AUTH0_AUDIENCE,
     });
 
-    // console.log("Decoded Token:", payload);
+    console.log("Decoded Token:", payload);
 
-    if (
-      protectedRoutes.some((route) => req.nextUrl.pathname.startsWith(route))
-    ) {
-      return NextResponse.next(); // Allow access
-    } else {
-      return NextResponse.redirect(new URL("/login", req.url));
-    }
+    return NextResponse.next(); // Allow access
   } catch (error) {
     console.log("the middleware error", error);
     // If token is invalid, redirect to login

@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
   try {
-    const { number, password, name } = await request.json();
+    const { number, password, name, email } = await request.json();
 
     const tokenResponse = await axios.post(
       `https://${process.env.AUTH0_DOMAIN}/oauth/token`,
@@ -13,10 +13,6 @@ export async function POST(request: Request) {
         client_secret: process.env.AUTH0_CLIENT_SECRET_M2M,
         audience: `https://${process.env.AUTH0_DOMAIN}/api/v2/`,
         grant_type: "client_credentials",
-        user_metadata: {
-          location: "us",
-          name,
-        },
       },
       {
         headers: { "content-type": "application/json" },
@@ -29,8 +25,13 @@ export async function POST(request: Request) {
       `https://${process.env.AUTH0_DOMAIN}/api/v2/users`,
       {
         connection: "Username-Password-Authentication",
-        email: number,
-        password: password,
+        email,
+        password,
+        user_metadata: {
+          location: "us",
+          number,
+          name,
+        },
       },
       {
         headers: {
@@ -39,14 +40,28 @@ export async function POST(request: Request) {
       },
     );
 
-    const jwtToken = createUserResponse.data.access_token;
-    cookies().set("token", jwtToken, {
+    // user login process
+    const loginResponse = await axios.post(
+      `https://${process.env.AUTH0_DOMAIN}/oauth/token`,
+      {
+        grant_type: "password",
+        username: email,
+        password: password,
+        audience: process.env.AUTH0_AUDIENCE,
+        client_id: process.env.AUTH0_CLIENT_ID,
+        client_secret: process.env.AUTH0_CLIENT_SECRET,
+        scope: "openid profile email",
+      },
+    );
+
+    const loginToken = loginResponse.data.access_token;
+
+    cookies().set("auth_token", loginToken, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
       path: "/",
     });
 
-    return NextResponse.json({ success: true, user: createUserResponse.data });
+    return NextResponse.json({ success: true });
   } catch (error: any) {
     console.error("Auth0 error:", error.response?.data || error.message);
     return NextResponse.json(

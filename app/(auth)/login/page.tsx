@@ -7,21 +7,19 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 const Login = () => {
-  const [phoneNumber, setPhoneNumber] = useState("");
+  const [number, setNumber] = useState("");
   const [password, setPassword] = useState("");
 
   const router = useRouter();
 
   const handleLogin = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    if (phoneNumber && password) {
+    if (number && password) {
       try {
         const response = await axios.post("/api/auth/login", {
-          phoneNumber,
+          number,
           password,
         });
-
-        console.log("response =>", response);
 
         if (response.data.success) {
           router.replace("/dashboard");
@@ -47,8 +45,8 @@ const Login = () => {
         <form onSubmit={handleLogin}>
           <div className="auth-box-input-wrap">
             <InputBase
-              value={phoneNumber}
-              onChange={(e) => setPhoneNumber(e.target.value)}
+              value={number}
+              onChange={(e) => setNumber(e.target.value)}
               label="شماره تلفن همراه"
               style={{ width: "100%" }}
             />
