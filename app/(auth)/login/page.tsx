@@ -3,11 +3,14 @@ import InputBase from "@/shared/components/UI/input/InputBase";
 import { Button } from "@mui/material";
 import axios from "axios";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 const Login = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
+
+  const router = useRouter();
 
   const handleLogin = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -19,6 +22,10 @@ const Login = () => {
         });
 
         console.log("response =>", response);
+
+        if (response.data.success) {
+          router.replace("/dashboard");
+        }
       } catch (error) {
         console.error("An error occurred:", error);
       }

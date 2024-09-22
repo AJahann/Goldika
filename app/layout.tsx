@@ -25,15 +25,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fa" dir="rtl">
-      <UserProvider>
-        <body className={vazir.className}>
-          {
-            <CacheProviderWrapper>
-              <ThemeProviderWrapper>{children}</ThemeProviderWrapper>
-            </CacheProviderWrapper>
-          }
-        </body>
-      </UserProvider>
+      <body className={vazir.className}>
+        {
+          <CacheProviderWrapper>
+            <ThemeProviderWrapper>{children}</ThemeProviderWrapper>
+          </CacheProviderWrapper>
+        }
+      </body>
     </html>
   );
 }

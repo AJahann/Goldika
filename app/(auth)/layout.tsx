@@ -9,36 +9,32 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fa" dir="rtl">
-      <body>
-        <div className="auth">
-          <div className="auth-content">
-            <div className="auth-content-wrap">
-              <Link href="/">
-                <LogoTypoSVG />
-              </Link>
-              <div className="auth-content-txt">
-                <h3>
-                  با هر مبلغی بدون پرداخت اجرت و مالیات، طلا بخرید و بفروشید و
-                  در هر زمان تحویل بگیرید.
-                </h3>
-                <div>
-                  <span>پشتیبانی:</span>
-                  <span>
-                    {" "}
-                    شماره تماس :
-                    <span style={{ direction: "ltr" }}>۰۲۱-۹۱۰ ۹۶ ۱۹۵</span>
-                  </span>
-                  <span>رایانامه: support@goldika.ir</span>
-                  <FlowerSVG />
-                </div>
-              </div>
+    <div className="auth">
+      <div className="auth-content">
+        <div className="auth-content-wrap">
+          <Link href="/">
+            <LogoTypoSVG />
+          </Link>
+          <div className="auth-content-txt">
+            <h3>
+              با هر مبلغی بدون پرداخت اجرت و مالیات، طلا بخرید و بفروشید و در هر
+              زمان تحویل بگیرید.
+            </h3>
+            <div>
+              <span>پشتیبانی:</span>
+              <span>
+                {" "}
+                شماره تماس :
+                <span style={{ direction: "ltr" }}>۰۲۱-۹۱۰ ۹۶ ۱۹۵</span>
+              </span>
+              <span>رایانامه: support@goldika.ir</span>
+              <FlowerSVG />
             </div>
           </div>
-          <div className="auth-container">{children}</div>
-          <RuleModal open={false} />
         </div>
-      </body>
-    </html>
+      </div>
+      <div className="auth-container">{children}</div>
+      <RuleModal open={false} />
+    </div>
   );
 }
