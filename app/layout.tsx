@@ -6,7 +6,7 @@ import localFont from "next/font/local";
 
 import CacheProviderWrapper from "@/providers/CacheProviderWrapper";
 import ThemeProviderWrapper from "@/providers/ThemeProviderWrapper";
-import { UserProvider, useUser } from "@auth0/nextjs-auth0/client";
+import { UserProvider } from "@auth0/nextjs-auth0/client";
 
 const vazir = localFont({
   src: "./fonts/vazire.ttf",

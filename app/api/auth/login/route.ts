@@ -1,3 +1,4 @@
+// app/api/auth/login/route.ts
 import axios from "axios";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
@@ -15,17 +16,19 @@ export async function POST(request: Request) {
         audience: process.env.AUTH0_AUDIENCE,
         client_id: process.env.AUTH0_CLIENT_ID,
         client_secret: process.env.AUTH0_CLIENT_SECRET,
+        scope: "openid profile email",
       },
     );
 
-    const { access_token, id_token } = response.data;
-    cookies().set("token", access_token, {
+    const { access_token } = response.data;
+
+    cookies().set("auth_token", access_token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       path: "/",
     });
 
-    return NextResponse.json({ success: true, access_token, id_token });
+    return NextResponse.json({ success: true });
   } catch (error: any) {
     console.error("Auth0 error:", error.response?.data || error.message);
     return NextResponse.json(

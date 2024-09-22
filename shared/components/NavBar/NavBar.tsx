@@ -7,6 +7,7 @@ import styles from "./NavBar.module.css";
 import formatPhoneNumber from "@/shared/utilities/formatPhoneNumber";
 import convertToPersianDigits from "@/shared/utilities/convertToPersianDigits";
 import { Menu } from "@mui/icons-material";
+import { useUser } from "@auth0/nextjs-auth0/client";
 
 const AuthBtn = () => {
   const authContext = {
