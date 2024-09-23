@@ -7,7 +7,7 @@ import styles from "./NavBar.module.css";
 import formatPhoneNumber from "@/shared/utilities/formatPhoneNumber";
 import convertToPersianDigits from "@/shared/utilities/convertToPersianDigits";
 import { Menu } from "@mui/icons-material";
-import { useUser } from "@auth0/nextjs-auth0/client";
+import { useAuth } from "@/shared/hooks/useAuth";
 
 const AuthBtn = () => {
   const authContext = {
@@ -76,6 +76,10 @@ const MenuVirtualized = ({ isActive }: { isActive: boolean }) => {
 };
 
 const NavBar = () => {
+  const { user, isLoggedIn, isLoading } = useAuth();
+
+  console.log(user);
+
   return (
     <div style={{ margin: "0 auto", maxWidth: "70rem" }}>
       <nav className={`${styles.nav}`}>

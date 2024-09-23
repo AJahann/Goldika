@@ -1,12 +1,7 @@
-// get me route.ts
+import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import axios from "axios";
-import { jwtVerify, createRemoteJWKSet } from "jose";
-
-const JWKS = createRemoteJWKSet(
-  new URL(`https://${process.env.AUTH0_DOMAIN}/.well-known/jwks.json`),
-);
 
 export async function GET() {
   const token = cookies().get("auth_token")?.value;
@@ -19,7 +14,10 @@ export async function GET() {
   }
 
   try {
-    const { payload } = await jwtVerify(token, JWKS, {
+    const publicKey = process.env.AUTH0_PUBLIC_KEY;
+
+    const payload = jwt.verify(token, publicKey!, {
+      algorithms: ["RS256"],
       issuer: `https://${process.env.AUTH0_DOMAIN}/`,
       audience: process.env.AUTH0_AUDIENCE,
     });
@@ -40,7 +38,7 @@ export async function GET() {
     );
 
     const userInfoResponse = await axios.get(
-      `https://${process.env.AUTH0_DOMAIN}/api/v2/users/${userId}`, // استفاده از userId
+      `https://${process.env.AUTH0_DOMAIN}/api/v2/users/${userId}`,
       {
         headers: {
           Authorization: `Bearer ${tokenResponse.data.access_token}`,
