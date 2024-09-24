@@ -17,6 +17,7 @@
     "@mui/material": "6.1.0",
     "axios": "1.7.7",
     "classnames": "2.5.1",
+    "jose": "^5.9.3",
     "jsonwebtoken": "9.0.2",
     "next": "14.2.11",
     "react": "18",

@@ -2,8 +2,10 @@ import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import axios from "axios";
+import getAccessToken from "@/shared/services/getAccessToken";
 
 export async function GET() {
+  console.time("fetching user info");
   const token = cookies().get("auth_token")?.value;
 
   if (!token) {
@@ -24,27 +26,17 @@ export async function GET() {
 
     const userId = payload.sub;
 
-    const tokenResponse = await axios.post(
-      `https://${process.env.AUTH0_DOMAIN}/oauth/token`,
-      {
-        client_id: process.env.AUTH0_CLIENT_ID_M2M,
-        client_secret: process.env.AUTH0_CLIENT_SECRET_M2M,
-        audience: `https://${process.env.AUTH0_DOMAIN}/api/v2/`,
-        grant_type: "client_credentials",
-      },
-      {
-        headers: { "content-type": "application/json" },
-      },
-    );
+    const accessToken = await getAccessToken();
 
     const userInfoResponse = await axios.get(
       `https://${process.env.AUTH0_DOMAIN}/api/v2/users/${userId}`,
       {
         headers: {
-          Authorization: `Bearer ${tokenResponse.data.access_token}`,
+          Authorization: `Bearer ${accessToken}`,
         },
       },
     );
+    console.timeEnd("fetching user info");
 
     return NextResponse.json({
       success: true,
