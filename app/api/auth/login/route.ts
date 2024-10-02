@@ -29,7 +29,7 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ success: true });
   } catch (error: any) {
-    console.error("Auth0 error:", error.response?.data || error.message);
+    console.error("Auth0 Login error:", error.response?.data || error.message);
     return NextResponse.json(
       { success: false, error: error.response?.data || "Invalid credentials" },
       { status: 400 },

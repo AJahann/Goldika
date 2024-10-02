@@ -63,7 +63,7 @@ const DashboardPage = () => {
         <div className={styles.dashboardDirections}>
           <DashboardActionBox
             price={100000}
-            link={"/panel/trade?trade_action=buy"}
+            link={"/trade?action=buy"}
             title={"خرید از گلدیکا:"}
             txt={"(هرگرم طلای ۱۸ عیار)"}
             btnName={"خرید"}
@@ -72,7 +72,7 @@ const DashboardPage = () => {
           />
           <DashboardActionBox
             price={100000}
-            link={"/panel/trade?trade_action=sell"}
+            link={"/trade?action=sell"}
             title={"فروش به گلدیکا:"}
             txt={"(هرگرم طلای ۱۸ عیار)"}
             btnName={"فروش"}
@@ -81,7 +81,7 @@ const DashboardPage = () => {
           />
           <DashboardActionBox
             price={100000}
-            link={"/panel/deposit"}
+            link={"/deposit"}
             title={"موجودی کیف پول:"}
             btnName={"افزایش موجودی"}
             icon={<AccountBalanceWalletOutlinedIcon style={{ fontSize: 20 }} />}

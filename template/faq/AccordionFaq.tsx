@@ -18,6 +18,7 @@ const AccordionFaq = ({ title, content }: AccordionFaqProps) => {
           margin: "6px 0",
           fontWeight: "500",
           background: "black",
+          padding: 0,
         }}
       >
         <AccordionSummary

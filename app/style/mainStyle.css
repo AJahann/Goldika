@@ -14,6 +14,7 @@
 }
 * {
   font-family: "vazir" !important;
+  box-sizing: border-box;
 }
 body {
   font-family: "vazir";
@@ -252,6 +253,13 @@ input:-webkit-autofill:active {
   transition-property: all;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 0.15s;
+}
+
+@media screen and (max-width: 836px) {
+  .dashboard > .sideBar {
+    position: absolute;
+    z-index: 9999;
+  }
 }
 
 /* modal */

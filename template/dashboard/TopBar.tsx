@@ -1,13 +1,17 @@
+"use client";
 import { MenuRounded, PersonRounded } from "@mui/icons-material";
 import { Button } from "@mui/material";
-import React from "react";
+import React, { useContext } from "react";
 import styles from "./dashboard.module.css";
+import { SidebarContext } from "@/context/DashboardSideBarContext";
 
 const DashboardTopBar = () => {
+  const { toggleSidebar } = useContext(SidebarContext);
+
   return (
     <div className={styles.panelTopBar}>
       <div className={styles.panelTopBarWrap}>
-        <Button className={styles.topBarCloseMenuBtn}>
+        <Button onClick={toggleSidebar} className={styles.topBarCloseMenuBtn}>
           <MenuRounded style={{ fontSize: "1.5rem" }} />
         </Button>
         <Button className={styles.topBarUserInfo}>

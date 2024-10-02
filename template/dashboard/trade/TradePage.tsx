@@ -87,7 +87,7 @@ const TradePage = () => {
           <CreditCardOutlinedIcon style={{ fontSize: 24, marginLeft: 8 }} />
           {tradeType === "buy"
             ? `موجودی کیف پول: ${new Intl.NumberFormat("fa").format(0)} تومان`
-            : `موجودی کیف طلا: ${0} گرم`}
+            : `موجودی کیف طلا: ${۰.۰۰۰} گرم`}
         </div>
 
         <div className={styles.panelPayBtn}>

@@ -12,6 +12,7 @@ import styles from "./sideBar.module.css";
 import Link from "next/link";
 import LogoSVG from "../svg/SideBarLogoSVG";
 import { usePathname } from "next/navigation";
+import { useSidebar } from "@/context/DashboardSideBarContext";
 
 interface SideBarItemProps {
   name: string;
@@ -20,8 +21,8 @@ interface SideBarItemProps {
 }
 
 const SideBarItem: React.FC<SideBarItemProps> = ({ name, icon, to }) => {
-  const pathname = usePathname(); // دریافت مسیر فعلی
-  const isActive = pathname === to; // بررسی اینکه لینک فعال است یا نه
+  const pathname = usePathname();
+  const isActive = pathname === to;
 
   return (
     <div className={styles.panelSideBarItem}>
@@ -33,60 +34,60 @@ const SideBarItem: React.FC<SideBarItemProps> = ({ name, icon, to }) => {
   );
 };
 
-interface SideBarProps {
-  logout?: () => void;
-}
+const SideBar: React.FC = () => {
+  const { isSidebarOpen } = useSidebar();
 
-const SideBar: React.FC<SideBarProps> = ({ logout }) => {
   return (
-    <div className={styles.panelSideBar}>
-      <Link href="/">
-        <div className={styles.panelSideBarLogo}>
-          <LogoSVG />
-          <p>خرید امن طلا</p>
+    <div className={isSidebarOpen ? "sideBar" : "sideBar hide"}>
+      <div className={styles.panelSideBar}>
+        <Link href="/">
+          <div className={styles.panelSideBarLogo}>
+            <LogoSVG />
+            <p>خرید امن طلا</p>
+          </div>
+        </Link>
+        <div className={styles.panelSideBarMenu}>
+          <div className={styles.panelSideBarMenuWrap}>
+            <SideBarItem
+              to="/dashboard"
+              name="خانه"
+              icon={<HomeOutlinedIcon />}
+            />
+            <SideBarItem
+              to="/wallet"
+              name="کیف و دارایی"
+              icon={<PriceChangeOutlinedIcon />}
+            />
+            <SideBarItem
+              to="/deposit"
+              name="واریز پول"
+              icon={<AttachMoneyOutlinedIcon />}
+            />
+            <SideBarItem
+              to="/withdraw"
+              name="برداشت پول"
+              icon={<MoneyOffCsredOutlinedIcon />}
+            />
+            <SideBarItem
+              to="/trade"
+              name="معامله طلا"
+              icon={<StoreOutlinedIcon />}
+            />
+            <SideBarItem
+              to="/report"
+              name="گزارش"
+              icon={<SummarizeOutlinedIcon />}
+            />
+            <SideBarItem
+              to="/order-pickup"
+              name="دریافت طلا"
+              icon={<AddShoppingCartOutlinedIcon />}
+            />
+          </div>
         </div>
-      </Link>
-      <div className={styles.panelSideBarMenu}>
-        <div className={styles.panelSideBarMenuWrap}>
-          <SideBarItem
-            to="/dashboard"
-            name="خانه"
-            icon={<HomeOutlinedIcon />}
-          />
-          <SideBarItem
-            to="/wallet"
-            name="کیف و دارایی"
-            icon={<PriceChangeOutlinedIcon />}
-          />
-          <SideBarItem
-            to="/deposit"
-            name="واریز پول"
-            icon={<AttachMoneyOutlinedIcon />}
-          />
-          <SideBarItem
-            to="/withdraw"
-            name="برداشت پول"
-            icon={<MoneyOffCsredOutlinedIcon />}
-          />
-          <SideBarItem
-            to="/trade"
-            name="معامله طلا"
-            icon={<StoreOutlinedIcon />}
-          />
-          <SideBarItem
-            to="/report"
-            name="گزارش"
-            icon={<SummarizeOutlinedIcon />}
-          />
-          <SideBarItem
-            to="/order-pickup"
-            name="دریافت طلا"
-            icon={<AddShoppingCartOutlinedIcon />}
-          />
+        <div className={styles.panelSideBarLeaveBtn}>
+          <SideBarItem to="/" name="خروج" icon={<LogoutOutlinedIcon />} />
         </div>
-      </div>
-      <div onClick={logout} className={styles.panelSideBarLeaveBtn}>
-        <SideBarItem to="/" name="خروج" icon={<LogoutOutlinedIcon />} />
       </div>
     </div>
   );

@@ -15,13 +15,24 @@ import RemoveShoppingCartOutlinedIcon from "@mui/icons-material/RemoveShoppingCa
 interface UserCardProps {
   isOpen: boolean;
   onClose: () => void;
-  cart: Array<{
-    id: number;
-    name: string;
-    weight: number;
-    wages: number;
-    count?: number;
-  }>;
+  cart: Array<
+    | {
+        id: number;
+        name: string;
+        weight: number;
+        wages: number;
+        count?: number;
+      }
+    | {
+        id: number;
+        name: string;
+        imgSrc: string;
+        wages: number;
+        weight: number;
+        brand: string;
+        type: string;
+      }
+  >;
 }
 
 const UserCard: React.FC<UserCardProps> = ({
@@ -127,8 +138,9 @@ const UserCard: React.FC<UserCardProps> = ({
                       {row.wages}
                     </TableCell>
                     <TableCell sx={{ color: "#fff" }} align="right">
-                      {String(row?.count || 1)}
+                      {"count" in row ? String(row.count || 1) : "1"}
                     </TableCell>
+
                     <TableCell sx={{ color: "#fff" }} align="right">
                       <RemoveShoppingCartOutlinedIcon
                         onClick={() => removeProductHandler(row.id)}

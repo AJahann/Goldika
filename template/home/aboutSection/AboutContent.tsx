@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./About.module.css"; // استفاده از CSS Modules برای مدیریت استایل‌ها
+import styles from "./about.module.css";
 
 interface AboutContentProps {
   isShow: boolean;

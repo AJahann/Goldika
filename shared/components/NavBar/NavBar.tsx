@@ -2,95 +2,109 @@
 import { Button } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
-
+import { Menu } from "@mui/icons-material";
+import { useAuth } from "@/shared/hooks/useAuth";
 import styles from "./NavBar.module.css";
 import formatPhoneNumber from "@/shared/utilities/formatPhoneNumber";
 import convertToPersianDigits from "@/shared/utilities/convertToPersianDigits";
-import { Menu } from "@mui/icons-material";
-import { useAuth } from "@/shared/hooks/useAuth";
+import { useEffect, useState } from "react";
 
-const AuthBtn = () => {
-  const authContext = {
-    isLogin: false,
-    userInfo: {
-      number: "09331914360",
-    },
-  };
+const buttonStyles = {
+  color: "var(--primary-color)",
+  borderColor: "var(--primary-color)",
+  borderRadius: "10px",
+  height: "37px",
+  padding: "12px",
+};
 
-  const userNumber = convertToPersianDigits(
-    formatPhoneNumber(authContext.userInfo.number),
-  );
-
-  return (
+const AuthButton = ({ isLoading, number, isLoggedIn }: AuthBtnProps) => {
+  const buttonContent = isLoggedIn ? (
     <>
-      {authContext.isLogin ? (
-        <Link href="/dashboard">
-          <Button
-            style={{
-              color: "var(--primary-color)",
-              borderColor: "var(--primary-color)",
-              borderRadius: "10px",
-              height: "auto",
-            }}
-            variant="outlined"
-          >
-            <span dir="ltr" style={{ marginLeft: 6 }}>
-              {userNumber}
-            </span>
-            | ناحیه کاربری
-          </Button>
-        </Link>
-      ) : (
-        <Link href="/login">
-          <Button
-            style={{
-              color: "var(--primary-color)",
-              borderColor: "var(--primary-color)",
-              borderRadius: "10px",
-              height: "27px",
-            }}
-            variant="outlined"
-          >
-            ورود | ثبت نام
-          </Button>
-        </Link>
-      )}
+      <span dir="ltr" style={{ marginLeft: 6 }}>
+        {number}
+      </span>
+      | ناحیه کاربری
     </>
+  ) : (
+    "ورود | ثبت نام"
+  );
+
+  return (
+    <Link href={isLoggedIn ? "/dashboard" : "/login"}>
+      <Button style={buttonStyles} variant="outlined" disabled={isLoading}>
+        {isLoading ? "اطلاعات تو راهه..." : buttonContent}
+      </Button>
+    </Link>
   );
 };
 
-const MenuVirtualized = ({ isActive }: { isActive: boolean }) => {
-  return (
-    <div
-      className={`${styles.menuVirtualized} ${isActive ? styles.active : ""}`}
-    >
-      <div className={styles.menuVirtualizedWrap}>
-        <AuthBtn />
-        <Link href="/blog">وبلاگ</Link>
-        <Link href="/about">درباره ما</Link>
-        <Link href="/faq">سوالات متداول</Link>
-        <Link href="/contact">ارتباط با ما</Link>
-      </div>
+const MenuVirtualized = ({
+  isActive,
+  number,
+  isLoading,
+  isLoggedIn,
+  closeMenu,
+}: MenuVirtualizedProps) => (
+  <div
+    role="button"
+    onClick={closeMenu}
+    className={`${styles.menuVirtualized} ${isActive ? styles.active : ""}`}
+  >
+    <div className={styles.menuVirtualizedWrap}>
+      <AuthButton
+        number={number}
+        isLoading={isLoading}
+        isLoggedIn={isLoggedIn}
+      />
+      <Link href="/blog">وبلاگ</Link>
+      <Link href="/about">درباره ما</Link>
+      <Link href="/faq">سوالات متداول</Link>
+      <Link href="/contact">ارتباط با ما</Link>
     </div>
-  );
-};
+  </div>
+);
 
 const NavBar = () => {
   const { user, isLoggedIn, isLoading } = useAuth();
+  const [menuActive, setMenuActive] = useState(false);
 
-  console.log(user);
+  const number = user
+    ? convertToPersianDigits(formatPhoneNumber(user?.user_metadata?.number))
+    : null;
+
+  const menuCloseHandler = () => {
+    setMenuActive(false);
+  };
+
+  useEffect(() => {
+    if (menuActive) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [menuActive]);
 
   return (
     <div style={{ margin: "0 auto", maxWidth: "70rem" }}>
-      <nav className={`${styles.nav}`}>
-        <MenuVirtualized isActive={false} />
+      <nav className={styles.nav}>
+        <MenuVirtualized
+          number={number}
+          isLoading={isLoading}
+          isLoggedIn={isLoggedIn}
+          isActive={menuActive}
+          closeMenu={menuCloseHandler}
+        />
         <div className={styles.navWrap}>
           <div>
             <div className={styles.menu}>
               <Button
-                style={{ color: "white", paddingLeft: 0, paddingRight: 0 }}
+                onClick={() => setMenuActive(true)}
+                style={{ color: "white", padding: 0, marginTop: 6 }}
               >
-                <Menu />
+                <Menu style={{ padding: 0 }} />
               </Button>
             </div>
             <div className={styles.logo}>
@@ -103,7 +117,6 @@ const NavBar = () => {
                 />
               </Link>
             </div>
-
             <div className={styles.links}>
               <Link href="/blog">وبلاگ</Link>
               <Link href="/about">درباره ما</Link>
@@ -111,9 +124,12 @@ const NavBar = () => {
               <Link href="/contact">ارتباط با ما</Link>
             </div>
           </div>
-
           <div>
-            <AuthBtn />
+            <AuthButton
+              number={number}
+              isLoading={isLoading}
+              isLoggedIn={isLoggedIn}
+            />
           </div>
         </div>
       </nav>
@@ -122,3 +138,17 @@ const NavBar = () => {
 };
 
 export default NavBar;
+
+interface AuthBtnProps {
+  isLoading: boolean;
+  number: string | null;
+  isLoggedIn: boolean;
+}
+
+interface MenuVirtualizedProps {
+  isActive: boolean;
+  closeMenu: () => void;
+  number: string | null;
+  isLoading: boolean;
+  isLoggedIn: boolean;
+}

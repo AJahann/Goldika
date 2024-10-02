@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
-import styles from "./About.module.css";
+import styles from "./about.module.css";
 import AboutContent from "./AboutContent";
 
 const AboutSection = () => {
