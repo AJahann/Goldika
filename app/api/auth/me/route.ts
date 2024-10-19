@@ -4,8 +4,8 @@ import { NextResponse } from "next/server";
 import axios from "axios";
 import getAccessToken from "@/shared/services/getAccessToken";
 
+// GET: دریافت اطلاعات کاربر
 export async function GET() {
-  console.time("fetching user info");
   const token = cookies().get("auth_token")?.value;
 
   if (!token) {
@@ -36,7 +36,6 @@ export async function GET() {
         },
       },
     );
-    console.timeEnd("fetching user info");
 
     return NextResponse.json({
       success: true,
@@ -51,6 +50,54 @@ export async function GET() {
     return NextResponse.json(
       { success: false, error: error.response?.data || "Invalid token" },
       { status: 401 },
+    );
+  }
+}
+
+// POST: ویرایش اطلاعات کاربر
+export async function POST(request: Request) {
+  const token = cookies().get("auth_token")?.value;
+
+  if (!token) {
+    return NextResponse.json(
+      { success: false, error: "Unauthorized: No token found" },
+      { status: 401 },
+    );
+  }
+
+  try {
+    const data = await request.json();
+    const userId = data.userId;
+    console.log(data);
+
+    const accessToken = await getAccessToken(); // گرفتن Access Token برای API
+
+    const updateUserResponse = await axios.patch(
+      `https://${process.env.AUTH0_DOMAIN}/api/v2/users/${userId}`,
+      {
+        user_metadata: data.user_metadata,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
+        },
+      },
+    );
+
+    return NextResponse.json({
+      success: true,
+      userInfoResponse: updateUserResponse.data,
+    });
+  } catch (error: any) {
+    console.error(
+      "Error updating user info",
+      error.response?.data || error.message,
+    );
+
+    return NextResponse.json(
+      { success: false, error: error.response?.data || "Update failed" },
+      { status: 400 },
     );
   }
 }

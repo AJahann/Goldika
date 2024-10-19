@@ -1,21 +1,30 @@
+"use client";
 import InputBase from "@/shared/components/UI/input/InputBase";
 import { Add } from "@mui/icons-material";
 import { Button } from "@mui/material";
 import styles from "./deposite.module.css";
 import MyCards from "../component/MyCards";
 import NoCard from "../component/NoCard";
+import { useState } from "react";
+import convertToPersianDigits from "@/shared/utilities/convertToPersianDigits";
+import { useAuth } from "@/shared/hooks/useAuth";
 
 interface DepositPageProps {
   // Define any props here if needed in the future
 }
 
 const DepositPage: React.FC<DepositPageProps> = () => {
+  const { user } = useAuth();
+  const [amount, setAmount] = useState("");
+
   return (
     <div className={styles.panelDeposit}>
       <div className={styles.panelWrap}>
         <div className={styles.panelTitle}>واریز</div>
         <div className={styles.panelDepositContainer}>
           <InputBase
+            value={convertToPersianDigits(amount)}
+            onChange={(e) => setAmount(e.target.value)}
             label={"مبلغ واریز"}
             name={"تومان"}
             style={{
@@ -27,16 +36,17 @@ const DepositPage: React.FC<DepositPageProps> = () => {
           />
           <div className={styles.panelDepositStock}>
             <div className={styles.panelDepositStock_inner}>
-              {[500000, 1000000].map((amount) => (
+              {["500000", "1000000"].map((amount) => (
                 <Button
                   key={amount}
                   fullWidth
+                  onClick={() => setAmount(amount)}
                   className={styles.panelDepositStockButton}
                   color="primary"
                   variant="outlined"
                 >
                   <Add style={{ fontSize: 20, marginLeft: 8 }} />
-                  {new Intl.NumberFormat("fa").format(amount)} تومان
+                  {new Intl.NumberFormat("fa").format(+amount)} تومان
                 </Button>
               ))}
             </div>
@@ -44,23 +54,24 @@ const DepositPage: React.FC<DepositPageProps> = () => {
               style={{ marginTop: 14 }}
               className={styles.panelDepositStock_inner}
             >
-              {[5000000, 10000000].map((amount) => (
+              {["5000000", "10000000"].map((amount) => (
                 <Button
                   key={amount}
+                  onClick={() => setAmount(amount)}
                   fullWidth
                   className={styles.panelDepositStockButton}
                   color="primary"
                   variant="outlined"
                 >
                   <Add style={{ fontSize: 20, marginLeft: 8 }} />
-                  {new Intl.NumberFormat("fa").format(amount)} تومان
+                  {new Intl.NumberFormat("fa").format(+amount)} تومان
                 </Button>
               ))}
             </div>
           </div>
 
           <div className="panelDepositMyCards">
-            {true ? <MyCards /> : <NoCard />}
+            {user?.user_metadata?.cards ? <MyCards /> : <NoCard />}
           </div>
         </div>
         <div className={styles.panelDepositPayBtn}>
@@ -77,8 +88,6 @@ const DepositPage: React.FC<DepositPageProps> = () => {
             className={true && styles.panelDepositPayBtnDisabled}
             variant="contained"
             disabled
-            // onClick={userInfo.pocket.cards.length ? creditHandler : null}
-            // disabled={!deposit.length || !userInfo.pocket.cards.length}
           >
             پرداخت
           </Button>

@@ -5,13 +5,13 @@ import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
   try {
-    const { number, password } = await request.json();
+    const { email, password } = await request.json();
 
     const response = await axios.post(
       `https://${process.env.AUTH0_DOMAIN}/oauth/token`,
       {
         grant_type: "password",
-        username: number,
+        username: email,
         password: password,
         audience: process.env.AUTH0_AUDIENCE,
         client_id: process.env.AUTH0_CLIENT_ID,

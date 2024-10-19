@@ -1,3 +1,4 @@
+"use client";
 import {
   AccountBalanceWalletOutlined,
   SellOutlined,
@@ -8,15 +9,24 @@ import Link from "next/link";
 import LogoSVG from "../svg/LogoSVG";
 import PanelChart from "../component/panelChart";
 import styles from "./wallet.module.css";
+import { useAuth } from "@/shared/hooks/useAuth";
 
 const WalletPage = () => {
+  const { user } = useAuth();
+
+  const userCash = Intl.NumberFormat("fa").format(
+    user?.user_metadata?.cash || 0,
+  );
+  const userGold = Intl.NumberFormat("fa").format(
+    user?.user_metadata?.gold || 0,
+  );
   return (
     <div className={styles.panelWallet}>
       <div className={styles.panelWrap}>
         <h2 className={styles.panelTitle}>کیف دارایی</h2>
         <div className={styles.panelWalletContainer}>
           <div className={styles.panelWalletTop}>
-            <p>{0} تومان</p>
+            <p>{userCash} تومان</p>
             <PanelChart />
           </div>
           <div className={styles.panelWalletActions}>
@@ -47,7 +57,7 @@ const WalletPage = () => {
               </div>
               <div>
                 <p>کیف طلایی</p>
-                <span>{0} گرم</span>
+                <span>{userGold} گرم</span>
               </div>
             </div>
             <div className={styles.panelWalletsWallet}>
@@ -56,7 +66,7 @@ const WalletPage = () => {
               </div>
               <div>
                 <p>کیف پول</p>
-                <span>{0} تومان</span>
+                <span>{userCash} تومان</span>
               </div>
             </div>
           </div>

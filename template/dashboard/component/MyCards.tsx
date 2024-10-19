@@ -1,18 +1,45 @@
+"use client";
 import formatCardNumberInPersian from "@/shared/utilities/formatCardNumber";
 import { AccountBalance } from "@mui/icons-material";
 import { Button } from "@mui/material";
 import styles from "./../deposite/deposite.module.css";
+import {
+  AwaitedReactNode,
+  JSXElementConstructor,
+  Key,
+  ReactElement,
+  ReactNode,
+  ReactPortal,
+  useState,
+} from "react";
+import AddCardModal from "./AddCardModal";
+import { useAuth } from "@/shared/hooks/useAuth";
 
 const MyCards = () => {
+  const { user } = useAuth();
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleClose = () => {
+    setIsOpen(false);
+  };
+
   return (
     <>
       <div className={styles.panel_myCards}>
         <div>کارت های من:</div>
-        <Button variant="text">افزودن کارت</Button>
+        <Button onClick={() => setIsOpen(true)} variant="text">
+          افزودن کارت
+        </Button>
       </div>
       <div>
-        {[{ cardName: "کارت 1", cardNumber: 6037697650335489 }].map(
-          (card, index) => {
+        {user.user_metadata.cards.map(
+          (
+            card: {
+              cardName: string;
+              cardNumber: string;
+            },
+            index: Key | null | undefined,
+          ) => {
             return (
               <div key={index} className={styles.panel_myCardsCard}>
                 <div>
@@ -23,7 +50,7 @@ const MyCards = () => {
                     {card.cardName}
                   </p>
                   <p className={styles.panel_mayCardsCardNumber}>
-                    {formatCardNumberInPersian(card.cardNumber)}
+                    {formatCardNumberInPersian(+card.cardNumber)}
                   </p>
                 </div>
               </div>
@@ -31,6 +58,7 @@ const MyCards = () => {
           },
         )}
       </div>
+      <AddCardModal isOpen={isOpen} handleClose={handleClose} />
     </>
   );
 };

@@ -1,23 +1,26 @@
 "use client";
 import InputBase from "@/shared/components/UI/input/InputBase";
-import { Button } from "@mui/material";
+import { Button, CircularProgress } from "@mui/material";
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 const Login = () => {
-  const [number, setNumber] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
 
   const handleLogin = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    if (number && password) {
+    if (email.trim() && password.trim()) {
+      setIsLoading(true);
+
       try {
         const response = await axios.post("/api/auth/login", {
-          number,
+          email,
           password,
         });
 
@@ -26,6 +29,8 @@ const Login = () => {
         }
       } catch (error) {
         console.error("An error occurred:", error);
+      } finally {
+        setIsLoading(false);
       }
     }
   };
@@ -45,9 +50,10 @@ const Login = () => {
         <form onSubmit={handleLogin}>
           <div className="auth-box-input-wrap">
             <InputBase
-              value={number}
-              onChange={(e) => setNumber(e.target.value)}
-              label="شماره تلفن همراه"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              label="ایمیل"
+              type="email"
               style={{ width: "100%" }}
             />
           </div>
@@ -57,6 +63,7 @@ const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
               label="پسورد"
               style={{ width: "100%" }}
+              type="password"
             />
           </div>
           <p>
@@ -79,8 +86,9 @@ const Login = () => {
             style={{ borderRadius: 8 }}
             fullWidth
             variant="contained"
+            disabled={isLoading}
           >
-            ورود
+            {isLoading ? <CircularProgress size={24} /> : "ورود"}
           </Button>
         </form>
       </div>

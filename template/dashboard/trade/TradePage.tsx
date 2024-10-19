@@ -7,6 +7,7 @@ import styles from "./trade.module.css";
 
 const TradePage = () => {
   const [tradeType, setTradeType] = useState<"buy" | "sell">("buy");
+  const [sliderValue, setSliderValue] = useState<number>(0);
 
   return (
     <div className={styles.panelWrap}>
@@ -67,7 +68,8 @@ const TradePage = () => {
 
         <Box sx={{ padding: 2 }}>
           <Slider
-            value={0}
+            value={sliderValue}
+            onChange={(e, value) => setSliderValue(value as number)}
             step={1000}
             marks
             min={0}
@@ -87,7 +89,7 @@ const TradePage = () => {
           <CreditCardOutlinedIcon style={{ fontSize: 24, marginLeft: 8 }} />
           {tradeType === "buy"
             ? `موجودی کیف پول: ${new Intl.NumberFormat("fa").format(0)} تومان`
-            : `موجودی کیف طلا: ${۰.۰۰۰} گرم`}
+            : `موجودی کیف طلا: ${new Intl.NumberFormat("fa").format(0.0)} گرم`}
         </div>
 
         <div className={styles.panelPayBtn}>

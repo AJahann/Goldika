@@ -1,7 +1,7 @@
 "use client";
 import InputBase from "@/shared/components/UI/input/InputBase";
 import { ArrowBack } from "@mui/icons-material";
-import { Button } from "@mui/material";
+import { Button, CircularProgress } from "@mui/material";
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -12,12 +12,14 @@ const Register = () => {
   const [number, setNumber] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
 
   const handleRegister = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     if (name.trim() && number.trim() && password.trim() && email.trim()) {
+      setIsLoading(true);
       try {
         const response = await axios.post("/api/auth/register", {
           name,
@@ -31,6 +33,8 @@ const Register = () => {
         }
       } catch (error) {
         console.error("An error occurred:", error);
+      } finally {
+        setIsLoading(false);
       }
     }
   };
@@ -78,18 +82,21 @@ const Register = () => {
           onChange={(e) => setNumber(e.target.value)}
           style={{ marginBottom: 14, width: "100%" }}
           label={"شماره موبایل"}
+          max={11}
         />
         <InputBase
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           style={{ marginBottom: 14, width: "100%" }}
           label={"ایمیل"}
+          type={"email"}
         />
         <InputBase
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           style={{ marginBottom: 14, width: "100%" }}
           label={"پسورد"}
+          type={"password"}
         />
 
         <Button
@@ -97,8 +104,9 @@ const Register = () => {
           style={{ borderRadius: 8, marginTop: 12 }}
           fullWidth
           variant="contained"
+          disabled={isLoading}
         >
-          ثبت نام
+          {isLoading ? <CircularProgress size={24} /> : "ثبت نام"}
         </Button>
       </form>
     </div>

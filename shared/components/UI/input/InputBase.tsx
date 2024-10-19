@@ -4,11 +4,12 @@ import React from "react";
 interface InputBaseProps {
   label: string;
   value?: string | number;
+  type?: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   setNumberInput?: (value: string | number) => void;
   name?: string;
   style?: React.CSSProperties;
-  max12?: boolean;
+  max?: number;
 }
 
 const InputBase: React.FC<InputBaseProps> = ({
@@ -18,7 +19,8 @@ const InputBase: React.FC<InputBaseProps> = ({
   setNumberInput,
   name = "",
   style,
-  max12 = false,
+  type = "text",
+  max,
 }) => {
   return (
     <TextField
@@ -28,6 +30,7 @@ const InputBase: React.FC<InputBaseProps> = ({
       onChange={onChange}
       color="primary"
       variant="outlined"
+      type={type}
       inputProps={{
         style: {
           fontSize: 18,
@@ -35,7 +38,7 @@ const InputBase: React.FC<InputBaseProps> = ({
           paddingRight: 22,
           borderRadius: 16,
         },
-        maxLength: max12 ? 12 : undefined,
+        maxLength: max,
       }}
       InputProps={{
         endAdornment: name && (

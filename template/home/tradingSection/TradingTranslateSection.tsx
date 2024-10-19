@@ -5,6 +5,7 @@ import { Tabs, Tab, Box, Button, TabsProps, TabProps } from "@mui/material";
 import LogoSvg from "./LogoSvg";
 import styles from "./TradingSection.module.css"; // ایمپورت استایل‌های مدولار
 import InputBase from "@/shared/components/UI/input/InputBase";
+import goldPrices from "@/data/goldPrices.json";
 
 const StyledTabs = styled((props: TabsProps) => (
   <Tabs
@@ -53,8 +54,8 @@ const TradingTranslateSection = () => {
         <div className={styles.item}>
           <span>قیمت خرید</span>
           <span className={`${styles.itemPrice} ${styles.itemPriceBuy}`}>
-            {/* <span>{formatNumberToPersian(goldBuyBalance)}</span>{" "} */}
-            <span>{0}</span> <span>تومان</span>
+            <span>{Intl.NumberFormat().format(+goldPrices.buy)}</span>{" "}
+            <span>تومان</span>
           </span>
         </div>
         <div className={styles.itemCenter}>
@@ -65,8 +66,8 @@ const TradingTranslateSection = () => {
         <div className={styles.item}>
           <span>قیمت فروش</span>
           <span className={`${styles.itemPrice} ${styles.itemPriceSell}`}>
-            {/* <span>{formatNumberToPersian(goldSellBalance)}</span>{" "} */}
-            <span>{0}</span> <span>تومان</span>
+            <span>{Intl.NumberFormat().format(+goldPrices.sell)}</span>{" "}
+            <span>تومان</span>
           </span>
         </div>
       </span>

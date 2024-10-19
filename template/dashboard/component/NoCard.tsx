@@ -1,6 +1,15 @@
+"use client";
 import { Alert, Button } from "@mui/material";
+import { useState } from "react";
+import AddCardModal from "./AddCardModal";
 
 const NoCard = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleClose = () => {
+    setIsOpen(false);
+  };
+
   return (
     <>
       <Alert
@@ -25,9 +34,12 @@ const NoCard = () => {
           boxShadow: "none",
         }}
         variant="contained"
+        onClick={() => setIsOpen(true)}
       >
         افزودن کارت
       </Button>
+
+      <AddCardModal isOpen={isOpen} handleClose={handleClose} />
     </>
   );
 };
