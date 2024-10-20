@@ -8,6 +8,7 @@ import axios from "axios";
 import formatCardNumberInPersian from "@/shared/utilities/formatCardNumber";
 import convertToEnglishDigits from "@/shared/utilities/convertToEnglishDigits";
 import { useAuth } from "@/shared/hooks/useAuth";
+import toast from "react-hot-toast";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -29,19 +30,25 @@ const AddCardModal = ({
   const [cardNumber, setCardNumber] = useState("");
   const [cardName, setCardName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  console.log(user);
 
-  const addCartHandler = async (e: { preventDefault: () => void }) => {
+  const addCardHandler = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    if (
-      cardNumber.trim().length == 16 &&
-      cardName.trim() &&
-      user?.user_metadata
-    ) {
+
+    // Validation checks
+    if (cardNumber.trim().length !== 16) {
+      toast.error("شماره کارت باید ۱۶ رقم باشد.");
+      return;
+    }
+
+    if (!cardName.trim()) {
+      toast.error("نام کارت نباید خالی باشد.");
+      return;
+    }
+
+    if (user?.user_metadata) {
       setIsLoading(true);
       try {
         const existingCards = user.user_metadata?.cards || [];
-
         const updatedCards = [...existingCards, { cardName, cardNumber }];
 
         const response = await axios.post("/api/auth/me", {
@@ -55,9 +62,13 @@ const AddCardModal = ({
         if (response.data.success) {
           setCardName("");
           setCardNumber("");
+          toast.success("کارت با موفقیت اضافه شد.");
           handleClose();
+        } else {
+          toast.error("افزودن کارت با خطا مواجه شد.");
         }
       } catch (error) {
+        toast.error("درخواست با خطا مواجه شد. لطفاً دوباره تلاش کنید.");
         console.error("An error occurred:", error);
       } finally {
         setIsLoading(false);
@@ -126,7 +137,7 @@ const AddCardModal = ({
           </Button>
           <Button
             disabled={isLoading}
-            onClick={addCartHandler}
+            onClick={addCardHandler}
             style={{ borderRadius: 8, boxShadow: "none" }}
             variant="contained"
           >

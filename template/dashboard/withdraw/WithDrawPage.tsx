@@ -10,48 +10,63 @@ import { useState } from "react";
 import axios from "axios";
 import convertToPersianDigits from "@/shared/utilities/convertToPersianDigits";
 import convertToEnglishDigits from "@/shared/utilities/convertToEnglishDigits";
+import { BigNumber } from "bignumber.js";
+import toast from "react-hot-toast";
 
 const WithDrawPage = () => {
   const { user } = useAuth();
   const [amount, setAmount] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const userCash = user?.user_metadata?.pocket?.cash || 0;
+
+  const userCash = new BigNumber(user?.user_metadata?.pocket?.cash || 0);
+  const MIN_WITHDRAW = new BigNumber(1000); // Minimum allowed withdrawal
+  const amountBN = new BigNumber(amount);
 
   const decreaseDepositHandler = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    if (
-      amount.trim().length <= 16 &&
-      +amount <= userCash &&
-      user?.user_metadata
-    ) {
-      setIsLoading(true);
-      try {
-        const existingPocket = user.user_metadata?.pocket || {
-          cash: 0,
-          gold: 0,
-        };
 
-        const updatedPocket = {
-          ...existingPocket,
-          cash: Number(existingPocket.cash) - parseInt(amount),
-        };
+    // Validate amount is within the correct range
+    if (amountBN.isLessThan(MIN_WITHDRAW) || !amountBN.c) {
+      toast.error("مبلغ برداشت نباید کمتر از ۱۰۰۰ تومان باشد.");
+      return;
+    }
 
-        const response = await axios.post("/api/auth/me", {
-          userId: user.user_id,
-          user_metadata: {
-            ...user.user_metadata,
-            pocket: updatedPocket,
-          },
-        });
+    if (amountBN.isGreaterThan(userCash)) {
+      toast.error("مبلغ برداشت نباید بیشتر از موجودی شما باشد.");
+      return;
+    }
 
-        if (response.data.success) {
-          setAmount("");
-        }
-      } catch (error) {
-        console.error("An error occurred:", error);
-      } finally {
-        setIsLoading(false);
+    setIsLoading(true);
+    try {
+      const existingPocket = user?.user_metadata?.pocket || {
+        cash: 0,
+        gold: 0,
+      };
+
+      const updatedPocket = {
+        ...existingPocket,
+        cash: new BigNumber(existingPocket.cash).minus(amountBN).toFixed(),
+      };
+
+      const response = await axios.post("/api/auth/me", {
+        userId: user.user_id,
+        user_metadata: {
+          ...user.user_metadata,
+          pocket: updatedPocket,
+        },
+      });
+
+      if (response.data.success) {
+        setAmount("");
+        toast.success("مبلغ با موفقیت برداشت شد.");
+      } else {
+        toast.error("خطایی در برداشت رخ داده است.");
       }
+    } catch (error) {
+      toast.error("درخواست با خطا مواجه شد. لطفاً دوباره تلاش کنید.");
+      console.error("An error occurred:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -70,7 +85,10 @@ const WithDrawPage = () => {
             }}
           >
             <CreditCardOutlinedIcon style={{ fontSize: 24, marginLeft: 8 }} />
-            موجودی: {new Intl.NumberFormat("fa").format(userCash)} تومان
+            موجودی: {new Intl.NumberFormat("fa").format(
+              userCash.toNumber(),
+            )}{" "}
+            تومان
           </div>
           <InputBase
             label={"مبلغ برداشت"}
@@ -89,10 +107,10 @@ const WithDrawPage = () => {
           <Box className={styles.panelWithdrawSlider}>
             <Slider
               value={+amount || 0}
-              step={userCash === 0 ? 1 : userCash / 100}
+              step={userCash.isZero() ? 1 : userCash.div(100).toNumber()}
               marks
               min={0}
-              max={userCash}
+              max={userCash.toNumber()}
               style={{ color: "rgb(189, 189, 189)" }}
             />
           </Box>
@@ -118,11 +136,11 @@ const WithDrawPage = () => {
               boxShadow: "none",
             }}
             className={
-              +amount < 1000 || isLoading
+              amountBN.isLessThan(MIN_WITHDRAW) || isLoading
                 ? styles.panelDepositPayBtnDisabled
                 : ""
             }
-            disabled={+amount < 1000 || isLoading}
+            disabled={amountBN.isLessThan(MIN_WITHDRAW) || isLoading}
             onClick={decreaseDepositHandler}
           >
             {isLoading ? <CircularProgress size={24} /> : "برداشت"}
