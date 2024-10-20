@@ -68,8 +68,8 @@ const DashboardPage = () => {
   const goldBuy = persianDitisFormat(goldPrices.buy);
   const goldSell = persianDitisFormat(goldPrices.sell);
 
-  const userCash = persianDitisFormat(user?.user_metadata?.pocket.cash || 0);
-  const userGold = persianDitisFormat(user?.user_metadata?.pocket.gold || 0);
+  const userCash = persianDitisFormat(user?.user_metadata?.pocket?.cash || 0);
+  const userGold = persianDitisFormat(user?.user_metadata?.pocket?.gold || 0);
 
   return (
     <div>

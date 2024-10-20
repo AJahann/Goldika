@@ -47,7 +47,7 @@ const MyCards = () => {
         </Button>
       </div>
       <div>
-        {user.user_metadata.cards.map(
+        {(user.user_metadata?.cards || []).map(
           (
             card: {
               cardName: string;

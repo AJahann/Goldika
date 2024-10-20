@@ -15,7 +15,7 @@ const WithDrawPage = () => {
   const { user } = useAuth();
   const [amount, setAmount] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const userCash = user?.user_metadata?.pocket.cash || 0;
+  const userCash = user?.user_metadata?.pocket?.cash || 0;
 
   const decreaseDepositHandler = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -102,7 +102,7 @@ const WithDrawPage = () => {
             </Alert>
           </Box>
           <div className={styles.panelMyCards}>
-            {true ? <MyCards /> : <NoCard />}
+            {user?.user_metadata?.cards ? <MyCards /> : <NoCard />}
           </div>
         </div>
         <div className={styles.panelPayBtn}>
