@@ -7,6 +7,7 @@ import localFont from "next/font/local";
 import CacheProviderWrapper from "@/providers/CacheProviderWrapper";
 import ThemeProviderWrapper from "@/providers/ThemeProviderWrapper";
 import { UserProvider } from "@auth0/nextjs-auth0/client";
+import { Toaster } from "react-hot-toast";
 
 const vazir = localFont({
   src: "./fonts/vazire.ttf",
@@ -31,6 +32,7 @@ export default function RootLayout({
             <ThemeProviderWrapper>{children}</ThemeProviderWrapper>
           </CacheProviderWrapper>
         }
+        <Toaster position="top-center" reverseOrder={false} />
       </body>
     </html>
   );
