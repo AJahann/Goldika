@@ -1,13 +1,15 @@
 "use client";
 import InputBase from "@/shared/components/UI/input/InputBase";
-import { Add } from "@mui/icons-material";
-import { Button } from "@mui/material";
+import { Add, Circle } from "@mui/icons-material";
+import { Button, CircularProgress } from "@mui/material";
 import styles from "./deposite.module.css";
 import MyCards from "../component/MyCards";
 import NoCard from "../component/NoCard";
 import { useState } from "react";
 import convertToPersianDigits from "@/shared/utilities/convertToPersianDigits";
 import { useAuth } from "@/shared/hooks/useAuth";
+import axios from "axios";
+import convertToEnglishDigits from "@/shared/utilities/convertToEnglishDigits";
 
 interface DepositPageProps {
   // Define any props here if needed in the future
@@ -16,6 +18,41 @@ interface DepositPageProps {
 const DepositPage: React.FC<DepositPageProps> = () => {
   const { user } = useAuth();
   const [amount, setAmount] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const increaseDepositHandler = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    if (amount.trim().length <= 16 && user?.user_metadata) {
+      setIsLoading(true);
+      try {
+        const existingPocket = user.user_metadata?.pocket || {
+          cash: 0,
+          gold: 0,
+        };
+
+        const updatedPocket = {
+          ...existingPocket,
+          cash: Number(existingPocket.cash) + parseInt(amount),
+        };
+
+        const response = await axios.post("/api/auth/me", {
+          userId: user.user_id,
+          user_metadata: {
+            ...user.user_metadata,
+            pocket: updatedPocket,
+          },
+        });
+
+        if (response.data.success) {
+          setAmount("");
+        }
+      } catch (error) {
+        console.error("An error occurred:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+  };
 
   return (
     <div className={styles.panelDeposit}>
@@ -24,7 +61,7 @@ const DepositPage: React.FC<DepositPageProps> = () => {
         <div className={styles.panelDepositContainer}>
           <InputBase
             value={convertToPersianDigits(amount)}
-            onChange={(e) => setAmount(e.target.value)}
+            onChange={(e) => setAmount(convertToEnglishDigits(e.target.value))}
             label={"مبلغ واریز"}
             name={"تومان"}
             style={{
@@ -33,6 +70,7 @@ const DepositPage: React.FC<DepositPageProps> = () => {
               marginTop: 12,
               borderRadius: 16,
             }}
+            max={9}
           />
           <div className={styles.panelDepositStock}>
             <div className={styles.panelDepositStock_inner}>
@@ -85,11 +123,16 @@ const DepositPage: React.FC<DepositPageProps> = () => {
               fontWeight: "bold",
               boxShadow: "none",
             }}
-            className={true && styles.panelDepositPayBtnDisabled}
+            className={
+              +amount < 1000 || isLoading
+                ? styles.panelDepositPayBtnDisabled
+                : ""
+            }
             variant="contained"
-            disabled
+            disabled={+amount < 1000 || isLoading}
+            onClick={increaseDepositHandler}
           >
-            پرداخت
+            {isLoading ? <CircularProgress size={24} /> : "پرداخت"}
           </Button>
         </div>
       </div>

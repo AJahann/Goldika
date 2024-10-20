@@ -1,11 +1,60 @@
-import { Alert, Box, Button, Slider } from "@mui/material";
+"use client";
+import { Alert, Box, Button, CircularProgress, Slider } from "@mui/material";
 import CreditCardOutlinedIcon from "@mui/icons-material/CreditCardOutlined";
 import InputBase from "@/shared/components/UI/input/InputBase";
 import styles from "./withdraw.module.css";
 import MyCards from "../component/MyCards";
 import NoCard from "../component/NoCard";
+import { useAuth } from "@/shared/hooks/useAuth";
+import { useState } from "react";
+import axios from "axios";
+import convertToPersianDigits from "@/shared/utilities/convertToPersianDigits";
+import convertToEnglishDigits from "@/shared/utilities/convertToEnglishDigits";
 
 const WithDrawPage = () => {
+  const { user } = useAuth();
+  const [amount, setAmount] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const userCash = user?.user_metadata?.pocket.cash || 0;
+
+  const decreaseDepositHandler = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    if (
+      amount.trim().length <= 16 &&
+      +amount <= userCash &&
+      user?.user_metadata
+    ) {
+      setIsLoading(true);
+      try {
+        const existingPocket = user.user_metadata?.pocket || {
+          cash: 0,
+          gold: 0,
+        };
+
+        const updatedPocket = {
+          ...existingPocket,
+          cash: Number(existingPocket.cash) - parseInt(amount),
+        };
+
+        const response = await axios.post("/api/auth/me", {
+          userId: user.user_id,
+          user_metadata: {
+            ...user.user_metadata,
+            pocket: updatedPocket,
+          },
+        });
+
+        if (response.data.success) {
+          setAmount("");
+        }
+      } catch (error) {
+        console.error("An error occurred:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+  };
+
   return (
     <div className={styles.panelWithdraw}>
       <div className={styles.panelWrap}>
@@ -21,10 +70,12 @@ const WithDrawPage = () => {
             }}
           >
             <CreditCardOutlinedIcon style={{ fontSize: 24, marginLeft: 8 }} />
-            موجودی: {new Intl.NumberFormat("fa").format(0)} تومان
+            موجودی: {new Intl.NumberFormat("fa").format(userCash)} تومان
           </div>
           <InputBase
             label={"مبلغ برداشت"}
+            value={convertToPersianDigits(amount)}
+            onChange={(e) => setAmount(convertToEnglishDigits(e.target.value))}
             name={"تومان"}
             style={{
               background: "#2a2c34",
@@ -32,15 +83,16 @@ const WithDrawPage = () => {
               marginTop: 12,
               borderRadius: 16,
             }}
+            max={16}
           />
           <span></span>
           <Box className={styles.panelWithdrawSlider}>
             <Slider
-              value={0}
-              step={100000}
+              value={+amount || 0}
+              step={userCash === 0 ? 1 : userCash / 100}
               marks
               min={0}
-              max={0}
+              max={userCash}
               style={{ color: "rgb(189, 189, 189)" }}
             />
           </Box>
@@ -55,7 +107,6 @@ const WithDrawPage = () => {
         </div>
         <div className={styles.panelPayBtn}>
           <Button
-            className={true && styles.panelDepositPayBtnDisabled}
             variant="contained"
             style={{
               marginTop: 24,
@@ -66,9 +117,15 @@ const WithDrawPage = () => {
               fontWeight: "bold",
               boxShadow: "none",
             }}
-            disabled
+            className={
+              +amount < 1000 || isLoading
+                ? styles.panelDepositPayBtnDisabled
+                : ""
+            }
+            disabled={+amount < 1000 || isLoading}
+            onClick={decreaseDepositHandler}
           >
-            برداشت
+            {isLoading ? <CircularProgress size={24} /> : "برداشت"}
           </Button>
         </div>
       </div>

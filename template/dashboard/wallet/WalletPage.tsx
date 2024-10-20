@@ -15,10 +15,10 @@ const WalletPage = () => {
   const { user } = useAuth();
 
   const userCash = Intl.NumberFormat("fa").format(
-    user?.user_metadata?.cash || 0,
+    user?.user_metadata?.pocket.cash || 0,
   );
   const userGold = Intl.NumberFormat("fa").format(
-    user?.user_metadata?.gold || 0,
+    user?.user_metadata?.pocket.gold || 0,
   );
   return (
     <div className={styles.panelWallet}>
@@ -27,7 +27,8 @@ const WalletPage = () => {
         <div className={styles.panelWalletContainer}>
           <div className={styles.panelWalletTop}>
             <p>{userCash} تومان</p>
-            <PanelChart />
+
+            <PanelChart hasWallet={+user?.user_metadata?.pocket.cash > 0} />
           </div>
           <div className={styles.panelWalletActions}>
             <Button fullWidth className={styles.panelWalletAction}>

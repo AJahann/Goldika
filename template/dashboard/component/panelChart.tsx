@@ -16,12 +16,19 @@ const panelChartData = [
   },
 ];
 
-export default function PanelChart() {
+export default function PanelChart({ hasWallet }: { hasWallet: boolean }) {
+  if (hasWallet) {
+    panelChartData[2]["میانگین"] = "2";
+  } else {
+    panelChartData[2]["میانگین"] = "1";
+  }
+  const data = panelChartData;
+
   return (
     <div style={{ marginTop: 32, marginLeft: -32, marginRight: 16 }}>
       <ResponsiveContainer width="100%" height={160}>
         <AreaChart
-          data={panelChartData}
+          data={data}
           id="my-chart"
           margin={{
             top: 10,

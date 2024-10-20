@@ -185,8 +185,8 @@ input:-webkit-autofill:active {
 
 /* mui */
 
-.MuiPaper-root {
-  background-color: #373943 !important;
+.MuiBox-root > .MuiPaper-root {
+  background-color: #160b0b !important;
   border-radius: 8px !important;
 }
 
@@ -205,7 +205,7 @@ input:-webkit-autofill:active {
   margin-left: -18px !important;
 }
 
-.MuiAlert-colorError {
+.MuiBox-root > .MuiAlert-root {
   background-color: #160b0b !important;
   color: #ffe2b7 !important;
   width: 100%;
@@ -219,8 +219,8 @@ input:-webkit-autofill:active {
   padding: 16px !important;
 }
 
-.filter .MuiSlider-root .MuiSlider-thumb {
-  margin-left: -20px !important;
+.MuiSlider-root .MuiSlider-thumb {
+  margin-left: -16px !important;
 }
 
 /* mui */

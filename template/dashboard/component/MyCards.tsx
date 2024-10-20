@@ -1,7 +1,7 @@
 "use client";
 import formatCardNumberInPersian from "@/shared/utilities/formatCardNumber";
 import { AccountBalance } from "@mui/icons-material";
-import { Button } from "@mui/material";
+import { Button, CircularProgress } from "@mui/material";
 import styles from "./../deposite/deposite.module.css";
 import {
   AwaitedReactNode,
@@ -22,6 +22,21 @@ const MyCards = () => {
   const handleClose = () => {
     setIsOpen(false);
   };
+
+  if (!user) {
+    return (
+      <div
+        style={{
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <CircularProgress size={38} />
+      </div>
+    );
+  }
 
   return (
     <>
