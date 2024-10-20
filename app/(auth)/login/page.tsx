@@ -5,6 +5,7 @@ import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { toast } from "react-hot-toast";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -25,13 +26,19 @@ const Login = () => {
         });
 
         if (response.data.success) {
+          toast.success("ورود موفقیت آمیز بود!");
           router.replace("/dashboard");
+        } else {
+          toast.error("ورود ناموفق بود. لطفاً دوباره تلاش کنید.");
         }
       } catch (error) {
+        toast.error("خطایی رخ داد. لطفاً دوباره تلاش کنید.");
         console.error("An error occurred:", error);
       } finally {
         setIsLoading(false);
       }
+    } else {
+      toast.error("لطفاً فیلدهای ایمیل و رمز عبور را پر کنید.");
     }
   };
 

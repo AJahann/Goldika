@@ -13,6 +13,7 @@ import Link from "next/link";
 import LogoSVG from "../svg/SideBarLogoSVG";
 import { usePathname } from "next/navigation";
 import { useSidebar } from "@/context/DashboardSideBarContext";
+import toast from "react-hot-toast";
 
 interface SideBarItemProps {
   name: string;
@@ -36,6 +37,14 @@ const SideBarItem: React.FC<SideBarItemProps> = ({ name, icon, to }) => {
 
 const SideBar: React.FC = () => {
   const { isSidebarOpen } = useSidebar();
+
+  const signOutHandler = () => {
+    localStorage.removeItem("auth_token");
+
+    window.location.reload();
+
+    toast.success("خروج با موفقیت انجام شد.");
+  };
 
   return (
     <div className={isSidebarOpen ? "sideBar" : "sideBar hide"}>
@@ -85,7 +94,11 @@ const SideBar: React.FC = () => {
             />
           </div>
         </div>
-        <div className={styles.panelSideBarLeaveBtn}>
+        <div
+          role="button"
+          onClick={signOutHandler}
+          className={styles.panelSideBarLeaveBtn}
+        >
           <SideBarItem to="/" name="خروج" icon={<LogoutOutlinedIcon />} />
         </div>
       </div>

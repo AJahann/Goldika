@@ -1,11 +1,14 @@
 "use client";
 import InputBase from "@/shared/components/UI/input/InputBase";
+import convertToEnglishDigits from "@/shared/utilities/convertToEnglishDigits";
+import convertToPersianDigits from "@/shared/utilities/convertToPersianDigits";
 import { ArrowBack } from "@mui/icons-material";
 import { Button, CircularProgress } from "@mui/material";
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { use, useState } from "react";
+import { useState } from "react";
+import { toast } from "react-hot-toast"; // ایمپورت toast
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -18,24 +21,49 @@ const Register = () => {
 
   const handleRegister = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    if (name.trim() && number.trim() && password.trim() && email.trim()) {
-      setIsLoading(true);
-      try {
-        const response = await axios.post("/api/auth/register", {
-          name,
-          number,
-          email,
-          password,
-        });
 
-        if (response.data.success) {
-          router.replace("/dashboard");
-        }
-      } catch (error) {
-        console.error("An error occurred:", error);
-      } finally {
-        setIsLoading(false);
+    if (name.trim().length < 3) {
+      toast.error("نام باید حداقل ۳ حرف باشد.");
+      return;
+    }
+
+    const numberPattern = /^[0-9]{11}$/;
+    if (!numberPattern.test(number)) {
+      toast.error("شماره موبایل باید ۱۱ رقم باشد.");
+      return;
+    }
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(email)) {
+      toast.error("ایمیل وارد شده معتبر نیست.");
+      return;
+    }
+
+    if (password.length < 8) {
+      toast.error("رمز عبور باید حداقل ۸ کاراکتر باشد.");
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      const response = await axios.post("/api/auth/register", {
+        name,
+        number,
+        email,
+        password,
+      });
+
+      if (response.data.success) {
+        toast.success("ثبت‌نام با موفقیت انجام شد!");
+        router.replace("/dashboard");
+      } else {
+        toast.error(response.data.message || "خطا در ثبت‌نام");
       }
+    } catch (error) {
+      toast.error("خطایی در هنگام ثبت‌نام رخ داد.");
+      console.error("An error occurred:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -78,8 +106,8 @@ const Register = () => {
           label={"نام و نام خانوادگی"}
         />
         <InputBase
-          value={number}
-          onChange={(e) => setNumber(e.target.value)}
+          value={convertToPersianDigits(number)}
+          onChange={(e) => setNumber(convertToEnglishDigits(e.target.value))}
           style={{ marginBottom: 14, width: "100%" }}
           label={"شماره موبایل"}
           max={11}

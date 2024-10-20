@@ -54,7 +54,7 @@ const TradingTranslateSection = () => {
         <div className={styles.item}>
           <span>قیمت خرید</span>
           <span className={`${styles.itemPrice} ${styles.itemPriceBuy}`}>
-            <span>{Intl.NumberFormat().format(+goldPrices.buy)}</span>{" "}
+            <span>{Intl.NumberFormat("fa").format(+goldPrices.buy)}</span>{" "}
             <span>تومان</span>
           </span>
         </div>
@@ -66,7 +66,7 @@ const TradingTranslateSection = () => {
         <div className={styles.item}>
           <span>قیمت فروش</span>
           <span className={`${styles.itemPrice} ${styles.itemPriceSell}`}>
-            <span>{Intl.NumberFormat().format(+goldPrices.sell)}</span>{" "}
+            <span>{Intl.NumberFormat("fa").format(+goldPrices.sell)}</span>{" "}
             <span>تومان</span>
           </span>
         </div>
