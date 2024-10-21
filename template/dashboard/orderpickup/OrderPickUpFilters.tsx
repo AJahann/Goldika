@@ -1,7 +1,8 @@
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import { Button, ButtonBase, Checkbox, Drawer, Slider } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./orderpickup.module.css";
+import productsData from "@/data/productsData";
 
 interface OrderFiltersProps {
   isOpen: boolean;
@@ -19,6 +20,7 @@ const OrderPickUpFilters: React.FC<OrderFiltersProps> = ({
   const [weight, setWeight] = useState<number>(0);
   const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
   const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
+  const products = productsData;
 
   const handleWeightChange = (event: Event, newValue: number | number[]) => {
     setWeight(newValue as number);
@@ -41,6 +43,18 @@ const OrderPickUpFilters: React.FC<OrderFiltersProps> = ({
     setSelectedBrands([]);
     setSelectedTypes([]);
   };
+
+  useEffect(() => {
+    const filteredData = products.filter((item: any) => {
+      return (
+        item.weight >= weight &&
+        (selectedBrands.length === 0 || selectedBrands.includes(item.brand)) &&
+        (selectedTypes.length === 0 || selectedTypes.includes(item.type))
+      );
+    });
+
+    setData(filteredData);
+  }, [weight, selectedBrands, selectedTypes]);
 
   return (
     <Drawer className={styles.orderFilters} open={isOpen} onClose={onClose}>

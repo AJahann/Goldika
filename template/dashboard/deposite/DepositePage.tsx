@@ -18,7 +18,7 @@ interface DepositPageProps {
 }
 
 const DepositPage: React.FC<DepositPageProps> = () => {
-  const { user } = useAuth();
+  const { user, mutate } = useAuth();
   const [amount, setAmount] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -27,6 +27,11 @@ const DepositPage: React.FC<DepositPageProps> = () => {
 
   const increaseDepositHandler = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
+
+    if (user?.user_metadata?.cards?.length === 0) {
+      toast.error("لطفا کارت خود را اضافه کنید.");
+      return;
+    }
 
     if (amountBN.isLessThan(MIN_DEPOSIT) || !amountBN.c) {
       toast.error("مبلغ واریزی نباید کمتر از ۱۰۰۰ تومان باشد.");
@@ -58,6 +63,7 @@ const DepositPage: React.FC<DepositPageProps> = () => {
       });
 
       if (response.data.success) {
+        await mutate();
         setAmount("");
         toast.success("مبلغ با موفقیت واریز شد.");
       } else {

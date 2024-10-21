@@ -14,7 +14,7 @@ import { BigNumber } from "bignumber.js";
 import toast from "react-hot-toast";
 
 const WithDrawPage = () => {
-  const { user } = useAuth();
+  const { user, mutate } = useAuth();
   const [amount, setAmount] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -24,6 +24,11 @@ const WithDrawPage = () => {
 
   const decreaseDepositHandler = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
+
+    if (user?.user_metadata?.cards?.length === 0) {
+      toast.error("لطفا کارت خود را اضافه کنید.");
+      return;
+    }
 
     // Validate amount is within the correct range
     if (amountBN.isLessThan(MIN_WITHDRAW) || !amountBN.c) {
@@ -57,6 +62,7 @@ const WithDrawPage = () => {
       });
 
       if (response.data.success) {
+        await mutate();
         setAmount("");
         toast.success("مبلغ با موفقیت برداشت شد.");
       } else {

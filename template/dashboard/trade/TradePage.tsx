@@ -29,7 +29,7 @@ const convertToEnglishDigitsGold = (persianNumber: string) => {
 };
 
 const TradePage = () => {
-  const { user } = useAuth();
+  const { user, mutate } = useAuth();
   const [tradeType, setTradeType] = useState<"buy" | "sell">("buy");
   const [amountCash, setAmountCash] = useState("");
   const [amountGold, setAmountGold] = useState("");
@@ -95,6 +95,7 @@ const TradePage = () => {
       });
 
       if (response.data.success) {
+        await mutate();
         toast.success("خرید با موفقیت انجام شد!");
         setAmountCash("");
         setAmountGold("");
@@ -134,6 +135,7 @@ const TradePage = () => {
       });
 
       if (response.data.success) {
+        await mutate();
         toast.success("فروش با موفقیت انجام شد!");
         setAmountCash("");
         setAmountGold("");

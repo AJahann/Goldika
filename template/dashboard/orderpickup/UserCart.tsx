@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -11,6 +12,11 @@ import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import RemoveShoppingCartOutlinedIcon from "@mui/icons-material/RemoveShoppingCartOutlined";
+import { useAuth } from "@/shared/hooks/useAuth";
+import BigNumber from "bignumber.js";
+import toast from "react-hot-toast";
+import axios from "axios";
+import { CircularProgress } from "@mui/material";
 
 interface UserCardProps {
   isOpen: boolean;
@@ -35,45 +41,92 @@ interface UserCardProps {
   >;
 }
 
-const UserCard: React.FC<UserCardProps> = ({
-  isOpen,
-  onClose,
-  cart = [
-    {
-      id: 1,
-      name: "سکه ۲ گرمی زردیس",
-      imgSrc: "سکه%20۲%20گرمی%20زردیس",
-      wages: 70000,
-      weight: 2,
-      brand: "پارسس",
-      type: "سکه پارسیان",
-    },
-    {
-      id: 2,
-      name: "سکه ۱.۲ گرمی کهزاد",
-      imgSrc: "سکه%20۱.۲%20گرمی%20کهزاد",
-      wages: 65000,
-      weight: 1.2,
-      brand: "کهزاد",
-      type: "سکه پارسیان",
-    },
-    {
-      id: 3,
-      name: "سکه ۱ گرمی کهزاد",
-      imgSrc: "سکه%20۱%20گرمی%20کهزاد",
-      wages: 65000,
-      weight: 1,
-      brand: "کهزاد",
-      type: "سکه پارسیان",
-    },
-  ],
-}) => {
-  const removeProductHandler = (id: number) => {
-    // Logic to remove product
+const UserCard: React.FC<UserCardProps> = ({ isOpen, onClose, cart }) => {
+  const { user, mutate } = useAuth();
+  const userGold = new BigNumber(user?.user_metadata?.pocket?.gold || 0);
+  const userCart = user?.user_metadata?.cart ?? [];
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  const removeProductHandler = async (id: number) => {
+    if (isLoading) {
+      toast.error("درحال انجام عملیات لطفا منتظر بمانید.");
+      return;
+    }
+
+    const product = userCart.find((p: { id: number }) => p.id === id);
+    if (!product) {
+      toast.error("محصول مورد نظر یافت نشد.");
+      return;
+    }
+
+    const productGold = new BigNumber(product.weight).multipliedBy(
+      product.count,
+    );
+    const newUserGoldAmount = userGold.plus(productGold).toFixed();
+
+    const updatedCart = userCart.filter(
+      (item: { id: number }) => item.id !== id,
+    );
+
+    setIsLoading(true);
+
+    try {
+      const response = await axios.post("/api/auth/me", {
+        userId: user.user_id,
+        user_metadata: {
+          ...user.user_metadata,
+          cart: updatedCart,
+          pocket: {
+            ...user.user_metadata.pocket,
+            gold: newUserGoldAmount,
+          },
+        },
+      });
+
+      if (response.data.success) {
+        await mutate();
+        toast.success("محصول با موفقیت حذف شد.");
+      } else {
+        toast.error("حذف محصول با خطا مواجه شد.");
+      }
+    } catch (error) {
+      toast.error("درخواست با خطا مواجه شد.");
+      console.error("An error occurred:", error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  const submitHandler = () => {
-    // Logic for submitting the cart
+  const submitHandler = async () => {
+    if (isLoading) {
+      toast.error("درحال انجام عملیات لطفا منتظر بمانید.");
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      const response = await axios.post("/api/auth/me", {
+        userId: user.user_id,
+        user_metadata: {
+          ...user.user_metadata,
+          cart: [],
+        },
+      });
+
+      if (response.data.success) {
+        await mutate();
+        toast.success("درخواست با موفقیت ثبت شد.");
+      } else {
+        toast.error("درخواست با خطا مواجه شد.");
+      }
+    } catch (error) {
+      toast.error("درخواست با خطا مواجه شد.");
+      console.error("An error occurred:", error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -97,7 +150,7 @@ const UserCard: React.FC<UserCardProps> = ({
         <LocalGroceryStoreOutlinedIcon sx={{ color: "#fff", marginLeft: 1 }} />
       </DialogTitle>
 
-      {false ? (
+      {cart.length > 0 ? (
         <>
           <DialogContent dividers={false} sx={{ padding: "1rem" }}>
             <Table sx={{ minWidth: 450 }} aria-label="simple table">
@@ -132,13 +185,15 @@ const UserCard: React.FC<UserCardProps> = ({
                       {row.name}
                     </TableCell>
                     <TableCell sx={{ color: "#fff" }} align="right">
-                      {String(row.weight)}
+                      {Intl.NumberFormat("fa").format(row.weight)}
                     </TableCell>
                     <TableCell sx={{ color: "#fff" }} align="right">
-                      {row.wages}
+                      {Intl.NumberFormat("fa").format(row.wages)}
                     </TableCell>
                     <TableCell sx={{ color: "#fff" }} align="right">
-                      {"count" in row ? String(row.count || 1) : "1"}
+                      {"count" in row
+                        ? Intl.NumberFormat("fa").format(row?.count ?? 1)
+                        : "۱"}
                     </TableCell>
 
                     <TableCell sx={{ color: "#fff" }} align="right">
@@ -156,7 +211,9 @@ const UserCard: React.FC<UserCardProps> = ({
 
           <DialogActions sx={{ padding: "1rem" }}>
             <Button onClick={onClose}>لغو</Button>
-            <Button onClick={submitHandler}>نهایی کردن</Button>
+            <Button onClick={submitHandler}>
+              {isLoading ? <CircularProgress size={24} /> : "نهایی کردن"}
+            </Button>
           </DialogActions>
         </>
       ) : (
