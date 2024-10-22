@@ -1,5 +1,3 @@
-import Footer from "@/shared/components/footer/Footer";
-import NavBar from "@/shared/components/navBar/NavBar";
 import AboutSection from "@/template/home/aboutSection/AboutSection";
 import ArticleNewsSection from "@/template/home/articleNewsSection/ArticleNewsSection";
 import ChartSection from "@/shared/chart/ChartSection";
