@@ -1,0 +1,473 @@
+@font-face {
+  font-family: vazir;
+  src: url(./../fonts/vazire.ttf);
+}
+
+:root {
+  --primary-color: #f1ab1f;
+  --primary-color-badge: #fcca17;
+  --primary-color-badge-bg: #fcca171b;
+  --secondary-color: #494c5a;
+  --white: #f2f2f3;
+  --black: #2a2c34;
+  --box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.1);
+}
+* {
+  font-family: "vazir" !important;
+  box-sizing: border-box;
+}
+body {
+  font-family: "vazir";
+  background-color: var(--black);
+  direction: rtl;
+}
+
+/* scroll bar */
+body {
+  --sb-track-color: #424242;
+  --sb-thumb-color: #686868;
+  --sb-size: 14px;
+}
+
+body::-webkit-scrollbar {
+  width: var(--sb-size);
+}
+
+body::-webkit-scrollbar-track {
+  background: var(--sb-track-color);
+  border-radius: 3px;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: var(--sb-thumb-color);
+  border-radius: 3px;
+}
+
+@supports not selector(::-webkit-scrollbar) {
+  body {
+    scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+  }
+}
+
+.container {
+  max-width: 70rem;
+  padding: 0 18px;
+  margin: 0 auto;
+}
+.rtl {
+  direction: rtl;
+}
+.ltr {
+  direction: ltr;
+}
+b {
+  font-weight: bold;
+}
+
+.MuiOutlinedInput-root:hover:not(.Mui-focused)
+  .MuiOutlinedInput-notchedOutline {
+  border-color: #ffffff90;
+}
+.mui-rtl-putrnr input {
+  direction: ltr;
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px #00000086 inset !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+/* stepper section */
+.stepper-parent {
+  padding: 0 18px;
+}
+.stepper h2 {
+  font-size: 1.5rem;
+  line-height: 24px;
+  font-weight: bold;
+  color: var(--white);
+}
+.stepper-wrap {
+  display: flex;
+}
+.stepper-wrap > div {
+  flex: 1;
+}
+.stepper-labels {
+  margin-top: 27px;
+}
+#myStepper {
+  align-items: flex-start;
+}
+#myStepper > .MuiStepConnector-root {
+  margin-right: 12px;
+}
+#myStepper .MuiStepLabel-label {
+  margin-right: 8px;
+  color: #ffffffb6;
+  font-size: 14px;
+}
+#myStepper .stepperBtn {
+  background-color: transparent;
+}
+#myStepper .MuiSvgIcon-root {
+  font-size: 24px;
+  color: #ffffff80;
+}
+#myStepper .MuiSvgIcon-root.Mui-active {
+  font-size: 24px;
+  color: var(--primary-color);
+}
+#myStepper .MuiStepLabel-label.Mui-active {
+  font-size: 20px;
+  color: var(--primary-color);
+}
+.stepper-description {
+  margin-top: 27px;
+}
+.stepper-desc-box {
+  display: flex;
+  border-radius: 16px;
+  padding: 16px;
+  min-height: 230px;
+  box-shadow: rgb(255, 215, 0) 0px 0px 32px 1px;
+}
+.stepper-desc-box p {
+  flex: 4;
+  text-align: justify;
+  font-size: 16px;
+  padding-left: 6px;
+  line-height: 32px;
+  color: var(--white);
+}
+.stepper-desc-box-icon {
+  width: 104px;
+  /* height: 100px; */
+  padding: 8px;
+}
+
+@media screen and (max-width: 870px) {
+  .stepper-parent h2 {
+    font-size: 1.25rem;
+    margin-top: 2rem;
+  }
+  .stepper-parent .stepper-description.sd {
+    display: none;
+  }
+  .stepper-parent .stepper-desc-box.sm {
+    display: flex !important;
+  }
+}
+@media screen and (max-width: 385px) {
+  #myStepper .MuiStepLabel-label.Mui-active {
+    font-size: 15px;
+  }
+  .stepper-parent .stepper-desc-box.sm {
+    display: flex !important;
+    flex-direction: column-reverse;
+    align-items: center;
+    padding-top: 45px !important;
+  }
+}
+
+/* stepper section end */
+
+/* chart */
+
+#myChart .recharts-cartesian-axis-line,
+#myChart .recharts-cartesian-axis-tick-line,
+#myChart .recharts-tooltip-wrapper {
+  display: none;
+}
+/* chart */
+
+/* mui */
+
+.MuiBox-root > .MuiPaper-root {
+  background-color: #160b0b !important;
+  border-radius: 8px !important;
+}
+
+.panelDepositMyCards {
+  margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+}
+
+.MuiAlert-message {
+  text-align: center;
+  width: 100%;
+}
+
+.MuiSliderThumb {
+  margin-left: -18px !important;
+}
+
+.MuiBox-root > .MuiAlert-root {
+  background-color: #160b0b !important;
+  color: #ffe2b7 !important;
+  width: 100%;
+  border-radius: 16px !important;
+  font-size: 14;
+}
+
+.MuiDrawer-root .MuiPaper-root {
+  left: 0 !important;
+  right: auto !important;
+  padding: 16px !important;
+}
+
+.MuiSlider-root .MuiSlider-thumb {
+  margin-left: -16px !important;
+}
+
+/* mui */
+
+/* dashboard */
+
+.dashboard * {
+  box-sizing: border-box;
+}
+.dashboard {
+  display: flex;
+}
+.dashboard-content {
+  flex: 1;
+  position: relative !important;
+}
+.dashboard > .sideBar {
+  width: 17rem;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 0.3s;
+}
+.dashboard > .sideBar.hide {
+  transform: translateX(2750px);
+  width: 0;
+  visibility: hidden;
+}
+.dashboard > .dashboard-content {
+  width: 100%;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 0.15s;
+}
+
+@media screen and (max-width: 836px) {
+  .dashboard > .sideBar {
+    position: absolute;
+    z-index: 9999;
+  }
+}
+
+/* modal */
+
+.modal-dashboard .MuiPaper-root {
+  width: 100% !important;
+  max-width: 444px !important;
+  box-sizing: border-box;
+}
+
+/* dashboard */
+
+/* dashboard report */
+
+.panel-report .panel-wrap {
+  max-width: 30rem;
+  padding: 28px 0;
+  margin: 0 auto;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.panel-title {
+  margin: 12px 0;
+  font-size: 2.5rem;
+  color: var(--white);
+}
+.panel-report-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.panel-report-top button {
+  height: fit-content;
+  font-weight: bold;
+}
+.panel-report-container {
+  margin-top: 24px;
+}
+.panel-report-container p {
+  font-size: 24px;
+  color: rgb(84, 84, 84);
+  text-align: center;
+}
+
+/* dashboard report */
+
+/* auth page style */
+.auth {
+  background-color: #373943;
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+}
+.auth-container {
+  flex: 1.7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.auth-box {
+  box-sizing: border-box !important;
+  max-width: 400px;
+  min-width: 400px;
+  background-color: var(--black);
+  color: var(--white);
+  border-radius: 16px;
+  border: 2px solid #fff;
+  padding: 29px;
+}
+.auth-box .MuiInputBase-input {
+  direction: ltr;
+}
+.auth-box h1 {
+  font-size: 1.75rem;
+  line-height: 32px;
+  font-weight: 400;
+  margin-bottom: 21px;
+}
+.auth-box-input-wrap {
+  display: flex;
+  margin-top: 12px;
+  flex-direction: column;
+}
+.auth-box-input-wrap > span {
+  font-size: 12px;
+  padding: 6px 14px;
+  color: #ffffff8c;
+}
+.auth-box p {
+  font-size: 13px;
+  margin: 14px 9px 21px 9px;
+}
+.auth-box > p > button {
+  color: var(--primary-color);
+}
+
+/* Right section */
+.auth-content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: #bfbcb6;
+  position: relative;
+}
+.auth-content-wrap {
+  padding: 14px;
+  max-width: 521px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  margin: 0 auto;
+}
+.auth-content-wrap a {
+  display: flex;
+  width: 335px;
+  height: 140px;
+}
+.auth-content-txt {
+  display: flex;
+  flex-direction: column;
+  color: #373943;
+  font-size: 16px;
+  height: 257px;
+  justify-content: space-between;
+}
+.auth-content-txt h3 {
+  padding: 60px 40px 0 40px;
+  max-width: 300px;
+  line-height: 24px;
+  text-align: justify;
+}
+.auth-content-txt div {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-direction: column;
+}
+.MuiDialogContent-root > .MuiTypography-root {
+  font-size: 16px;
+  line-height: 32px;
+  text-align: justify;
+  color: #fff;
+}
+.MuiPaper-root {
+  background-color: #373943 !important;
+  border-radius: 8px !important;
+  padding: 16px;
+}
+.auth-code-title {
+  font-size: 16px !important;
+  margin: 1rem 0 0.75rem 0 !important;
+  line-height: 22px;
+}
+
+@media screen and (max-width: 860px) {
+  .auth {
+    flex-direction: column;
+    height: auto;
+  }
+  .auth-content-txt {
+    display: none;
+  }
+  .auth-content {
+    flex: 0;
+  }
+  .auth-content-wrap {
+    min-height: auto;
+    height: auto;
+  }
+  .auth-content a {
+    width: 223px;
+    height: 81px;
+  }
+}
+@media screen and (max-width: 480px) {
+  .auth-container {
+    width: 100%;
+    padding: 12px;
+    box-sizing: border-box !important;
+  }
+  .auth-box {
+    width: 100%;
+    min-width: auto;
+  }
+}
+
+/* auth page style */
+
+/* loading */
+
+.logo-stroke-app-loading {
+  stroke-dasharray: 2100;
+  stroke-dashoffset: 2100;
+  animation: dash 6s linear infinite;
+  display: flex;
+}
+@keyframes dash {
+  0% {
+    stroke-dashoffset: 2100;
+  }
+  100% {
+    stroke-dashoffset: -2100;
+  }
+}
+
+/* loading */

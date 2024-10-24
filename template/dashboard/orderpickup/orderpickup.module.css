@@ -1,0 +1,215 @@
+.panelWrap {
+  margin: 0 auto;
+  max-width: 73rem;
+  width: auto;
+  padding-top: 24px;
+}
+.panelTitle {
+  margin: 12px 0;
+  font-size: 2.5rem;
+  color: var(--white);
+}
+
+.panelOrderPikupTopbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.panelOrderPikupTopbar > div {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+.panelOrderPikupTopbar > div > p {
+  font-size: 16px;
+  color: var(--white);
+  border-radius: 999px;
+  border: 2px solid var(--primary-color);
+  padding: 8px 12px;
+}
+
+.panelOrderPikupAlert {
+  display: flex;
+  margin: 12px;
+  justify-content: center;
+}
+
+/* Box */
+.panelOrderPikupItems {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.panelOrderPikupItem {
+  box-sizing: border-box;
+  max-width: 23.8rem;
+  width: 100%;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 16px;
+  background-color: #373943;
+}
+
+.panelOrderPikupItemImg {
+  width: 210px;
+  object-fit: fill;
+  margin-bottom: 16px;
+}
+
+.panelOrderPikupItemImg img {
+  border-radius: 16px;
+  width: 100%;
+}
+
+.panelOrderPikupItemTxt {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.panelOrderPikupItemTxt p {
+  color: var(--white);
+  font-size: 20px;
+  line-height: 24px;
+}
+
+.MuiTableRow-root th,
+.MuiTableRow-root td {
+  color: var(--white);
+}
+
+@media screen and (max-width: 1168px) {
+  .panelOrderPikupItems {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
+  }
+}
+
+@media screen and (max-width: 680px) {
+  .panelOrderPikupItems {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .panelOrderPikupItem button {
+    height: min-content !important;
+  }
+  .panelOrderPikupTopbar {
+    flex-direction: column;
+    gap: 12px;
+  }
+  .panelOrderPikupTopbar > div:first-child {
+    flex-direction: column;
+  }
+}
+
+/* Filters */
+
+.orderFilters {
+  z-index: 9999 !important;
+  box-sizing: border-box;
+}
+
+.orderFiltersWrap {
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+.orderFiltersHeader {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  margin-bottom: 13px;
+}
+
+.orderFiltersHeader h3 {
+  flex: 1;
+  color: #fff;
+  text-align: center;
+  padding: 16px;
+  font-size: 18px;
+}
+
+.orderFiltersHeader > .MuiButtonBase-root {
+  color: #fff;
+  height: fit-content;
+  border-radius: 50%;
+  padding: 8px;
+}
+
+.orderFiltersBody {
+  height: 100%;
+}
+
+.orderFilter {
+  padding: 20px 0;
+}
+
+.orderFilter .header {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+}
+
+.orderFilter .header span {
+  font-size: 20px;
+  color: #bfbcb6;
+}
+
+.orderFilter > .header > .MuiButton-root {
+  font-size: 16px;
+  color: rgb(244, 67, 54);
+}
+
+.orderFilter .filter {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+.orderFilter > .filter > .MuiSlider-root span {
+  color: var(--primary-color);
+}
+
+.orderFilter > .filter > .MuiSlider-root > .MuiSlider-thumb {
+  margin-left: -20px !important;
+}
+
+.orderFilter > .filter span {
+  font-size: 18px;
+  color: #fff;
+}
+
+.orderFiltersFooter {
+  width: 100%;
+  background-color: rgb(72, 74, 84);
+  display: flex;
+  padding: 20px;
+  justify-content: center;
+}
+
+.orderFiltersFooter .MuiButton-root {
+  background-color: #808080;
+  width: 200px;
+  padding: 6px 16px;
+  box-sizing: border-box;
+  border-radius: 8px;
+  color: #fff;
+}
+
+@media screen and (max-width: 320px) {
+  .orderFiltersWrap {
+    width: 280px;
+    box-sizing: border-box;
+  }
+}

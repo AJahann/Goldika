@@ -1,0 +1,30 @@
+.secTxtBannerWrap {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 32px;
+  margin-bottom: 24px;
+}
+
+.txtBannerWrap {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.txtBannerWrap h1 {
+  font-size: 20px;
+  color: var(--white);
+}
+
+@media screen and (max-width: 520px) {
+  .txtBannerWrap h1 {
+    font-size: 18px;
+  }
+
+  .txtBannerWrap {
+    flex-direction: column;
+  }
+}

@@ -1,0 +1,81 @@
+.contactWrap {
+  padding: 0 18px;
+}
+
+.contactPageTitle {
+  font-size: 24px;
+  color: var(--white);
+  margin-top: 12px;
+}
+
+.contactPageContent {
+  margin: 18px 0px 41px 0px;
+  padding: 12px;
+  display: flex;
+  background-color: #373943;
+  border-radius: 16px;
+  align-items: center;
+}
+
+.contactPageContent > div {
+  flex: 1;
+}
+
+.contactContentTxt {
+  flex: 1.5 !important;
+  color: var(--white);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  line-height: 24px;
+  text-align: justify;
+  padding: 24px 12px;
+}
+
+.contactMap {
+  padding: 0 12px;
+}
+
+.contactIcon {
+  margin-left: 5px;
+  font-size: 24px;
+  color: var(--primary-color);
+  display: flex;
+  justify-content: flex-start;
+}
+
+.contactSocials > span {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  width: 100%;
+  color: var(--primary-color);
+}
+
+.contactSocials svg {
+  fill: var(--primary-color) !important;
+}
+
+.contactMap iframe {
+  background-color: #fff;
+}
+
+@media screen and (max-width: 980px) {
+  .contactWrap {
+    padding: 0;
+  }
+
+  .contactPageContent {
+    flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .contactMap {
+    width: 100%;
+  }
+
+  .contactMap iframe {
+    width: 100%;
+  }
+}

@@ -1,0 +1,85 @@
+.panelWrap {
+  max-width: 640px;
+  padding: 28px 0;
+  margin: 0 auto;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.panelTitle {
+  margin: 12px 0;
+  font-size: 2.5rem;
+  color: var(--white);
+}
+
+.panelWithdrawContainer {
+  margin-top: 20px;
+  padding: 12px;
+  background-color: #373943;
+  border-radius: 16px;
+}
+
+.panelMyCards {
+  margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+}
+
+.panelMyCardsTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 16px;
+  color: #fff;
+}
+
+.panelMyCardsCard {
+  width: 100%;
+  display: flex;
+  padding: 12px;
+  margin-top: 16px;
+  box-sizing: border-box;
+  border: 2px solid var(--primary-color);
+  border-radius: 16px;
+}
+
+.panelMyCardsCardTxt {
+  width: 100%;
+  color: #fff;
+  box-sizing: border-box;
+  padding: 8px 12px;
+}
+
+.panelMyCardsCardName {
+  text-align: right;
+}
+
+.panelMyCardsCardNumber {
+  text-align: left;
+  margin-top: 8px;
+}
+
+.panelPayBtn {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.panelWithdrawSlider {
+  margin-top: 32px;
+  margin-bottom: 12px;
+  padding: 18px;
+}
+
+@media screen and (max-width: 480px) {
+  .panelPayBtn button {
+    width: 100% !important;
+  }
+}
+
+.panelDepositPayBtnDisabled {
+  color: rgb(255 255 255 / 26%) !important;
+  box-shadow: none;
+  background-color: rgb(189 184 184 / 12%) !important;
+}

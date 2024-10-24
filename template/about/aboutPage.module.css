@@ -1,0 +1,46 @@
+.aboutPageMainWrap {
+  padding: 0 18px;
+}
+
+.aboutPageTitle {
+  font-size: 24px;
+  color: var(--white);
+}
+
+.aboutPageContent {
+  margin-top: 18px;
+  font-size: 16px;
+  text-align: justify;
+  line-height: 32px;
+  color: #fff;
+  border-radius: 16px;
+  background-color: #373943;
+}
+.aboutPageContentBottom {
+  display: flex;
+  justify-content: center;
+}
+
+.aboutPageContent p {
+  padding: 16px 27px;
+}
+
+.aboutPageContentSvg {
+  width: 16rem;
+  height: 16rem;
+  padding: 0 25px;
+}
+
+@media screen and (max-width: 720px) {
+  .aboutPageTitle {
+    text-align: center;
+  }
+
+  .aboutPageContentBottom {
+    flex-wrap: wrap;
+  }
+
+  .aboutPageMainWrap p {
+    padding: 16px;
+  }
+}
