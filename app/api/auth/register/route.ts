@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
@@ -21,6 +22,7 @@ export async function POST(request: Request) {
 
     const { access_token } = tokenResponse.data;
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const createUserResponse = await axios.post(
       `https://${process.env.AUTH0_DOMAIN}/api/v2/users`,
       {

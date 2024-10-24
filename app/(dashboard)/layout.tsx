@@ -1,10 +1,10 @@
 import { SidebarProvider } from "@/context/DashboardSideBarContext";
-import AddCardModal from "@/template/dashboard/component/AddCardModal";
 import SideBar from "@/template/dashboard/sideBar/SideBar";
 import DashboardTopBar from "@/template/dashboard/TopBar";
 import { headers } from "next/headers";
 
 const RootLayout = async ({ children }: { children: React.ReactNode }) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const header = headers();
 
   return (

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // app/api/auth/login/route.ts
 import axios from "axios";
 import { cookies } from "next/headers";
