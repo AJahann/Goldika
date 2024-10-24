@@ -1,4 +1,5 @@
 import Footer from "@/shared/components/footer/Footer";
+import NavBar from "@/shared/components/navbar";
 
 export default function RootLayout({
   children,
@@ -7,6 +8,7 @@ export default function RootLayout({
 }) {
   return (
     <>
+      {<NavBar />}
       {children}
       <Footer />
     </>
