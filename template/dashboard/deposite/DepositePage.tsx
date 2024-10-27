@@ -28,7 +28,7 @@ const DepositPage: React.FC<DepositPageProps> = () => {
   const increaseDepositHandler = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
-    if (user?.user_metadata?.cards?.length === 0) {
+    if (!user?.user_metadata?.cards) {
       toast.error("لطفا کارت خود را اضافه کنید.");
       return;
     }

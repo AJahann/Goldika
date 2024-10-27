@@ -1,5 +1,5 @@
 "use client";
-import { Alert, Box, Button, Modal, Typography } from "@mui/material";
+import { Alert, Box, Button, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { styled } from "@mui/material/styles";
 import Dialog from "@mui/material/Dialog";
@@ -26,7 +26,7 @@ const AddCardModal = ({
   isOpen: boolean;
   handleClose: () => void;
 }) => {
-  const { user } = useAuth();
+  const { user, mutate } = useAuth();
   const [cardNumber, setCardNumber] = useState("");
   const [cardName, setCardName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -60,6 +60,7 @@ const AddCardModal = ({
         });
 
         if (response.data.success) {
+          await mutate();
           setCardName("");
           setCardNumber("");
           toast.success("کارت با موفقیت اضافه شد.");
