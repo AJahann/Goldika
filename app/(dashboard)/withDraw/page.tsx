@@ -1,7 +1,7 @@
 import WithDrawPage from "@/template/dashboard/withdraw/WithDrawPage";
 
-const WithDraw = () => {
+const Withdraw = () => {
   return <WithDrawPage />;
 };
 
-export default WithDraw;
+export default Withdraw;
