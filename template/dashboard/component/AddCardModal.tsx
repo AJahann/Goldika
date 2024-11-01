@@ -49,7 +49,10 @@ const AddCardModal = ({
       setIsLoading(true);
       try {
         const existingCards = user.user_metadata?.cards || [];
-        const updatedCards = [...existingCards, { cardName, cardNumber }];
+        const updatedCards = [
+          ...existingCards,
+          { cardName: "بانک", cardNumber },
+        ];
 
         const response = await axios.post("/api/auth/me", {
           userId: user.user_id,
