@@ -16,6 +16,23 @@ const vazir = localFont({
 export const metadata: Metadata = {
   title: "Goldika",
   description: "created by @Ajahann",
+  openGraph: {
+    title: "Goldika - Buy and Sell Gold",
+    description:
+      "Experience seamless gold trading on Goldika. Created by @Ajahann (on GITHUB).",
+    url: "https://goldika.vercel.app/", // updated site URL
+    siteName: "Goldika",
+    images: [
+      {
+        url: "https://goldika.ir/_next/static/media/preview.6cd461d8.jpg", // updated image URL
+        width: 1200,
+        height: 630,
+        alt: "Goldika Logo",
+      },
+    ],
+    locale: "en_US", // updated locale to reflect the language of the content
+    type: "website",
+  },
 };
 
 export default function RootLayout({
