@@ -1,4 +1,4 @@
-import { InputAdornment, TextField, createTheme } from "@mui/material";
+import { InputAdornment, TextField } from "@mui/material";
 import React from "react";
 
 interface InputBaseProps {
@@ -16,7 +16,6 @@ const InputBase: React.FC<InputBaseProps> = ({
   label,
   value,
   onChange,
-  setNumberInput,
   name = "",
   style,
   type = "text",

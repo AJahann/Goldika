@@ -1,6 +1,12 @@
 {
-  "extends": ["next/core-web-vitals", "next/typescript"],
-  "plugins": ["import"],
+  "extends": [
+    "next/core-web-vitals",
+    "next/typescript",
+    "plugin:storybook/recommended"
+  ],
+  "plugins": [
+    "import"
+  ],
   "rules": {
     "import/no-unresolved": "error",
     "import/no-absolute-path": "error"
