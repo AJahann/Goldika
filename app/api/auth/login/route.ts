@@ -23,7 +23,7 @@ export async function POST(request: Request) {
 
     const { access_token } = response.data;
 
-    cookies().set("auth_token", access_token, {
+    (await cookies()).set("auth_token", access_token, {
       httpOnly: true,
       path: "/",
     });

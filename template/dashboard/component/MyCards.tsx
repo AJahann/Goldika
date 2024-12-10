@@ -3,15 +3,7 @@ import formatCardNumberInPersian from "@/shared/utilities/formatCardNumber";
 import { AccountBalance } from "@mui/icons-material";
 import { Button, CircularProgress } from "@mui/material";
 import styles from "./../deposite/deposite.module.css";
-import {
-  AwaitedReactNode,
-  JSXElementConstructor,
-  Key,
-  ReactElement,
-  ReactNode,
-  ReactPortal,
-  useState,
-} from "react";
+import { Key, useState } from "react";
 import AddCardModal from "./AddCardModal";
 import { useAuth } from "@/shared/hooks/useAuth";
 

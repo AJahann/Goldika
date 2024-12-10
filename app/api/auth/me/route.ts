@@ -7,7 +7,7 @@ import getAccessToken from "@/shared/services/getAccessToken";
 
 // GET: دریافت اطلاعات کاربر
 export async function GET() {
-  const token = cookies().get("auth_token")?.value;
+  const token = (await cookies()).get("auth_token")?.value;
 
   if (!token) {
     return NextResponse.json(
@@ -57,7 +57,7 @@ export async function GET() {
 
 // POST: ویرایش اطلاعات کاربر
 export async function POST(request: Request) {
-  const token = cookies().get("auth_token")?.value;
+  const token = (await cookies()).get("auth_token")?.value;
 
   if (!token) {
     return NextResponse.json(

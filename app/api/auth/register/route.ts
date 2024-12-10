@@ -58,7 +58,7 @@ export async function POST(request: Request) {
 
     const loginToken = loginResponse.data.access_token;
 
-    cookies().set("auth_token", loginToken, {
+    (await cookies()).set("auth_token", loginToken, {
       httpOnly: true,
       path: "/",
     });

@@ -8,6 +8,7 @@ import ChartSection from "@/shared/chart/ChartSection";
 import styles from "./dashboard.module.css";
 import goldPrices from "@/data/goldPrices.json";
 import { useAuth } from "@/shared/hooks/useAuth";
+import { JSX } from "react";
 
 interface DashboardActionBoxProps {
   title: string;
